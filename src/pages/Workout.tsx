@@ -34,7 +34,7 @@ export default function Workout() {
   }, [activeWorkout, navigate]);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
+    let interval: ReturnType<typeof setInterval>;
     if (isResting && restTime !== null && restTime > 0) {
       interval = setInterval(() => {
         setRestTime((prev) => {

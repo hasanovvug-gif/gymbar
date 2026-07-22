@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#08090A;color:#ECEEF0;font-family:Archivo,sans-serif}
+a{color:#C8F031;text-decoration:none}a:hover{color:#DBFF4D}
+@keyframes pulseGo{0%,100%{transform:scale(1)}50%{transform:scale(1.04)}}
+</style>
+</helmet>
+<div style="padding:56px 64px;display:flex;flex-direction:column;gap:56px">
+  <div>
+    <div style="font-family:Oswald;font-weight:700;font-size:44px;letter-spacing:.5px;text-transform:uppercase">Gym Tracker <span style="color:#C8F031">— редизайн</span></div>
+    <div style="color:#8A9096;font-size:15px;margin-top:8px;max-width:720px">iOS · тёмная тема · вольт-лайм акцент · Anton + Archivo. 5 табов: Главная · Тренировки · Добавки · История · Настройки. Без AI-фич, без логина.</div>
+  </div>
+
+  <!-- ROW 1: CORE -->
+  <div>
+    <div style="font-family:Oswald;font-weight:700;font-size:20px;color:#C8F031;text-transform:uppercase;letter-spacing:1px;margin-bottom:20px">01 · Главная и план</div>
+    <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start">
+
+      <div data-screen-label="Главная">
+        <div style="color:#8A9096;font-size:13px;margin-bottom:10px">Главная / Dashboard</div>
+        <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ true }}" hint-size="393px,852px">
+          <div style="display:flex;flex-direction:column;height:100%;background:#0B0C0E;color:#ECEEF0;font-family:Archivo,sans-serif">
+            <div style="padding:62px 20px 0;display:flex;flex-direction:column;gap:16px;overflow:hidden;flex:1">
+              <div>
+                <div style="color:#8A9096;font-size:13px;font-weight:600">Вторник, 22 июля</div>
+                <div style="font-family:Oswald;font-weight:700;font-size:30px;text-transform:uppercase;letter-spacing:.5px;margin-top:2px">Погнали, Вугар</div>
+              </div>
+              <sc-if value="{{ inProgress }}" hint-placeholder-val="{{ false }}">
+                <div style="background:#C8F031;border-radius:24px;padding:20px;color:#0B0C0E">
+                  <div style="display:flex;justify-content:space-between;align-items:center">
+                    <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px">Тренировка на паузе</div>
+                    <div style="width:10px;height:10px;border-radius:50%;background:#0B0C0E"></div>
+                  </div>
+                  <div style="font-family:Oswald;font-weight:700;font-size:40px;margin-top:6px">38:12</div>
+                  <div style="font-size:13px;font-weight:600;opacity:.7">День 2 — Спина и бицепс · упражнение 3 из 6</div>
+                  <div style="margin-top:14px;background:#0B0C0E;color:#C8F031;border-radius:16px;padding:15px;text-align:center;font-weight:800;font-size:16px;text-transform:uppercase;letter-spacing:1px">Продолжить</div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ notInProgress }}" hint-placeholder-val="{{ true }}">
+                <div style="background:#141619;border:1px solid #23262B;border-radius:24px;padding:20px">
+                  <div style="font-size:12px;font-weight:700;color:#C8F031;text-transform:uppercase;letter-spacing:1px">Сегодня по плану</div>
+                  <div style="font-family:Oswald;font-weight:700;font-size:28px;text-transform:uppercase;margin-top:6px">День 2 — Спина и бицепс</div>
+                  <div style="color:#8A9096;font-size:14px;margin-top:4px">6 упражнений · ~55 мин</div>
+                  <div style="margin-top:16px;background:#C8F031;color:#0B0C0E;border-radius:16px;padding:16px;text-align:center;font-weight:800;font-size:17px;text-transform:uppercase;letter-spacing:1px">Старт</div>
+                </div>
+              </sc-if>
+              <div style="display:flex;gap:10px">
+                <div style="flex:1;background:#141619;border:1px solid #23262B;border-radius:18px;padding:14px 12px"><div style="font-family:Oswald;font-weight:700;font-size:24px">128</div><div style="color:#8A9096;font-size:11px;font-weight:600;margin-top:2px">тренировок</div></div>
+                <div style="flex:1;background:#141619;border:1px solid #23262B;border-radius:18px;padding:14px 12px"><div style="font-family:Oswald;font-weight:700;font-size:24px">342 <span style="font-size:14px">т</span></div><div style="color:#8A9096;font-size:11px;font-weight:600;margin-top:2px">общий объём</div></div>
+                <div style="flex:1;background:#141619;border:1px solid #23262B;border-radius:18px;padding:14px 12px"><div style="font-family:Oswald;font-weight:700;font-size:24px;color:#C8F031">14 <span style="font-size:14px">дн</span></div><div style="color:#8A9096;font-size:11px;font-weight:600;margin-top:2px">стрик добавок</div></div>
+              </div>
+              <div style="background:#141619;border:1px solid #23262B;border-radius:18px;padding:16px">
+                <div style="font-size:11px;font-weight:700;color:#8A9096;text-transform:uppercase;letter-spacing:1px">Последняя тренировка</div>
+                <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:8px">
+                  <div style="font-weight:700;font-size:15px">День 1 — Грудь и трицепс</div>
+                  <div style="color:#8A9096;font-size:12px">Вс, 20 июля</div>
+                </div>
+                <div style="display:flex;gap:16px;margin-top:6px;color:#8A9096;font-size:13px"><span>52 мин</span><span>8 340 кг</span><span>18 подходов</span></div>
+              </div>
+            </div>
+            <div style="padding:10px 12px 28px;display:flex;background:rgba(11,12,14,.85);border-top:1px solid #1C1F24">
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;border-radius:50%;background:#C8F031;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:700;color:#C8F031">Главная</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">Тренировки</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">Добавки</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">История</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">Настройки</div></div>
+            </div>
+          </div>
+        </x-import>
+      </div>
+
+      <div data-screen-label="Тренировки">
+        <div style="color:#8A9096;font-size:13px;margin-bottom:10px">Тренировки — обзор плана</div>
+        <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ true }}" hint-size="393px,852px">
+          <div style="display:flex;flex-direction:column;height:100%;background:#0B0C0E;color:#ECEEF0;font-family:Archivo,sans-serif">
+            <div style="padding:62px 20px 0;flex:1;overflow:hidden;display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div style="font-family:Oswald;font-weight:700;font-size:30px;text-transform:uppercase">Тренировки</div>
+                <div style="border:1px solid #C8F031;color:#C8F031;border-radius:12px;padding:8px 14px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px">Ред. план</div>
+              </div>
+              <div style="background:#141619;border:1px solid #23262B;border-radius:18px;padding:16px;display:flex;justify-content:space-between;align-items:center">
+                <div><div style="font-weight:700;font-size:16px">День 1 — Грудь и трицепс</div><div style="color:#8A9096;font-size:13px;margin-top:2px">6 упражнений</div></div>
+                <div style="color:#6A7076;font-size:18px">›</div>
+              </div>
+              <div style="background:#141619;border:1px solid #C8F031;border-radius:18px;padding:16px">
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                  <div><div style="font-weight:700;font-size:16px">День 2 — Спина и бицепс</div><div style="color:#C8F031;font-size:13px;margin-top:2px;font-weight:600">Сегодня · 6 упражнений</div></div>
+                  <div style="color:#C8F031;font-size:18px">⌄</div>
+                </div>
+                <div style="margin-top:14px;display:flex;flex-direction:column;gap:10px;border-top:1px solid #23262B;padding-top:12px">
+                  <div style="display:flex;justify-content:space-between;font-size:14px"><span>Подтягивания</span><span style="color:#8A9096">4 × 8</span></div>
+                  <div style="display:flex;justify-content:space-between;font-size:14px"><span>Тяга штанги в наклоне</span><span style="color:#8A9096">3 × 10 · 60 кг</span></div>
+                  <div style="display:flex;justify-content:space-between;font-size:14px"><span>Тяга верхнего блока</span><span style="color:#8A9096">3 × 12 · 55 кг</span></div>
+                  <div style="display:flex;justify-content:space-between;font-size:14px"><span>Подъём штанги на бицепс</span><span style="color:#8A9096">3 × 10 · 30 кг</span></div>
+                  <div style="display:flex;justify-content:space-between;font-size:14px"><span>Молотки</span><span style="color:#8A9096">3 × 12 · 14 кг</span></div>
+                  <div style="display:flex;justify-content:space-between;font-size:14px"><span>Планка</span><span style="color:#8A9096">3 × 60 с</span></div>
+                </div>
+                <div style="margin-top:14px;background:#C8F031;color:#0B0C0E;border-radius:14px;padding:13px;text-align:center;font-weight:800;font-size:15px;text-transform:uppercase;letter-spacing:1px">Начать день 2</div>
+              </div>
+              <div style="background:#141619;border:1px solid #23262B;border-radius:18px;padding:16px;display:flex;justify-content:space-between;align-items:center">
+                <div><div style="font-weight:700;font-size:16px">День 3 — Ноги</div><div style="color:#8A9096;font-size:13px;margin-top:2px">5 упражнений</div></div>
+                <div style="color:#6A7076;font-size:18px">›</div>
+              </div>
+              <div style="background:#141619;border:1px solid #23262B;border-radius:18px;padding:16px;display:flex;justify-content:space-between;align-items:center">
+                <div><div style="font-weight:700;font-size:16px">День 4 — Плечи и пресс</div><div style="color:#8A9096;font-size:13px;margin-top:2px">5 упражнений</div></div>
+                <div style="color:#6A7076;font-size:18px">›</div>
+              </div>
+            </div>
+            <div style="padding:10px 12px 28px;display:flex;background:rgba(11,12,14,.85);border-top:1px solid #1C1F24">
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">Главная</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;border-radius:50%;background:#C8F031;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:700;color:#C8F031">Тренировки</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">Добавки</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">История</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">Настройки</div></div>
+            </div>
+          </div>
+        </x-import>
+      </div>
+
+      <div data-screen-label="Редактор плана">
+        <div style="color:#8A9096;font-size:13px;margin-bottom:10px">Редактор плана</div>
+        <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ true }}" hint-size="393px,852px">
+          <div style="display:flex;flex-direction:column;height:100%;background:#0B0C0E;color:#ECEEF0;font-family:Archivo,sans-serif">
+            <div style="padding:62px 20px 18px;flex:1;overflow:hidden;display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div style="color:#C8F031;font-size:14px;font-weight:600">‹ Тренировки</div>
+                <div style="color:#C8F031;font-size:14px;font-weight:700">Готово</div>
+              </div>
+              <div style="font-family:Oswald;font-weight:700;font-size:28px;text-transform:uppercase">Редактор плана</div>
+              <div style="background:#141619;border:1px solid #23262B;border-radius:18px;padding:14px 16px;display:flex;align-items:center;gap:12px">
+                <div style="color:#4A4F55;letter-spacing:2px">≡</div>
+                <div style="flex:1;font-weight:700;font-size:15px">День 1 — Грудь и трицепс</div>
+                <div style="color:#8A9096;font-size:13px">6</div>
+              </div>
+              <div style="background:#141619;border:1px solid #C8F031;border-radius:18px;padding:14px 16px">
+                <div style="display:flex;align-items:center;gap:12px">
+                  <div style="color:#4A4F55;letter-spacing:2px">≡</div>
+                  <div style="flex:1;font-weight:700;font-size:15px">День 2 — Спина и бицепс</div>
+                  <div style="color:#C8F031;font-size:13px;font-weight:700">Ред.</div>
+                </div>
+                <div style="margin-top:12px;display:flex;flex-direction:column;gap:8px;border-top:1px solid #23262B;padding-top:12px">
+                  <div style="display:flex;align-items:center;gap:10px;background:#0F1113;border-radius:12px;padding:10px 12px">
+                    <div style="color:#4A4F55">≡</div><div style="flex:1;font-size:14px;font-weight:600">Подтягивания</div><div style="color:#8A9096;font-size:12px">4×8 · вес тела</div><div style="color:#F05A5A;font-size:14px">−</div>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:10px;background:#0F1113;border-radius:12px;padding:10px 12px">
+                    <div style="color:#4A4F55">≡</div><div style="flex:1;font-size:14px;font-weight:600">Тяга штанги в наклоне</div><div style="color:#8A9096;font-size:12px">3×10 · 60 кг</div><div style="color:#F05A5A;font-size:14px">−</div>
+                  </div>
+                  <div style="background:#0F1113;border-radius:12px;padding:12px">
+                    <div style="display:flex;align-items:center;gap:10px"><div style="color:#4A4F55">≡</div><div style="flex:1;font-size:14px;font-weight:600">Планка</div><div style="color:#F05A5A;font-size:14px">−</div></div>
+                    <div style="display:flex;gap:8px;margin-top:10px">
+                      <div style="flex:1;background:#16191D;border:1px solid #23262B;border-radius:10px;padding:8px 10px"><div style="color:#6A7076;font-size:10px;font-weight:700;text-transform:uppercase">Подходы</div><div style="font-weight:700;font-size:15px;margin-top:2px">3</div></div>
+                      <div style="flex:1;background:#16191D;border:1px solid #23262B;border-radius:10px;padding:8px 10px"><div style="color:#6A7076;font-size:10px;font-weight:700;text-transform:uppercase">Время</div><div style="font-weight:700;font-size:15px;margin-top:2px">60 с</div></div>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+                      <div style="font-size:13px;color:#8A9096">На время (без веса)</div>
+                      <div style="width:44px;height:26px;border-radius:13px;background:#C8F031;position:relative"><div style="position:absolute;right:2px;top:2px;width:22px;height:22px;border-radius:50%;background:#0B0C0E"></div></div>
+                    </div>
+                  </div>
+                  <div style="border:1px dashed #34383E;border-radius:12px;padding:11px;text-align:center;color:#C8F031;font-size:13px;font-weight:700">+ Упражнение</div>
+                </div>
+              </div>
+              <div style="background:#141619;border:1px solid #23262B;border-radius:18px;padding:14px 16px;display:flex;align-items:center;gap:12px">
+                <div style="color:#4A4F55;letter-spacing:2px">≡</div>
+                <div style="flex:1;font-weight:700;font-size:15px">День 3 — Ноги</div>
+                <div style="color:#8A9096;font-size:13px">5</div>
+              </div>
+              <div style="border:1px dashed #34383E;border-radius:18px;padding:14px;text-align:center;color:#C8F031;font-size:14px;font-weight:700">+ Тренировочный день</div>
+            </div>
+          </div>
+        </x-import>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 2: SESSION -->
+  <div>
+    <div style="font-family:Oswald;font-weight:700;font-size:20px;color:#C8F031;text-transform:uppercase;letter-spacing:1px;margin-bottom:20px">02 · Тренировка: сессия, отдых, пауза, итог</div>
+    <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start">
+
+      <div data-screen-label="Активная тренировка">
+        <div style="color:#8A9096;font-size:13px;margin-bottom:10px">Активная сессия — упражнение в фокусе</div>
+        <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ true }}" hint-size="393px,852px">
+          <div style="display:flex;flex-direction:column;height:100%;background:#0B0C0E;color:#ECEEF0;font-family:Archivo,sans-serif">
+            <div style="padding:60px 20px 0;flex:1;display:flex;flex-direction:column;overflow:hidden">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div style="font-size:13px;font-weight:700;color:#8A9096">Упражнение 3 <span style="color:#4A4F55">/ 6</span></div>
+                <div style="display:flex;align-items:center;gap:14px">
+                  <div style="font-family:Oswald;font-weight:700;font-size:18px;color:#ECEEF0">24:08</div>
+                  <div style="border:1.5px solid #F0A02E;color:#F0A02E;border-radius:12px;padding:6px 14px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.5px">❙❙ Пауза</div>
+                </div>
+              </div>
+              <div style="height:5px;background:#1C1F24;border-radius:3px;margin-top:12px"><div style="width:42%;height:100%;background:#C8F031;border-radius:3px"></div></div>
+              <div style="margin-top:22px">
+                <div style="font-size:12px;font-weight:700;color:#C8F031;text-transform:uppercase;letter-spacing:1px">Спина</div>
+                <div style="font-family:Oswald;font-weight:700;font-size:34px;line-height:1.05;text-transform:uppercase;margin-top:4px">Тяга штанги в наклоне</div>
+              </div>
+              <div style="margin-top:16px;background:#141619;border:1px solid #23262B;border-radius:18px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between">
+                <div style="width:48px;height:48px;border-radius:14px;background:#1C1F24;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#8A9096">−</div>
+                <div style="text-align:center"><div style="font-family:Oswald;font-weight:700;font-size:34px">60 <span style="font-size:18px">кг</span></div><div style="color:#6A7076;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px">рабочий вес</div></div>
+                <div style="width:48px;height:48px;border-radius:14px;background:#1C1F24;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;color:#C8F031">+</div>
+              </div>
+              <div style="margin-top:14px;display:flex;flex-direction:column;gap:10px">
+                <div style="display:flex;align-items:center;gap:14px;background:#141619;border:1px solid #23262B;border-radius:16px;padding:14px 16px;opacity:.6">
+                  <div style="width:30px;height:30px;border-radius:50%;background:#C8F031;color:#0B0C0E;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px">✓</div>
+                  <div style="flex:1;font-weight:700;font-size:15px">Подход 1</div><div style="color:#8A9096;font-size:14px">10 повт · 60 кг</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:14px;background:#141619;border:1px solid #23262B;border-radius:16px;padding:14px 16px;opacity:.6">
+                  <div style="width:30px;height:30px;border-radius:50%;background:#C8F031;color:#0B0C0E;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px">✓</div>
+                  <div style="flex:1;font-weight:700;font-size:15px">Подход 2</div><div style="color:#8A9096;font-size:14px">10 повт · 60 кг</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:14px;background:#151A0E;border:1.5px solid #C8F031;border-radius:16px;padding:16px">
+                  <div style="width:30px;height:30px;border-radius:50%;border:2px solid #C8F031"></div>
+                  <div style="flex:1;font-weight:800;font-size:16px">Подход 3 <span style="color:#8A9096;font-weight:600;font-size:14px">· 10 повт</span></div>
+                  <div style="background:#C8F031;color:#0B0C0E;border-radius:12px;padding:10px 18px;font-weight:800;font-size:14px;text-transform:uppercase">Готово</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:10px;margin-top:14px">
+                <div style="flex:1;border:1px solid #34383E;border-radius:14px;padding:12px;text-align:center;color:#8A9096;font-size:13px;font-weight:700">Пропустить<br><span style="font-size:11px;font-weight:500;color:#5A6066">объём не идёт</span></div>
+                <div style="flex:1;border:1px solid #34383E;border-radius:14px;padding:12px;text-align:center;color:#ECEEF0;font-size:13px;font-weight:700">Закончить раньше<br><span style="font-size:11px;font-weight:500;color:#5A6066">2 из 3 засчитаны</span></div>
+              </div>
+              <div style="margin-top:auto;padding:12px 0 10px;display:flex;align-items:center;gap:12px">
+                <div style="width:52px;height:52px;border-radius:16px;background:#141619;border:1px solid #23262B;display:flex;align-items:center;justify-content:center;color:#8A9096;font-size:18px">‹</div>
+                <div style="flex:1;background:#1C1F24;border-radius:16px;padding:15px;text-align:center;font-weight:800;font-size:15px;text-transform:uppercase;letter-spacing:1px;color:#ECEEF0">Завершить тренировку</div>
+                <div style="width:52px;height:52px;border-radius:16px;background:#141619;border:1px solid #23262B;display:flex;align-items:center;justify-content:center;color:#8A9096;font-size:18px">›</div>
+              </div>
+            </div>
+          </div>
+        </x-import>
+      </div>
+
+      <div data-screen-label="Отдых между подходами">
+        <div style="color:#8A9096;font-size:13px;margin-bottom:10px">Rest-таймер — момент «пора!»</div>
+        <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ true }}" hint-size="393px,852px">
+          <div style="display:flex;flex-direction:column;height:100%;background:#0B0C0E;color:#ECEEF0;font-family:Archivo,sans-serif">
+            <div style="padding:60px 20px 0;opacity:.35">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div style="font-size:13px;font-weight:700;color:#8A9096">Упражнение 3 / 6</div>
+                <div style="font-family:Oswald;font-weight:700;font-size:18px">24:41</div>
+              </div>
+              <div style="height:5px;background:#1C1F24;border-radius:3px;margin-top:12px"><div style="width:46%;height:100%;background:#C8F031;border-radius:3px"></div></div>
+              <div style="font-family:Oswald;font-weight:700;font-size:30px;text-transform:uppercase;margin-top:20px">Тяга штанги в наклоне</div>
+            </div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:linear-gradient(180deg,rgba(11,12,14,0) 0%,rgba(200,240,49,.07) 100%)">
+              <div style="font-size:13px;font-weight:800;color:#C8F031;text-transform:uppercase;letter-spacing:2px">Отдых</div>
+              <div style="width:230px;height:230px;border-radius:50%;border:8px solid #1C1F24;border-top-color:#C8F031;border-right-color:#C8F031;display:flex;flex-direction:column;align-items:center;justify-content:center;animation:pulseGo 2s ease-in-out infinite">
+                <div style="font-family:Oswald;font-weight:700;font-size:72px;color:#C8F031">0:38</div>
+                <div style="color:#8A9096;font-size:13px;font-weight:600">до подхода 3</div>
+              </div>
+              <div style="display:flex;gap:12px;margin-top:16px">
+                <div style="border:1.5px solid #C8F031;color:#C8F031;border-radius:14px;padding:12px 24px;font-weight:800;font-size:16px">+30 с</div>
+                <div style="background:#C8F031;color:#0B0C0E;border-radius:14px;padding:12px 24px;font-weight:800;font-size:16px;text-transform:uppercase">Начать сейчас</div>
+              </div>
+              <div style="color:#5A6066;font-size:12px;margin-top:10px">В конце — звуковой сигнал «пора начинать»</div>
+            </div>
+          </div>
+        </x-import>
+      </div>
+
+      <div data-screen-label="Пауза">
+        <div style="color:#8A9096;font-size:13px;margin-bottom:10px">Пауза — незапланированная остановка</div>
+        <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ true }}" hint-size="393px,852px">
+          <div style="display:flex;flex-direction:column;height:100%;background:#101008;color:#ECEEF0;font-family:Archivo,sans-serif">
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:54px 24px 0;gap:6px">
+              <div style="width:64px;height:64px;border-radius:20px;background:#F0A02E;display:flex;align-items:center;justify-content:center;color:#0B0C0E;font-size:22px;font-weight:800;letter-spacing:2px">❙❙</div>
+              <div style="font-family:Oswald;font-weight:700;font-size:44px;text-transform:uppercase;margin-top:10px;color:#F0A02E">Пауза</div>
+              <div style="color:#8A9096;font-size:14px;text-align:center">Активное время заморожено — пауза<br>не войдёт в итоговое время тренировки</div>
+              <div style="display:flex;gap:12px;margin-top:22px;width:100%">
+                <div style="flex:1;background:#16140D;border:1px solid #2A2717;border-radius:18px;padding:16px;text-align:center"><div style="color:#6A7076;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px">Активное</div><div style="font-family:Oswald;font-weight:700;font-size:30px;margin-top:4px">24:08</div></div>
+                <div style="flex:1;background:#16140D;border:1px solid #F0A02E;border-radius:18px;padding:16px;text-align:center"><div style="color:#F0A02E;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px">На паузе</div><div style="font-family:Oswald;font-weight:700;font-size:30px;margin-top:4px;color:#F0A02E">02:41</div></div>
+              </div>
+              <div style="margin-top:20px;width:100%">
+                <div style="color:#6A7076;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;text-align:center">Причина — необязательно</div>
+                <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px">
+                  <div style="background:#F0A02E;color:#0B0C0E;border-radius:20px;padding:9px 16px;font-size:13px;font-weight:700">Устал</div>
+                  <div style="border:1px solid #34383E;color:#8A9096;border-radius:20px;padding:9px 16px;font-size:13px;font-weight:600">Отвлёкся</div>
+                  <div style="border:1px solid #34383E;color:#8A9096;border-radius:20px;padding:9px 16px;font-size:13px;font-weight:600">Нет времени</div>
+                  <div style="border:1px solid #34383E;color:#8A9096;border-radius:20px;padding:9px 16px;font-size:13px;font-weight:600">Дискомфорт</div>
+                </div>
+              </div>
+            </div>
+            <div style="padding:0 20px 16px;display:flex;flex-direction:column;gap:10px">
+              <div style="background:#C8F031;color:#0B0C0E;border-radius:18px;padding:18px;text-align:center;font-weight:800;font-size:18px;text-transform:uppercase;letter-spacing:1px">Продолжить</div>
+              <div style="text-align:center;color:#8A9096;font-size:14px;font-weight:600;padding:10px">Завершить тренировку</div>
+            </div>
+          </div>
+        </x-import>
+      </div>
+
+      <div data-screen-label="Итог тренировки">
+        <div style="color:#8A9096;font-size:13px;margin-bottom:10px">Итог тренировки</div>
+        <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ true }}" hint-size="393px,852px">
+          <div style="display:flex;flex-direction:column;height:100%;background:#0B0C0E;color:#ECEEF0;font-family:Archivo,sans-serif">
+            <div style="padding:62px 20px 0;flex:1;overflow:hidden;display:flex;flex-direction:column;gap:14px">
+              <div style="text-align:center;margin-top:6px">
+                <div style="font-size:12px;font-weight:700;color:#C8F031;text-transform:uppercase;letter-spacing:2px">Тренировка завершена</div>
+                <div style="font-family:Oswald;font-weight:700;font-size:30px;text-transform:uppercase;margin-top:4px">День 2 — Спина и бицепс</div>
+              </div>
+              <div style="background:#141619;border:1px solid #23262B;border-radius:20px;padding:18px">
+                <div style="display:flex;justify-content:space-between;text-align:center">
+                  <div style="flex:1"><div style="font-family:Oswald;font-weight:700;font-size:30px">52<span style="font-size:16px"> мин</span></div><div style="color:#8A9096;font-size:11px;font-weight:700;text-transform:uppercase;margin-top:2px">Всего</div></div>
+                  <div style="width:1px;background:#23262B"></div>
+                  <div style="flex:1"><div style="font-family:Oswald;font-weight:700;font-size:30px;color:#C8F031">38<span style="font-size:16px"> мин</span></div><div style="color:#8A9096;font-size:11px;font-weight:700;text-transform:uppercase;margin-top:2px">Активно</div></div>
+                  <div style="width:1px;background:#23262B"></div>
+                  <div style="flex:1"><div style="font-family:Oswald;font-weight:700;font-size:30px;color:#F0A02E">14<span style="font-size:16px"> мин</span></div><div style="color:#8A9096;font-size:11px;font-weight:700;text-transform:uppercase;margin-top:2px">Пауза · 3</div></div>
+                </div>
+                <div style="height:8px;border-radius:4px;overflow:hidden;display:flex;margin-top:16px">
+                  <div style="width:73%;background:#C8F031"></div><div style="width:27%;background:#F0A02E"></div>
+                </div>
+              </div>
+              <div style="background:#141619;border:1px solid #23262B;border-radius:20px;padding:16px 18px;display:flex;justify-content:space-between;align-items:baseline">
+                <div style="color:#8A9096;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px">Объём</div>
+                <div style="font-family:Oswald;font-weight:700;font-size:28px">8 340 <span style="font-size:16px">кг</span> <span style="color:#C8F031;font-size:14px;font-family:Archivo;font-weight:700">+4% к прошлой</span></div>
+              </div>
+              <div style="background:#141619;border:1px solid #23262B;border-radius:20px;padding:6px 18px">
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #1C1F24"><div style="font-size:14px;font-weight:600">Подтягивания</div><div style="color:#8A9096;font-size:13px">4/4 · вес тела</div></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #1C1F24">
+                  <div><div style="font-size:14px;font-weight:600">Тяга штанги в наклоне</div><div style="color:#F0A02E;font-size:12px;margin-top:2px">закончил раньше · Устал</div></div>
+                  <div style="color:#8A9096;font-size:13px">2/3 · 60 кг</div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #1C1F24"><div style="font-size:14px;font-weight:600">Тяга верхнего блока</div><div style="color:#8A9096;font-size:13px">3/3 · 55 кг</div></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #1C1F24">
+                  <div><div style="font-size:14px;font-weight:600;color:#6A7076">Молотки</div><div style="color:#6A7076;font-size:12px;margin-top:2px">пропущено · Нет времени</div></div>
+                  <div style="color:#6A7076;font-size:13px">0/3</div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0"><div style="font-size:14px;font-weight:600">Планка</div><div style="color:#8A9096;font-size:13px">3/3 · 60 с</div></div>
+              </div>
+            </div>
+            <div style="padding:0 20px 16px"><div style="background:#C8F031;color:#0B0C0E;border-radius:18px;padding:17px;text-align:center;font-weight:800;font-size:17px;text-transform:uppercase;letter-spacing:1px">Готово</div></div>
+          </div>
+        </x-import>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 3: SUPPLEMENTS -->
+  <div>
+    <div style="font-family:Oswald;font-weight:700;font-size:20px;color:#C8F031;text-transform:uppercase;letter-spacing:1px;margin-bottom:20px">03 · Добавки</div>
+    <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start">
+
+      <div data-screen-label="Добавки — Сегодня">
+        <div style="color:#8A9096;font-size:13px;margin-bottom:10px">Сегодня — чек-лист</div>
+        <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ true }}" hint-size="393px,852px">
+          <div style="display:flex;flex-direction:column;height:100%;background:#0B0C0E;color:#ECEEF0;font-family:Archivo,sans-serif">
+            <div style="padding:62px 20px 0;flex:1;overflow:hidden;display:flex;flex-direction:column;gap:14px">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div style="font-family:Oswald;font-weight:700;font-size:30px;text-transform:uppercase">Добавки</div>
+                <div style="background:#151A0E;border:1px solid #C8F031;color:#C8F031;border-radius:14px;padding:7px 12px;font-size:13px;font-weight:800;white-space:nowrap;flex-shrink:0">14 дн подряд</div>
+              </div>
+              <div style="display:flex;gap:6px;background:#141619;border-radius:14px;padding:4px">
+                <div style="flex:1;background:#C8F031;color:#0B0C0E;border-radius:11px;padding:8px 0;text-align:center;font-size:12px;font-weight:800">Сегодня</div>
+                <div style="flex:1;color:#8A9096;padding:8px 0;text-align:center;font-size:12px;font-weight:600">Склад</div>
+                <div style="flex:1;color:#8A9096;padding:8px 0;text-align:center;font-size:12px;font-weight:600">Прогресс</div>
+                <div style="flex:1;color:#8A9096;padding:8px 0;text-align:center;font-size:12px;font-weight:600">Расписание</div>
+              </div>
+              <div>
+                <div style="color:#6A7076;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px">Утро · 2/2</div>
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <div style="display:flex;align-items:center;gap:14px;background:#141619;border:1px solid #23262B;border-radius:16px;padding:14px 16px;opacity:.6"><div style="width:28px;height:28px;border-radius:50%;background:#C8F031;color:#0B0C0E;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px">✓</div><div style="flex:1;font-weight:700;font-size:15px">Витамин D3</div><div style="color:#8A9096;font-size:13px">2000 МЕ</div></div>
+                  <div style="display:flex;align-items:center;gap:14px;background:#141619;border:1px solid #23262B;border-radius:16px;padding:14px 16px;opacity:.6"><div style="width:28px;height:28px;border-radius:50%;background:#C8F031;color:#0B0C0E;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px">✓</div><div style="flex:1;font-weight:700;font-size:15px">Омега-3</div><div style="color:#8A9096;font-size:13px">2 капс</div></div>
+                </div>
+              </div>
+              <div>
+                <div style="color:#6A7076;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px">Перед тренировкой · 1/2</div>
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <div style="display:flex;align-items:center;gap:14px;background:#141619;border:1px solid #23262B;border-radius:16px;padding:14px 16px;opacity:.6"><div style="width:28px;height:28px;border-radius:50%;background:#C8F031;color:#0B0C0E;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px">✓</div><div style="flex:1;font-weight:700;font-size:15px">Креатин</div><div style="color:#8A9096;font-size:13px">5 г</div></div>
+                  <div style="display:flex;align-items:center;gap:14px;background:#141619;border:1.5px solid #C8F031;border-radius:16px;padding:14px 16px"><div style="width:28px;height:28px;border-radius:50%;border:2px solid #C8F031"></div><div style="flex:1;font-weight:700;font-size:15px">Кофеин</div><div style="color:#8A9096;font-size:13px">200 мг</div></div>
+                </div>
+              </div>
+              <div>
+                <div style="color:#6A7076;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px">Вечер · 0/2</div>
+                <div style="display:flex;flex-direction:column;gap:8px">
+                  <div style="display:flex;align-items:center;gap:14px;background:#141619;border:1px solid #23262B;border-radius:16px;padding:14px 16px"><div style="width:28px;height:28px;border-radius:50%;border:2px solid #34383E"></div><div style="flex:1;font-weight:700;font-size:15px">Магний</div><div style="color:#8A9096;font-size:13px">400 мг</div></div>
+                  <div style="display:flex;align-items:center;gap:14px;background:#141619;border:1px solid #23262B;border-radius:16px;padding:14px 16px"><div style="width:28px;height:28px;border-radius:50%;border:2px solid #34383E"></div><div style="flex:1;font-weight:700;font-size:15px">Цинк</div><div style="color:#8A9096;font-size:13px">25 мг</div></div>
+                </div>
+              </div>
+            </div>
+            <div style="padding:10px 12px 28px;display:flex;background:rgba(11,12,14,.85);border-top:1px solid #1C1F24">
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">Главная</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">Тренировки</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;border-radius:50%;background:#C8F031;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:700;color:#C8F031">Добавки</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">История</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">Настройки</div></div>
+            </div>
+          </div>
+        </x-import>
+      </div>
+
+      <div data-screen-label="Добавки — Склад">
+        <div style="color:#8A9096;font-size:13px;margin-bottom:10px">Склад / остатки</div>
+        <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ true }}" hint-size="393px,852px">
+          <div style="display:flex;flex-direction:column;height:100%;background:#0B0C0E;color:#ECEEF0;font-family:Archivo,sans-serif">
+            <div style="padding:62px 20px 0;flex:1;overflow:hidden;display:flex;flex-direction:column;gap:14px">
+              <div style="font-family:Oswald;font-weight:700;font-size:30px;text-transform:uppercase">Добавки</div>
+              <div style="display:flex;gap:6px;background:#141619;border-radius:14px;padding:4px">
+                <div style="flex:1;color:#8A9096;padding:8px 0;text-align:center;font-size:12px;font-weight:600">Сегодня</div>
+                <div style="flex:1;background:#C8F031;color:#0B0C0E;border-radius:11px;padding:8px 0;text-align:center;font-size:12px;font-weight:800">Склад</div>
+                <div style="flex:1;color:#8A9096;padding:8px 0;text-align:center;font-size:12px;font-weight:600">Прогресс</div>
+                <div style="flex:1;color:#8A9096;padding:8px 0;text-align:center;font-size:12px;font-weight:600">Расписание</div>
+              </div>
+              <div style="background:#1A1208;border:1px solid #F0A02E;border-radius:16px;padding:12px 16px;display:flex;align-items:center;gap:10px">
+                <div style="width:8px;height:8px;border-radius:50%;background:#F0A02E"></div>
+                <div style="font-size:13px;font-weight:700;color:#F0A02E">2 добавки заканчиваются — пора докупить</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <div style="background:#141619;border:1px solid #F0A02E;border-radius:16px;padding:14px 16px">
+                  <div style="display:flex;justify-content:space-between;align-items:baseline"><div style="font-weight:700;font-size:15px">Креатин</div><div style="color:#F0A02E;font-size:13px;font-weight:800">4 порции · ~4 дня</div></div>
+                  <div style="height:6px;background:#1C1F24;border-radius:3px;margin-top:10px"><div style="width:7%;height:100%;background:#F0A02E;border-radius:3px"></div></div>
+                </div>
+                <div style="background:#141619;border:1px solid #F0A02E;border-radius:16px;padding:14px 16px">
+                  <div style="display:flex;justify-content:space-between;align-items:baseline"><div style="font-weight:700;font-size:15px">Омега-3</div><div style="color:#F0A02E;font-size:13px;font-weight:800">9 капс · ~4 дня</div></div>
+                  <div style="height:6px;background:#1C1F24;border-radius:3px;margin-top:10px"><div style="width:10%;height:100%;background:#F0A02E;border-radius:3px"></div></div>
+                </div>
+                <div style="background:#141619;border:1px solid #23262B;border-radius:16px;padding:14px 16px">
+                  <div style="display:flex;justify-content:space-between;align-items:baseline"><div style="font-weight:700;font-size:15px">Витамин D3</div><div style="color:#8A9096;font-size:13px">58 капс · ~2 мес</div></div>
+                  <div style="height:6px;background:#1C1F24;border-radius:3px;margin-top:10px"><div style="width:64%;height:100%;background:#C8F031;border-radius:3px"></div></div>
+                </div>
+                <div style="background:#141619;border:1px solid #23262B;border-radius:16px;padding:14px 16px">
+                  <div style="display:flex;justify-content:space-between;align-items:baseline"><div style="font-weight:700;font-size:15px">Магний</div><div style="color:#8A9096;font-size:13px">34 капс · ~1 мес</div></div>
+                  <div style="height:6px;background:#1C1F24;border-radius:3px;margin-top:10px"><div style="width:38%;height:100%;background:#C8F031;border-radius:3px"></div></div>
+                </div>
+                <div style="background:#141619;border:1px solid #23262B;border-radius:16px;padding:14px 16px">
+                  <div style="display:flex;justify-content:space-between;align-items:baseline"><div style="font-weight:700;font-size:15px">Цинк</div><div style="color:#8A9096;font-size:13px">80 табл · ~3 мес</div></div>
+                  <div style="height:6px;background:#1C1F24;border-radius:3px;margin-top:10px"><div style="width:88%;height:100%;background:#C8F031;border-radius:3px"></div></div>
+                </div>
+                <div style="background:#141619;border:1px solid #23262B;border-radius:16px;padding:14px 16px">
+                  <div style="display:flex;justify-content:space-between;align-items:baseline"><div style="font-weight:700;font-size:15px">Кофеин</div><div style="color:#8A9096;font-size:13px">45 табл · ~2 мес</div></div>
+                  <div style="height:6px;background:#1C1F24;border-radius:3px;margin-top:10px"><div style="width:56%;height:100%;background:#C8F031;border-radius:3px"></div></div>
+                </div>
+              </div>
+              <div style="border:1px dashed #34383E;border-radius:14px;padding:12px;text-align:center;color:#C8F031;font-size:13px;font-weight:700">+ Пополнить запас</div>
+            </div>
+            <div style="padding:10px 12px 28px;display:flex;background:rgba(11,12,14,.85);border-top:1px solid #1C1F24">
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">Главная</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">Тренировки</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;border-radius:50%;background:#C8F031;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:700;color:#C8F031">Добавки</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">История</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">Настройки</div></div>
+            </div>
+          </div>
+        </x-import>
+      </div>
+
+      <div data-screen-label="Добавки — Прогресс">
+        <div style="color:#8A9096;font-size:13px;margin-bottom:10px">Прогресс / стрик</div>
+        <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ true }}" hint-size="393px,852px">
+          <div style="display:flex;flex-direction:column;height:100%;background:#0B0C0E;color:#ECEEF0;font-family:Archivo,sans-serif">
+            <div style="padding:62px 20px 0;flex:1;overflow:hidden;display:flex;flex-direction:column;gap:14px">
+              <div style="font-family:Oswald;font-weight:700;font-size:30px;text-transform:uppercase">Добавки</div>
+              <div style="display:flex;gap:6px;background:#141619;border-radius:14px;padding:4px">
+                <div style="flex:1;color:#8A9096;padding:8px 0;text-align:center;font-size:12px;font-weight:600">Сегодня</div>
+                <div style="flex:1;color:#8A9096;padding:8px 0;text-align:center;font-size:12px;font-weight:600">Склад</div>
+                <div style="flex:1;background:#C8F031;color:#0B0C0E;border-radius:11px;padding:8px 0;text-align:center;font-size:12px;font-weight:800">Прогресс</div>
+                <div style="flex:1;color:#8A9096;padding:8px 0;text-align:center;font-size:12px;font-weight:600">Расписание</div>
+              </div>
+              <div style="background:#151A0E;border:1px solid #C8F031;border-radius:22px;padding:22px;text-align:center">
+                <div style="font-family:Oswald;font-weight:700;font-size:64px;color:#C8F031;line-height:1">14</div>
+                <div style="font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:2px;margin-top:4px">дней подряд</div>
+                <div style="color:#8A9096;font-size:13px;margin-top:6px">Рекорд — 23 дня · осталось 9</div>
+              </div>
+              <div style="background:#141619;border:1px solid #23262B;border-radius:20px;padding:18px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline"><div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#8A9096">Июль</div><div style="color:#C8F031;font-size:13px;font-weight:800">92% приёма</div></div>
+                <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:14px;justify-items:center">
+                  <div style="color:#5A6066;font-size:10px;font-weight:700">Пн</div><div style="color:#5A6066;font-size:10px;font-weight:700">Вт</div><div style="color:#5A6066;font-size:10px;font-weight:700">Ср</div><div style="color:#5A6066;font-size:10px;font-weight:700">Чт</div><div style="color:#5A6066;font-size:10px;font-weight:700">Пт</div><div style="color:#5A6066;font-size:10px;font-weight:700">Сб</div><div style="color:#5A6066;font-size:10px;font-weight:700">Вс</div>
+                  <div style="width:26px;height:26px;border-radius:8px;background:#C8F031"></div><div style="width:26px;height:26px;border-radius:8px;background:#C8F031"></div><div style="width:26px;height:26px;border-radius:8px;background:#C8F031"></div><div style="width:26px;height:26px;border-radius:8px;background:#37401A"></div><div style="width:26px;height:26px;border-radius:8px;background:#C8F031"></div><div style="width:26px;height:26px;border-radius:8px;background:#C8F031"></div><div style="width:26px;height:26px;border-radius:8px;background:#C8F031"></div>
+                  <div style="width:26px;height:26px;border-radius:8px;background:#C8F031"></div><div style="width:26px;height:26px;border-radius:8px;background:#C8F031"></div><div style="width:26px;height:26px;border-radius:8px;background:#C8F031"></div><div style="width:26px;height:26px;border-radius:8px;background:#C8F031"></div><div style="width:26px;height:26px;border-radius:8px;background:#37401A"></div><div style="width:26px;height:26px;border-radius:8px;background:#C8F031"></div><div style="width:26px;height:26px;border-radius:8px;background:#C8F031"></div>
+                  <div style="width:26px;height:26px;border-radius:8px;background:#C8F031"></div><div style="width:26px;height:26px;border-radius:8px;background:#C8F031"></div><div style="width:26px;height:26px;border-radius:8px;background:#C8F031;border:2px solid #ECEEF0;box-sizing:border-box"></div><div style="width:26px;height:26px;border-radius:8px;background:#1C1F24"></div><div style="width:26px;height:26px;border-radius:8px;background:#1C1F24"></div><div style="width:26px;height:26px;border-radius:8px;background:#1C1F24"></div><div style="width:26px;height:26px;border-radius:8px;background:#1C1F24"></div>
+                </div>
+                <div style="display:flex;gap:14px;margin-top:14px;font-size:11px;color:#8A9096">
+                  <div style="display:flex;align-items:center;gap:6px"><div style="width:10px;height:10px;border-radius:3px;background:#C8F031"></div>всё принято</div>
+                  <div style="display:flex;align-items:center;gap:6px"><div style="width:10px;height:10px;border-radius:3px;background:#37401A"></div>частично</div>
+                  <div style="display:flex;align-items:center;gap:6px"><div style="width:10px;height:10px;border-radius:3px;background:#1C1F24"></div>впереди</div>
+                </div>
+              </div>
+            </div>
+            <div style="padding:10px 12px 28px;display:flex;background:rgba(11,12,14,.85);border-top:1px solid #1C1F24">
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">Главная</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">Тренировки</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;border-radius:50%;background:#C8F031;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:700;color:#C8F031">Добавки</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">История</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">Настройки</div></div>
+            </div>
+          </div>
+        </x-import>
+      </div>
+
+      <div data-screen-label="Добавки — Расписание">
+        <div style="color:#8A9096;font-size:13px;margin-bottom:10px">Редактор расписания</div>
+        <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ true }}" hint-size="393px,852px">
+          <div style="display:flex;flex-direction:column;height:100%;background:#0B0C0E;color:#ECEEF0;font-family:Archivo,sans-serif">
+            <div style="padding:62px 20px 0;flex:1;overflow:hidden;display:flex;flex-direction:column;gap:14px">
+              <div style="font-family:Oswald;font-weight:700;font-size:30px;text-transform:uppercase">Добавки</div>
+              <div style="display:flex;gap:6px;background:#141619;border-radius:14px;padding:4px">
+                <div style="flex:1;color:#8A9096;padding:8px 0;text-align:center;font-size:12px;font-weight:600">Сегодня</div>
+                <div style="flex:1;color:#8A9096;padding:8px 0;text-align:center;font-size:12px;font-weight:600">Склад</div>
+                <div style="flex:1;color:#8A9096;padding:8px 0;text-align:center;font-size:12px;font-weight:600">Прогресс</div>
+                <div style="flex:1;background:#C8F031;color:#0B0C0E;border-radius:11px;padding:8px 0;text-align:center;font-size:12px;font-weight:800">Расписание</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <div style="background:#141619;border:1px solid #23262B;border-radius:16px;padding:14px 16px">
+                  <div style="display:flex;justify-content:space-between;align-items:center"><div style="font-weight:700;font-size:15px">Витамин D3 <span style="color:#8A9096;font-weight:500;font-size:13px">· 2000 МЕ</span></div><div style="color:#F05A5A;font-size:14px">−</div></div>
+                  <div style="display:flex;gap:8px;margin-top:10px">
+                    <div style="background:#C8F031;color:#0B0C0E;border-radius:16px;padding:7px 14px;font-size:12px;font-weight:800">Утро</div>
+                    <div style="border:1px solid #34383E;color:#8A9096;border-radius:16px;padding:7px 14px;font-size:12px;font-weight:600">Перед трен.</div>
+                    <div style="border:1px solid #34383E;color:#8A9096;border-radius:16px;padding:7px 14px;font-size:12px;font-weight:600">Вечер</div>
+                  </div>
+                </div>
+                <div style="background:#141619;border:1px solid #23262B;border-radius:16px;padding:14px 16px">
+                  <div style="display:flex;justify-content:space-between;align-items:center"><div style="font-weight:700;font-size:15px">Креатин <span style="color:#8A9096;font-weight:500;font-size:13px">· 5 г</span></div><div style="color:#F05A5A;font-size:14px">−</div></div>
+                  <div style="display:flex;gap:8px;margin-top:10px">
+                    <div style="border:1px solid #34383E;color:#8A9096;border-radius:16px;padding:7px 14px;font-size:12px;font-weight:600">Утро</div>
+                    <div style="background:#C8F031;color:#0B0C0E;border-radius:16px;padding:7px 14px;font-size:12px;font-weight:800">Перед трен.</div>
+                    <div style="border:1px solid #34383E;color:#8A9096;border-radius:16px;padding:7px 14px;font-size:12px;font-weight:600">Вечер</div>
+                  </div>
+                </div>
+                <div style="background:#141619;border:1px solid #23262B;border-radius:16px;padding:14px 16px">
+                  <div style="display:flex;justify-content:space-between;align-items:center"><div style="font-weight:700;font-size:15px">Магний <span style="color:#8A9096;font-weight:500;font-size:13px">· 400 мг</span></div><div style="color:#F05A5A;font-size:14px">−</div></div>
+                  <div style="display:flex;gap:8px;margin-top:10px">
+                    <div style="border:1px solid #34383E;color:#8A9096;border-radius:16px;padding:7px 14px;font-size:12px;font-weight:600">Утро</div>
+                    <div style="border:1px solid #34383E;color:#8A9096;border-radius:16px;padding:7px 14px;font-size:12px;font-weight:600">Перед трен.</div>
+                    <div style="background:#C8F031;color:#0B0C0E;border-radius:16px;padding:7px 14px;font-size:12px;font-weight:800">Вечер</div>
+                  </div>
+                </div>
+              </div>
+              <div style="border:1px dashed #34383E;border-radius:16px;padding:14px;text-align:center;color:#C8F031;font-size:14px;font-weight:700">+ Добавка</div>
+            </div>
+            <div style="padding:10px 12px 28px;display:flex;background:rgba(11,12,14,.85);border-top:1px solid #1C1F24">
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">Главная</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">Тренировки</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;border-radius:50%;background:#C8F031;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:700;color:#C8F031">Добавки</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">История</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">Настройки</div></div>
+            </div>
+          </div>
+        </x-import>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROW 4: HISTORY & SETTINGS -->
+  <div>
+    <div style="font-family:Oswald;font-weight:700;font-size:20px;color:#C8F031;text-transform:uppercase;letter-spacing:1px;margin-bottom:20px">04 · История и настройки</div>
+    <div style="display:flex;gap:40px;flex-wrap:wrap;align-items:flex-start">
+
+      <div data-screen-label="История">
+        <div style="color:#8A9096;font-size:13px;margin-bottom:10px">История</div>
+        <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ true }}" hint-size="393px,852px">
+          <div style="display:flex;flex-direction:column;height:100%;background:#0B0C0E;color:#ECEEF0;font-family:Archivo,sans-serif">
+            <div style="padding:62px 20px 0;flex:1;overflow:hidden;display:flex;flex-direction:column;gap:14px">
+              <div style="font-family:Oswald;font-weight:700;font-size:30px;text-transform:uppercase">История</div>
+              <div style="background:#141619;border:1px solid #23262B;border-radius:20px;padding:18px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline">
+                  <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#8A9096">Объём за 8 недель</div>
+                  <div style="color:#C8F031;font-size:14px;font-weight:800">↗ +12%</div>
+                </div>
+                <svg width="100%" height="110" viewBox="0 0 300 110" style="margin-top:10px">
+                  <line x1="0" y1="30" x2="300" y2="30" stroke="#1C1F24" stroke-width="1"></line>
+                  <line x1="0" y1="65" x2="300" y2="65" stroke="#1C1F24" stroke-width="1"></line>
+                  <line x1="0" y1="100" x2="300" y2="100" stroke="#1C1F24" stroke-width="1"></line>
+                  <polyline points="0,88 42,80 84,84 126,68 168,72 210,52 252,44 294,28" fill="none" stroke="#C8F031" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></polyline>
+                  <circle cx="294" cy="28" r="5" fill="#C8F031"></circle>
+                </svg>
+                <div style="display:flex;justify-content:space-between;color:#5A6066;font-size:10px;font-weight:600"><span>26 мая</span><span>22 июня</span><span>20 июля</span></div>
+              </div>
+              <div style="background:#141619;border:1px solid #C8F031;border-radius:18px;padding:16px">
+                <div style="display:flex;justify-content:space-between;align-items:baseline">
+                  <div style="font-weight:700;font-size:15px">День 1 — Грудь и трицепс</div><div style="color:#8A9096;font-size:12px">Вс, 20 июля</div>
+                </div>
+                <div style="display:flex;gap:14px;margin-top:6px;color:#8A9096;font-size:13px"><span>52 мин · 38 акт</span><span>8 340 кг</span><span style="color:#F0A02E">2 паузы</span></div>
+                <div style="margin-top:12px;border-top:1px solid #23262B;padding-top:10px;display:flex;flex-direction:column;gap:8px">
+                  <div style="display:flex;justify-content:space-between;font-size:13px"><span>Жим лёжа</span><span style="color:#8A9096">4/4 · 80 кг</span></div>
+                  <div style="display:flex;justify-content:space-between;font-size:13px"><span>Жим гантелей на наклонной</span><span style="color:#8A9096">3/3 · 28 кг</span></div>
+                  <div style="display:flex;justify-content:space-between;font-size:13px"><span>Разводка <span style="color:#F0A02E;font-size:11px">· раньше · Устал</span></span><span style="color:#8A9096">2/3 · 16 кг</span></div>
+                  <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#6A7076">Французский жим <span style="font-size:11px">· пропущен</span></span><span style="color:#6A7076">0/3</span></div>
+                </div>
+              </div>
+              <div style="background:#141619;border:1px solid #23262B;border-radius:18px;padding:16px;display:flex;justify-content:space-between;align-items:center">
+                <div><div style="font-weight:700;font-size:15px">День 4 — Плечи и пресс</div><div style="color:#8A9096;font-size:13px;margin-top:2px">Пт, 18 июля · 47 мин · 5 120 кг</div></div>
+                <div style="color:#6A7076;font-size:18px">›</div>
+              </div>
+              <div style="background:#141619;border:1px solid #23262B;border-radius:18px;padding:16px;display:flex;justify-content:space-between;align-items:center">
+                <div><div style="font-weight:700;font-size:15px">День 3 — Ноги</div><div style="color:#8A9096;font-size:13px;margin-top:2px">Ср, 16 июля · 58 мин · 11 200 кг</div></div>
+                <div style="color:#6A7076;font-size:18px">›</div>
+              </div>
+            </div>
+            <div style="padding:10px 12px 28px;display:flex;background:rgba(11,12,14,.85);border-top:1px solid #1C1F24">
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">Главная</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">Тренировки</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">Добавки</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;border-radius:50%;background:#C8F031;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:700;color:#C8F031">История</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">Настройки</div></div>
+            </div>
+          </div>
+        </x-import>
+      </div>
+
+      <div data-screen-label="Настройки">
+        <div style="color:#8A9096;font-size:13px;margin-bottom:10px">Настройки</div>
+        <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" dark="{{ true }}" hint-size="393px,852px">
+          <div style="display:flex;flex-direction:column;height:100%;background:#0B0C0E;color:#ECEEF0;font-family:Archivo,sans-serif">
+            <div style="padding:62px 20px 0;flex:1;overflow:hidden;display:flex;flex-direction:column;gap:14px">
+              <div style="font-family:Oswald;font-weight:700;font-size:30px;text-transform:uppercase">Настройки</div>
+              <div style="background:#141619;border:1px solid #23262B;border-radius:18px;padding:16px;display:flex;align-items:center;gap:14px">
+                <div style="width:52px;height:52px;border-radius:50%;background:#C8F031;color:#0B0C0E;display:flex;align-items:center;justify-content:center;font-family:Oswald;font-weight:700;font-size:20px">В</div>
+                <div><div style="font-weight:700;font-size:16px">Вугар</div><div style="color:#8A9096;font-size:13px">с апреля 2026 · 128 тренировок</div></div>
+              </div>
+              <div style="background:#141619;border:1px solid #23262B;border-radius:18px;padding:4px 16px">
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #1C1F24">
+                  <div style="font-size:15px;font-weight:600">Язык</div>
+                  <div style="display:flex;gap:6px">
+                    <div style="background:#C8F031;color:#0B0C0E;border-radius:10px;padding:6px 12px;font-size:12px;font-weight:800">RU</div>
+                    <div style="border:1px solid #34383E;color:#8A9096;border-radius:10px;padding:6px 12px;font-size:12px;font-weight:600">UA</div>
+                    <div style="border:1px solid #34383E;color:#8A9096;border-radius:10px;padding:6px 12px;font-size:12px;font-weight:600">EN</div>
+                  </div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0">
+                  <div style="font-size:15px;font-weight:600">Тема</div>
+                  <div style="display:flex;gap:6px">
+                    <div style="border:1px solid #34383E;color:#8A9096;border-radius:10px;padding:6px 12px;font-size:12px;font-weight:600">Светлая</div>
+                    <div style="background:#C8F031;color:#0B0C0E;border-radius:10px;padding:6px 12px;font-size:12px;font-weight:800">Тёмная</div>
+                  </div>
+                </div>
+              </div>
+              <div style="background:#141619;border:1px solid #23262B;border-radius:18px;padding:4px 16px">
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #1C1F24">
+                  <div><div style="font-size:15px;font-weight:600">Напоминание о тренировке</div><div style="color:#8A9096;font-size:12px;margin-top:2px">в дни по плану, 18:00</div></div>
+                  <div style="width:46px;height:28px;border-radius:14px;background:#C8F031;position:relative;flex-shrink:0"><div style="position:absolute;right:2px;top:2px;width:24px;height:24px;border-radius:50%;background:#0B0C0E"></div></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #1C1F24">
+                  <div><div style="font-size:15px;font-weight:600">Напоминание о добавках</div><div style="color:#8A9096;font-size:12px;margin-top:2px">утро · перед трен. · вечер</div></div>
+                  <div style="width:46px;height:28px;border-radius:14px;background:#C8F031;position:relative;flex-shrink:0"><div style="position:absolute;right:2px;top:2px;width:24px;height:24px;border-radius:50%;background:#0B0C0E"></div></div>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0">
+                  <div><div style="font-size:15px;font-weight:600">Звук rest-таймера</div><div style="color:#8A9096;font-size:12px;margin-top:2px">сигнал «пора начинать подход»</div></div>
+                  <div style="width:46px;height:28px;border-radius:14px;background:#C8F031;position:relative;flex-shrink:0"><div style="position:absolute;right:2px;top:2px;width:24px;height:24px;border-radius:50%;background:#0B0C0E"></div></div>
+                </div>
+              </div>
+              <div style="background:#141619;border:1px solid #23262B;border-radius:18px;padding:4px 16px">
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid #1C1F24"><div style="font-size:15px;font-weight:600">Экспорт данных</div><div style="color:#6A7076">›</div></div>
+                <div style="display:flex;justify-content:space-between;align-items:center;padding:14px 0"><div style="font-size:15px;font-weight:600;color:#F05A5A">Сбросить все данные</div><div style="color:#6A7076">›</div></div>
+              </div>
+            </div>
+            <div style="padding:10px 12px 28px;display:flex;background:rgba(11,12,14,.85);border-top:1px solid #1C1F24">
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">Главная</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">Тренировки</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">Добавки</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:600;color:#6A7076">История</div></div>
+              <div style="flex:1;text-align:center"><div style="width:5px;height:5px;border-radius:50%;background:#C8F031;margin:0 auto 5px"></div><div style="font-size:10px;font-weight:700;color:#C8F031">Настройки</div></div>
+            </div>
+          </div>
+        </x-import>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;homeInProgress&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Состояния&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const inProgress = this.props.homeInProgress ?? false;
+    return { inProgress, notInProgress: !inProgress };
+  }
+}
+</script>
+</body>
+</html>
