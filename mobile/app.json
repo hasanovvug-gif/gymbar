@@ -10,7 +10,7 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.vugarhasanov.gymtracker",
+      "bundleIdentifier": "com.gymbar.app",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
@@ -21,7 +21,7 @@
         "backgroundColor": "#0B0C0E"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.vugarhasanov.gymtracker",
+      "package": "com.gymbar.app",
       "permissions": [
         "android.permission.RECORD_AUDIO",
         "android.permission.MODIFY_AUDIO_SETTINGS"
