@@ -117,8 +117,8 @@ Gymbar — щоденник тренувань, зроблений заради 
 
 ## Support / Privacy URL — готово
 
-- **Support URL:** https://hasanovvug-gif.github.io/Gym-Tracker/
-- **Privacy Policy URL:** https://hasanovvug-gif.github.io/Gym-Tracker/privacy.html
+- **Support URL:** https://hasanovvug-gif.github.io/gymbar/
+- **Privacy Policy URL:** https://hasanovvug-gif.github.io/gymbar/privacy.html
 
 Исходники — `site/*.html` в `main`, публикуется с ветки `gh-pages` (GitHub Pages).
 Правка: меняешь `site/`, копируешь в `gh-pages`, пушишь.

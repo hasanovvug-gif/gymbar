@@ -40,7 +40,7 @@ SKU любой (напр. `gymbar-001`). После этого сказать м
 
 ## Done (recent first, max 10)
 
-- 2026-07-23 — **Сайт поддержки живой:** https://hasanovvug-gif.github.io/Gym-Tracker/ и
+- 2026-07-23 — **Сайт поддержки живой:** https://hasanovvug-gif.github.io/gymbar/ и
   `/privacy.html`. Исходники `site/*.html` в `main`, публикация с ветки `gh-pages`.
   Оба URL отвечают 200 — можно вписывать в ASC
 - 2026-07-23 — **iOS build #7 собран успешно** (`bcaef92`, IPA готов в EAS). Сборки 4–5
@@ -139,7 +139,7 @@ SKU любой (напр. `gymbar-001`). После этого сказать м
 - **Дизайн (источник истины):** `design/claude-design-export/project/Gym Tracker.dc.html`
 - **Инструкция handoff-бандла:** `design/claude-design-export/README.md`
 - **Инструкции агентам:** `AGENTS.md` (корень), `mobile/AGENTS.md` (пин на докИ Expo v54)
-- **Репозиторий:** https://github.com/hasanovvug-gif/Gym-Tracker
+- **Репозиторий:** https://github.com/hasanovvug-gif/gymbar
 - **Knowledge:** `~/Documents/Projects/mission-control/knowledge/projects/gym-tracker.md`
 - **Исходная задача по дизайну:** `~/Documents/Projects/mission-control/tasks/personal/gymtracker-design.md`
 
