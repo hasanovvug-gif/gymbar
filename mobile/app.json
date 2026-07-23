@@ -11,6 +11,7 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.gymbar.app",
+      "appleTeamId": "K6M569DX9E",
       "entitlements": {
         "com.apple.security.application-groups": [
           "group.com.gymbar.app"
