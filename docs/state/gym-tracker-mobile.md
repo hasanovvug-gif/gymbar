@@ -2,7 +2,7 @@
 campaign: gym-tracker-mobile
 status: active
 started: 2026-07-22
-updated: 2026-07-23 14:10
+updated: 2026-07-23 14:25
 ---
 
 # Gym Tracker → Expo/React Native
@@ -11,21 +11,31 @@ updated: 2026-07-23 14:10
 
 Приложение готово и собрано. **Запись Gymbar заведена в App Store Connect** —
 app id `6793901080`, bundle `com.gymbar.app`, SKU `gymbar-001`. Сайт поддержки живой,
-карточка на трёх языках написана, скриншоты 6.9″ сняты. Первая сборка на новом
-bundle ID (build #1) залита в TestFlight, вторая (с фиксом `en.common.done`) в очереди.
-Всё в `main`, рабочее дерево чистое, синхронно с origin.
+карточка на трёх языках написана, скриншоты 6.9″ сняты. **Build #1 прошёл обработку
+и лежит в TestFlight** (`processingState: VALID`), build #2 с фиксом `en.common.done`
+отправлен следом — ставить надо его. Всё в `main`, дерево чистое, синхронно с origin.
 
 ## Next step
 
-Дождаться, когда сборка пройдёт обработку у Apple и появится в TestFlight
-(слежение через `/v1/builds?filter[app]=6793901080`, поле `processingState=VALID`).
-Дальше — руками Вугара в UI ASC, API этого не даёт:
+Всё оставшееся — руками Вугара в UI App Store Connect, API этого не даёт:
+
+0. **Группа внутренних тестировщиков пуста** (проверено через `/v1/apps/6793901080/betaGroups`
+   → `[]`). Если в TestFlight на телефоне сборки не видно — ASC → Gymbar → TestFlight →
+   Internal Testing → **+** у Testers → добавить себя. Иначе билд не приедет.
 1. Загрузить скриншоты из `docs/appstore/screenshots/` (iPhone 6.9", порядок по номерам)
 2. Вставить тексты из `docs/appstore/metadata.md` + оба URL сайта поддержки
 3. Анкета App Privacy → **Data Not Collected**
-4. Выбрать сборку и отправить на ревью
+4. Выбрать build #2 и отправить на ревью
+
+Проверить статус второй сборки:
+`cd mobile && npx eas-cli build:list --limit 2 --non-interactive`
 
 ## Done (recent first, max 10)
+
+- 2026-07-23 — **Приложение доехало до TestFlight.** Build #1 (`a5cfef6b`) собран за
+  16 минут, загружен через `eas submit` и прошёл обработку Apple. Build #2 (`d4fac3e9`,
+  с фиксом перевода) отправлен следом. Сборка идёт по `credentialsSource: local` —
+  профиль и p12 в `~/.appstoreconnect/private/gymbar/`
 
 - 2026-07-23 — **Gymbar заведён в ASC** (app id `6793901080`) в обход сломанной формы:
   выпадашка Bundle ID в New App была пуста, причину вытащил из внутреннего API —
