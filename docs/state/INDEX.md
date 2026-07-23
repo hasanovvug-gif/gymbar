@@ -2,7 +2,7 @@
 
 ## Active
 
-- **gym-tracker-mobile** — обе сборки в TestFlight, осталась карточка в ASC и отправка на ревью · updated 2026-07-23 14:36
+- **gym-tracker-mobile** — установлено на телефоне через TestFlight, осталась карточка в ASC и отправка на ревью · updated 2026-07-23 14:50
 
 ## Paused
 
