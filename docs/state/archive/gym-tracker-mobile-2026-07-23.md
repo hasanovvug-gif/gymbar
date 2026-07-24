@@ -61,3 +61,37 @@
 
 - 2026-07-23 — Репозиторий переименован `Gym-Tracker` → `gymbar`, сайт переехал на
   https://hasanovvug-gif.github.io/gymbar/ (`0766acd`)
+
+## Archived from main file 2026-07-25
+
+- 2026-07-24 — **Live Activity собрана и работает на iPhone.** Причина неработавшей кнопки «Готово»
+  найдена (Codex Sol диагностировал): App Intents metadata для `LiveActivityIntent` не генерировалась
+  в бандле `.app` — интент лежал только в статическом CocoaPod (Swift-символ есть, metadata нет), iOS
+  не мог смаршрутизировать тап в процесс приложения. **Фикс:** перенёс `CompleteSetIntent.swift` +
+  `GymbarActivityAttributes.swift` в `targets/live-activity/_shared/` — оттуда `@bacons/apple-targets`
+  кладёт файлы И в app-таргет, И в widget (подтверждено `membershipExceptions` target=Gymbar в
+  `Gymbar.xcodeproj`). Коммиты `e178efd`, `51e1790`, `389b928`
+
+- 2026-07-23 — **Приложение установлено на телефон Вугара через TestFlight.** Приглашение
+  ушло на `hasanov.vugar@icloud.com`, принято — Gymbar доступен и работает
+
+- 2026-07-23 — **Группа Internal Testers создана через API** (`betaGroups`,
+  `isInternalGroup:true`) — без этого сборки лежали в ASC, но на телефон в TestFlight
+  не приходили: у Gymbar не было ни одного тестировщика. Тестировщик (`hasanov.
+  vugar@icloud.com`, Account Holder) добавлен через `POST /v1/betaTesters` — прямая
+  привязка через `users` relationship даёт 409, нужен отдельный `betaTesters` объект
+  с email. Обе сборки (#1, #2) привязаны к группе
+
+- 2026-07-23 — **Обе сборки в TestFlight.** Build #1 (`a5cfef6b`) собран за 16 минут,
+  build #2 (`d4fac3e9`, фикс `en.common.done`) — обработка Apple заняла ~7 минут после
+  загрузки. Сборка идёт по `credentialsSource: local` — профиль и p12 в
+  `~/.appstoreconnect/private/gymbar/`. Проверить статус: `cd mobile && npx eas-cli
+  build:list --limit 2 --non-interactive`
+
+- 2026-07-23 — **Gymbar заведён в ASC** (app id `6793901080`) в обход сломанной формы:
+  выпадашка Bundle ID в New App была пуста, причину вытащил из внутреннего API —
+  старый bundle id числился занятым. Новый `com.gymbar.app` зарегистрирован через
+  ASC API, профиль подписи выпущен туда же, `ascAppId` в `eas.json` (`86c2a5d`)
+
+> Более ранние записи — `archive/gym-tracker-mobile-2026-07-23.md`
+
