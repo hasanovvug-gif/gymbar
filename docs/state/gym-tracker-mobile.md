@@ -2,43 +2,42 @@
 campaign: gym-tracker-mobile
 status: active
 started: 2026-07-22
-updated: 2026-07-24 12:00
+updated: 2026-07-24 17:00
 ---
 
 # Gym Tracker → Expo/React Native
 
 ## Где сейчас
 
-**Активная работа (24.07.2026): iOS Live Activity — карточка тренировки на экране блокировки.**
-Ветка `feat/live-activity`. Живая карточка + Dynamic Island: нативный отсчёт отдыха (тикает без
-JS), звук в конце отдыха, интерактивная кнопка «Готово» (App Intent — тап с locked screen засчитывает
-подход и запускает отдых). Собрано и **проверено на реальном iPhone Вугара** (15 Pro, iOS 26.6) через
-custom dev-build (`expo run:ios --device`). Реализовал Codex Sol по спеку `docs/specs/2026-07-24-live-activity-design.md`.
+**Активная работа (24.07.2026): новые фичи по спеке v2** — двухступенчатый звук отдыха, AI-ввод
+спортпита (фото → карточка + рацион + напоминания), iCloud-сохранность. Спека
+`docs/specs/2026-07-24-new-features-design.md` написана, **проревьюена Codex Sol** (поймал 2 фактические
+ошибки v1 — финал отдыха играет уведомление, не Live Activity; AsyncStorage по умолчанию исключён из
+iCloud-бэкапа — обе исправлены и проверены по коду), запушена. Решения Вугара: iCloud KV для конфига +
+экспорт/импорт истории файлом; AI извлекает инструкцию, не назначает дозу; AI-анализ — отдельной фазой.
+Готов бить на планы реализации по фазам (первая — звук).
 
-**Что уже работает на устройстве:** карточка, отсчёт, звук (при включённом звонке), кнопка «Готово»
-(запускает отдых). **Осталось на завтра (выбран вариант 1):** сделать кнопку после отдыха полностью
-time-aware — сейчас, когда отдых кончается, вернуть карточку в состояние «активный подход» (показать
-кнопку снова) может только приложение, а оно спит на locked screen. Надо: рендерить кнопку по времени
-(`restEndsAt` прошёл) + `staleDate = restEndsAt` для авто-ре-рендера + ослабить guard интента для
-состояния «отдых истёк». Плюс **убрать диагностический `os_log`** из `_shared/CompleteSetIntent.swift`.
-
-**App Store (фон):** build #2 был отправлен на ревью 23.07. Live Activity поедет в **новую сборку (build #3+)**,
-отдельно. Team ID `K6M569DX9E` вписан в `app.json`. App Group `group.com.gymbar.app` + Push включены в
-Apple Developer, provisioning-профили созданы (automatic signing).
+**Live Activity — готова и в TestFlight** (build #6, проверена на iPhone), поедет в 1.0.1.
+**App Store (фон):** 1.0 (build #2, без LA) — `WAITING_FOR_REVIEW`. Team ID `K6M569DX9E`, App Group
+`group.com.gymbar.app` + Push настроены.
 
 ## Next step
 
-1. [ ] **Дождаться одобрения 1.0** (build #2, без Live Activity, сейчас `WAITING_FOR_REVIEW`).
-2. [ ] После релиза 1.0 → создать версию **1.0.1**, прикрепить **build #6** (уже VALID в ASC, с Live
-   Activity), экспортный комплаенс → на ревью. Прикрепление build к версии можно сделать через
-   `asc.py` или в UI ASC.
+1. [ ] **Реализация новых фич по фазам** (спека v2). Первая — Фаза 1 (звук, быстрый выигрыш), затем
+   сохранность → Cloudflare Worker → AI-ввод добавок → (позже) AI-анализ.
+2. [ ] **(Фон) Дождаться одобрения 1.0** (build #2, `WAITING_FOR_REVIEW`); после релиза → версия **1.0.1**
+   с build #6 (Live Activity, уже VALID в ASC), экспортный комплаенс → на ревью (`asc.py` / UI ASC).
 
-> **Решение Вугара (24.07):** build #2 (без Live Activity) идёт как 1.0 — не трогаем текущее ревью,
-> релиз выйдет раньше. Live Activity (build #6) уедет отдельным апдейтом 1.0.1.
-> Live Activity влита в `main` (merge `95b79a7`), собрана, загружена в ASC (build #6, VALID) и
-> **проверена в TestFlight на iPhone Вугара** — time-aware кнопка работает.
+> **Решение Вугара (24.07):** build #2 (без Live Activity) идёт как 1.0 — не трогаем текущее ревью.
+> Live Activity (build #6) уедет апдейтом 1.0.1 (влита в `main` `95b79a7`, проверена в TestFlight).
 
 ## Done (recent first, max 10)
+
+- 2026-07-24 — **Спека новых фич v2 написана и проревьюена Codex Sol** (`e049d2d`). Брейншторм по 3 фичам
+  (звук, AI-добавки, iCloud) → спека → ревью Sol/high: поймал 2 фактические ошибки (финал отдыха =
+  уведомление, не LA; AsyncStorage исключён из бэкапа по умолчанию) — проверил по коду, исправил.
+  Решения: iCloud KV конфиг + экспорт/импорт истории; AI не назначает дозу; AI-анализ отложен.
+  `docs/specs/2026-07-24-new-features-design.md`
 
 - 2026-07-24 — **build #6 с Live Activity в TestFlight, проверен на iPhone.** Загружен в ASC (VALID,
   `READY_FOR_BETA_TESTING`), комплаенс автоочищен через `ITSAppUsesNonExemptEncryption:false` в
@@ -95,13 +94,15 @@ Apple Developer, provisioning-профили созданы (automatic signing).
   статус-бар 9:41 через `simctl status_bar override`). Заодно найден и починен
   `en.common.done` — на английском кнопка в итогах выводила «ГОТОВО» (`d7af326`)
 
-- 2026-07-23 — Репозиторий переименован `Gym-Tracker` → `gymbar`, сайт переехал на
-  https://hasanovvug-gif.github.io/gymbar/ (`0766acd`)
-
 > Более ранние записи — `archive/gym-tracker-mobile-2026-07-23.md`
 
 ## TODO (priority)
 
+- [ ] **Фаза 1 — двухступенчатый звук** (спека §1): единый планировщик 2 уведомлений + нативная ветка App Intent + foreground fallback
+- [ ] **Фаза 2 — сохранность** (§3): iCloud KV конфиг (native-модуль) + безопасный экспорт/импорт истории
+- [ ] **Фаза 3 — Cloudflare Worker** (§4): прокси + spend cap + лимиты
+- [ ] **Фаза 4 — AI-ввод добавок** (§2): image-picker, предпросмотр, контракт Gemini, агрегированные напоминания
+- [ ] **Фаза 5 (позже) — AI-анализ** (§3.3)
 - [ ] Дождаться сборки в TestFlight и поставить на телефон
 - [ ] Заполнить карточку в UI ASC: скриншоты, тексты, URL, App Privacy → отправка на ревью
 - [ ] Оценить вживую тембр бипа и частоту вибрации на реальном телефоне
@@ -131,6 +132,12 @@ Apple Developer, provisioning-профили созданы (automatic signing).
   глушит обычные уведомления даже с `interruptionLevel: timeSensitive`. Пробить mute может лишь Critical
   Alerts entitlement — Apple даёт его только health/safety/security, для фитнес-таймера почти наверняка
   откажет. Вугар осознанно выбрал «держать звонок включённым», Critical Alerts не запрашиваем.
+- 2026-07-24: **сохранность — AsyncStorage по умолчанию ИСКЛЮЧЁН из iCloud-бэкапа** (`RNCAsyncStorage.mm`,
+  дефолт `RCTAsyncStorageExcludeFromBackup=@YES`). «Не потерять само собой» не работает → строим явно:
+  iCloud Key-Value для конфига (native-модуль) + ручной экспорт/импорт истории в iCloud Drive. Плюс:
+  **финальный звук отдыха — локальное уведомление** (`utils/liveActivity.ts` `scheduleRestNotification`),
+  НЕ Live Activity → второй сигнал («скоро») делается тем же планировщиком. Обе ошибки поймал Codex Sol
+  при ревью спеки, проверены по коду.
 - 2026-07-24: **Live Activity обновляется локально, без push-сервера.** Приложение само стартует/обновляет/
   завершает activity через ActivityKit; отсчёт отдыха рисует система (`Text(timerInterval:)`), тикает без JS.
   Ограничение: код при истечении таймера НЕ исполняется, пока приложение спит — поэтому смена UI по времени
@@ -204,6 +211,8 @@ Apple Developer, provisioning-профили созданы (automatic signing).
 
 - **Дизайн (источник истины):** `design/claude-design-export/project/Gym Tracker.dc.html`
 - **Инструкция handoff-бандла:** `design/claude-design-export/README.md`
+- **Спека новых фич (v2):** `docs/specs/2026-07-24-new-features-design.md` (звук · AI-добавки · iCloud) + ревью Codex Sol
+- **Спека Live Activity:** `docs/specs/2026-07-24-live-activity-design.md`
 - **Инструкции агентам:** `AGENTS.md` (корень), `mobile/AGENTS.md` (пин на докИ Expo v54)
 - **Репозиторий:** https://github.com/hasanovvug-gif/gymbar
 - **App Store Connect:** app id `6793901080` · bundle `com.gymbar.app` · SKU `gymbar-001`
@@ -217,7 +226,7 @@ Apple Developer, provisioning-профили созданы (automatic signing).
 
 - Branch: **`main`**, дерево чистое, всё запушено. Ветка `feat/live-activity` слита и удалена.
 - Worktree: `~/Documents/Projects/Gym-Tracker`
-- Last commit: `91e0b1f` (state). Ключевое: merge LA `95b79a7`, time-aware кнопка `6f81653`
+- Last commit: `e049d2d` (спека новых фич v2). Ключевое: merge LA `95b79a7`, time-aware кнопка `6f81653`
 - Приложение: `mobile/`, bundle id `com.gymbar.app`, Team ID `K6M569DX9E`
 - **EAS App Store сборка (мульти-таргет):** `credentialsSource: local`, `credentials.json` ключуется
   ИМЕНЕМ таргета (`Gymbar`/`GymbarLiveActivity`). Профили + скрипт перевыпуска — в

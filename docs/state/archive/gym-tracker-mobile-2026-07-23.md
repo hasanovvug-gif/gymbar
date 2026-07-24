@@ -52,3 +52,8 @@
 - 2026-07-22 — Скаффолд Expo + дизайн-система (цвета, Oswald/Archivo) + 5-табная навигация
 
 - 2026-07-22 — Заведён `docs/state/`, кампания перенесена из чата в файл
+
+## Archived from main file 2026-07-24
+
+- 2026-07-23 — Репозиторий переименован `Gym-Tracker` → `gymbar`, сайт переехал на
+  https://hasanovvug-gif.github.io/gymbar/ (`0766acd`)
