@@ -44,19 +44,21 @@ function queueReconciliation() {
 function queueSynchronization(
   activeSession: ReturnType<typeof useGymStore.getState>['activeSession'],
   soundEnabled: boolean,
+  preSignalSeconds: number,
 ) {
   synchronization = synchronization
-    .then(() => syncWorkoutLiveActivity(activeSession, soundEnabled))
+    .then(() => syncWorkoutLiveActivity(activeSession, soundEnabled, preSignalSeconds))
     .catch(() => undefined);
 }
 
 export function useLiveActivity() {
   const activeSession = useGymStore((state) => state.activeSession);
   const soundEnabled = useGymStore((state) => state.settings.notifications.sound);
+  const preSignalSeconds = useGymStore((state) => state.settings.preSignalSeconds);
 
   useEffect(() => {
-    queueSynchronization(activeSession, soundEnabled);
-  }, [activeSession, soundEnabled]);
+    queueSynchronization(activeSession, soundEnabled, preSignalSeconds);
+  }, [activeSession, soundEnabled, preSignalSeconds]);
 
   useEffect(() => {
     if (Platform.OS !== 'ios') return;

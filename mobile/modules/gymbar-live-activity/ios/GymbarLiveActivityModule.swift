@@ -7,6 +7,7 @@ private let completeSetPendingKey = "gymbar.completeSetPending"
 private let completeSetNotification = "com.gymbar.app.completeSet"
 private let restNotificationIdKey = "gymbar.restNotificationId"
 private let soundEnabledKey = "gymbar.soundEnabled"
+private let preSignalSecondsKey = "gymbar.preSignalSeconds"
 
 struct GymbarActivityAttributes: ActivityAttributes {
   struct ContentState: Codable, Hashable {
@@ -125,6 +126,10 @@ public final class GymbarLiveActivityModule: Module {
 
     Function("setSharedSoundEnabled") { (isEnabled: Bool) in
       UserDefaults(suiteName: appGroupId)?.set(isEnabled, forKey: soundEnabledKey)
+    }
+
+    Function("setPreSignalSeconds") { (seconds: Int) in
+      UserDefaults(suiteName: appGroupId)?.set(seconds, forKey: preSignalSecondsKey)
     }
 
     Function("setRestNotificationIdentifier") { (identifier: String?) in

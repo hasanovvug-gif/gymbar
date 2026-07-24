@@ -7,21 +7,26 @@ import {
 } from '@/modules/gymbar-live-activity';
 import { ActiveWorkoutSession } from '@/types/workout';
 
-const NATIVE_REST_NOTIFICATION_ID = 'gymbar-rest-done';
-const REST_SOUND = 'rest-done.wav';
+const REST_SOON_NOTIFICATION_ID = 'gymbar-rest-soon';
+const REST_DONE_NOTIFICATION_ID = 'gymbar-rest-done';
+const REST_SOON_SOUND = 'rest-soon.wav';
+const REST_DONE_SOUND = 'rest-done.wav';
 
 let activitySessionId: string | null = null;
-let scheduledRestEndsAt: number | null = null;
-let scheduledNotificationId: string | null = null;
+let scheduledKey: string | null = null;
 
 if (Platform.OS === 'ios') {
   Notifications.setNotificationHandler({
-    handleNotification: async () => ({
-      shouldPlaySound: false,
-      shouldSetBadge: false,
-      shouldShowBanner: false,
-      shouldShowList: false,
-    }),
+    handleNotification: async (notification) => {
+      const kind = notification.request.content.data?.kind;
+      const isRestNotification = kind === 'rest_soon' || kind === 'rest_done';
+      return {
+        shouldPlaySound: !isRestNotification,
+        shouldSetBadge: false,
+        shouldShowBanner: !isRestNotification,
+        shouldShowList: !isRestNotification,
+      };
+    },
   });
 }
 
@@ -55,37 +60,54 @@ function createLiveActivityState(session: ActiveWorkoutSession): LiveActivitySta
 }
 
 async function cancelRestNotification() {
-  const identifiers = [scheduledNotificationId, NATIVE_REST_NOTIFICATION_ID].filter(
-    (identifier): identifier is string => Boolean(identifier),
-  );
-  await Promise.all(identifiers.map((identifier) =>
+  await Promise.all([REST_SOON_NOTIFICATION_ID, REST_DONE_NOTIFICATION_ID].map((identifier) =>
     Notifications.cancelScheduledNotificationAsync(identifier).catch(() => undefined),
   ));
-  scheduledNotificationId = null;
-  scheduledRestEndsAt = null;
+  scheduledKey = null;
   GymbarLiveActivity?.setRestNotificationIdentifier(null);
 }
 
-async function scheduleRestNotification(restEndsAt: number) {
-  if (scheduledRestEndsAt === restEndsAt) return;
+async function scheduleRestNotification(restEndsAt: number, preSignalSeconds: number) {
+  const nextScheduledKey = `${restEndsAt}:${preSignalSeconds}`;
+  if (scheduledKey === nextScheduledKey) return;
   await cancelRestNotification();
   if (restEndsAt <= Date.now()) return;
 
-  const identifier = await Notifications.scheduleNotificationAsync({
+  await Notifications.scheduleNotificationAsync({
+    identifier: REST_DONE_NOTIFICATION_ID,
     content: {
       title: 'Отдых окончен',
       body: 'Пора начинать следующий подход',
-      sound: REST_SOUND,
+      sound: REST_DONE_SOUND,
       interruptionLevel: 'timeSensitive',
+      data: { kind: 'rest_done' },
     },
     trigger: {
       type: Notifications.SchedulableTriggerInputTypes.DATE,
       date: restEndsAt,
     },
   });
-  scheduledNotificationId = identifier;
-  scheduledRestEndsAt = restEndsAt;
-  GymbarLiveActivity?.setRestNotificationIdentifier(identifier);
+
+  const restSoonAt = restEndsAt - preSignalSeconds * 1_000;
+  if (preSignalSeconds > 0 && restSoonAt > Date.now()) {
+    await Notifications.scheduleNotificationAsync({
+      identifier: REST_SOON_NOTIFICATION_ID,
+      content: {
+        title: 'Скоро подход',
+        body: 'Приготовься',
+        sound: REST_SOON_SOUND,
+        interruptionLevel: 'timeSensitive',
+        data: { kind: 'rest_soon' },
+      },
+      trigger: {
+        type: Notifications.SchedulableTriggerInputTypes.DATE,
+        date: restSoonAt,
+      },
+    });
+  }
+
+  scheduledKey = nextScheduledKey;
+  GymbarLiveActivity?.setRestNotificationIdentifier(REST_DONE_NOTIFICATION_ID);
 }
 
 export async function requestWorkoutNotificationPermission() {
@@ -102,9 +124,11 @@ export async function requestWorkoutNotificationPermission() {
 export async function syncWorkoutLiveActivity(
   session: ActiveWorkoutSession | null,
   soundEnabled: boolean,
+  preSignalSeconds: number,
 ) {
   if (Platform.OS !== 'ios') return;
   GymbarLiveActivity?.setSharedSoundEnabled(soundEnabled);
+  GymbarLiveActivity?.setPreSignalSeconds(preSignalSeconds);
 
   if (!session) {
     activitySessionId = null;
@@ -127,7 +151,7 @@ export async function syncWorkoutLiveActivity(
   }
 
   if (session.phase === 'rest' && session.restEndsAt && soundEnabled) {
-    await scheduleRestNotification(session.restEndsAt);
+    await scheduleRestNotification(session.restEndsAt, preSignalSeconds);
   } else {
     await cancelRestNotification();
   }

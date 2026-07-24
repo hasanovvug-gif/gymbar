@@ -25,6 +25,7 @@ declare class GymbarLiveActivityNativeModule extends NativeModule<LiveActivityEv
   endLiveActivity(): Promise<void>;
   consumeCompleteSetEvents(): Promise<number[]>;
   setSharedSoundEnabled(isEnabled: boolean): void;
+  setPreSignalSeconds(seconds: number): void;
   setRestNotificationIdentifier(identifier: string | null): void;
 }
 

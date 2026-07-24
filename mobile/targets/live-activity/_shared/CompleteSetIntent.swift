@@ -10,9 +10,11 @@ import UserNotifications
 private let appGroupId = "group.com.gymbar.app"
 private let completeSetEventsKey = "gymbar.completeSetEvents"
 private let completeSetNotification = "com.gymbar.app.completeSet"
-private let restNotificationId = "gymbar-rest-done"
+private let restSoonNotificationId = "gymbar-rest-soon"
+private let restDoneNotificationId = "gymbar-rest-done"
 private let restNotificationIdKey = "gymbar.restNotificationId"
 private let soundEnabledKey = "gymbar.soundEnabled"
+private let preSignalSecondsKey = "gymbar.preSignalSeconds"
 private let defaultRestSeconds: TimeInterval = 90
 
 @available(iOS 17.0, *)
@@ -115,7 +117,7 @@ struct CompleteSetIntent: LiveActivityIntent {
     let defaults = UserDefaults(suiteName: appGroupId)
     let previousId = defaults?.string(forKey: restNotificationIdKey)
     center.removePendingNotificationRequests(
-      withIdentifiers: [previousId, restNotificationId].compactMap { $0 }
+      withIdentifiers: [previousId, restSoonNotificationId, restDoneNotificationId].compactMap { $0 }
     )
     defaults?.removeObject(forKey: restNotificationIdKey)
 
@@ -125,22 +127,48 @@ struct CompleteSetIntent: LiveActivityIntent {
       let restEndsAt = state.restEndsAt
     else { return }
 
-    let content = UNMutableNotificationContent()
-    content.title = "Отдых окончен"
-    content.body = "Пора начинать следующий подход"
-    content.sound = UNNotificationSound(
+    let doneContent = UNMutableNotificationContent()
+    doneContent.title = "Отдых окончен"
+    doneContent.body = "Пора начинать следующий подход"
+    doneContent.sound = UNNotificationSound(
       named: UNNotificationSoundName(rawValue: "rest-done.wav")
     )
-    content.interruptionLevel = .timeSensitive
+    doneContent.interruptionLevel = .timeSensitive
+    doneContent.userInfo = ["kind": "rest_done"]
 
-    let interval = max(1, restEndsAt.timeIntervalSinceNow)
-    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: interval, repeats: false)
-    let request = UNNotificationRequest(
-      identifier: restNotificationId,
-      content: content,
-      trigger: trigger
+    let doneInterval = max(1, restEndsAt.timeIntervalSinceNow)
+    let doneTrigger = UNTimeIntervalNotificationTrigger(timeInterval: doneInterval, repeats: false)
+    let doneRequest = UNNotificationRequest(
+      identifier: restDoneNotificationId,
+      content: doneContent,
+      trigger: doneTrigger
     )
-    try await center.add(request)
-    defaults?.set(restNotificationId, forKey: restNotificationIdKey)
+    try await center.add(doneRequest)
+
+    let preSignalSeconds = defaults?.integer(forKey: preSignalSecondsKey) ?? 0
+    let soonInterval = restEndsAt.timeIntervalSinceNow - TimeInterval(preSignalSeconds)
+    if preSignalSeconds > 0, soonInterval > 0 {
+      let soonContent = UNMutableNotificationContent()
+      soonContent.title = "Скоро подход"
+      soonContent.body = "Приготовься"
+      soonContent.sound = UNNotificationSound(
+        named: UNNotificationSoundName(rawValue: "rest-soon.wav")
+      )
+      soonContent.interruptionLevel = .timeSensitive
+      soonContent.userInfo = ["kind": "rest_soon"]
+
+      let soonTrigger = UNTimeIntervalNotificationTrigger(
+        timeInterval: max(1, soonInterval),
+        repeats: false
+      )
+      let soonRequest = UNNotificationRequest(
+        identifier: restSoonNotificationId,
+        content: soonContent,
+        trigger: soonTrigger
+      )
+      try await center.add(soonRequest)
+    }
+
+    defaults?.set(restDoneNotificationId, forKey: restNotificationIdKey)
   }
 }

@@ -20,6 +20,7 @@ type Settings = {
   language: Language;
   theme: ThemeChoice;
   onboardingSeen: boolean;
+  preSignalSeconds: number;
   notifications: Record<NotificationKey, boolean>;
 };
 
@@ -59,6 +60,7 @@ type GymState = {
   removeSupplement: (supplementId: string) => void;
   setLanguage: (language: Language) => void;
   setTheme: (theme: ThemeChoice) => void;
+  setPreSignalSeconds: (seconds: number) => void;
   setOnboardingSeen: (seen: boolean) => void;
   toggleNotification: (key: NotificationKey) => void;
   resetAll: () => void;
@@ -95,6 +97,7 @@ const initialSettings: Settings = {
   language: 'RU',
   theme: 'dark',
   onboardingSeen: false,
+  preSignalSeconds: 15,
   notifications: { workout: true, supplements: true, sound: true },
 };
 
@@ -466,6 +469,10 @@ export const useGymStore = create<GymState>()((set, get) => ({
 
       setLanguage: (language) => set((state) => ({ settings: { ...state.settings, language } })),
       setTheme: (theme) => set((state) => ({ settings: { ...state.settings, theme } })),
+      setPreSignalSeconds: (seconds) => {
+        if (![0, 10, 15, 20].includes(seconds)) return;
+        set((state) => ({ settings: { ...state.settings, preSignalSeconds: seconds } }));
+      },
       setOnboardingSeen: (onboardingSeen) => set((state) => ({ settings: { ...state.settings, onboardingSeen } })),
       toggleNotification: (key) => set((state) => ({
         settings: {
@@ -568,6 +575,7 @@ void AsyncStorage.getItem(STORAGE_KEY)
       settings: {
         ...initialSettings,
         ...saved.settings,
+        preSignalSeconds: saved.settings?.preSignalSeconds ?? initialSettings.preSignalSeconds,
         notifications: { ...initialSettings.notifications, ...saved.settings?.notifications },
       },
       supplements: saved.supplements?.map((supplement) => ({ ...supplement, unitsPerDose: supplement.unitsPerDose ?? 1 })),

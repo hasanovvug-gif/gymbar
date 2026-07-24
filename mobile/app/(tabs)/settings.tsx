@@ -18,7 +18,7 @@ export default function SettingsScreen() {
   const { c, styles } = useThemedStyles();
   const historyCount = useGymStore((state) => state.history.length);
   const settings = useGymStore((state) => state.settings);
-  const { setLanguage, setTheme, setOnboardingSeen, toggleNotification, resetAll } = useGymStore();
+  const { setLanguage, setTheme, setPreSignalSeconds, setOnboardingSeen, toggleNotification, resetAll } = useGymStore();
   const { t, language } = useT();
 
   const confirmReset = () => {
@@ -77,7 +77,28 @@ export default function SettingsScreen() {
           subtitle={t('settings.restSoundHint')}
           value={settings.notifications.sound}
           onPress={() => toggleNotification('sound')}
+          border
         />
+        <View style={styles.settingRow}>
+          <View style={styles.flex}>
+            <Text style={styles.settingLabel}>{t('settings.preSignal')}</Text>
+            <Text style={styles.settingSubtitle}>
+              {settings.preSignalSeconds > 0
+                ? t('settings.preSignalHint', { seconds: settings.preSignalSeconds })
+                : t('settings.preSignalOff')}
+            </Text>
+          </View>
+          <View style={styles.choiceRow}>
+            {[0, 10, 15, 20].map((seconds) => (
+              <Choice
+                key={seconds}
+                label={seconds === 0 ? t('settings.preSignalOff') : `${seconds}${t('common.seconds')}`}
+                selected={settings.preSignalSeconds === seconds}
+                onPress={() => setPreSignalSeconds(seconds)}
+              />
+            ))}
+          </View>
+        </View>
       </Card>
 
       <Card style={styles.groupCard}>

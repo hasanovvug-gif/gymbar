@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Alert, Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 import Svg, { Circle } from 'react-native-svg';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -7,7 +7,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ReasonPickerModal } from '@/components/ReasonPickerModal';
 import { Card, Heading, OutlineButton, PrimaryButton, ProgressBar, Screen, Tappable } from '@/components/ui';
 import { fonts, Palette } from '@/constants/theme';
-import { haptics, playRestDone } from '@/hooks/useFeedback';
+import { haptics, playRestDone, playRestSoon } from '@/hooks/useFeedback';
 import { useLiveActivity } from '@/hooks/useLiveActivity';
 import { useNow } from '@/hooks/useNow';
 import { useTheme } from '@/hooks/useTheme';
@@ -35,7 +35,9 @@ export default function WorkoutSessionScreen() {
   const history = useGymStore((state) => state.history);
   const recentSessionId = useGymStore((state) => state.recentSessionId);
   const soundEnabled = useGymStore((state) => state.settings.notifications.sound);
+  const preSignalSeconds = useGymStore((state) => state.settings.preSignalSeconds);
   const actions = useGymStore();
+  const preSignalRestKey = useRef<number | null>(null);
   const [summaryId, setSummaryId] = useState<string | null>(active ? null : recentSessionId);
   const [resolutionAction, setResolutionAction] = useState<ResolutionAction>(null);
   const [resolutionReason, setResolutionReason] = useState<ReasonTag | undefined>();
@@ -43,6 +45,22 @@ export default function WorkoutSessionScreen() {
   const restRemaining = active?.phase === 'rest' && active.restEndsAt
     ? Math.max(0, Math.ceil((active.restEndsAt - now) / 1000))
     : 0;
+
+  useEffect(() => {
+    const restEndsAt = active?.phase === 'rest' ? active.restEndsAt : null;
+    if (
+      !restEndsAt
+      || !soundEnabled
+      || preSignalSeconds <= 0
+      || restRemaining <= 0
+      || restRemaining > preSignalSeconds
+      || preSignalRestKey.current === restEndsAt
+    ) return;
+
+    preSignalRestKey.current = restEndsAt;
+    haptics.light();
+    void playRestSoon();
+  }, [active?.phase, active?.restEndsAt, preSignalSeconds, restRemaining, soundEnabled]);
 
   useEffect(() => {
     if (!active || active.phase !== 'rest' || restRemaining > 0) return;

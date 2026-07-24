@@ -18,7 +18,14 @@ export const haptics = {
 };
 
 let restPlayer: AudioPlayer | null = null;
+let restSoonPlayer: AudioPlayer | null = null;
 let audioModeReady = false;
+
+async function prepareAudioMode() {
+  if (audioModeReady) return;
+  await setAudioModeAsync({ playsInSilentMode: true, interruptionMode: 'mixWithOthers' });
+  audioModeReady = true;
+}
 
 /**
  * Сигнал окончания отдыха. Воспроизводится и при выключенном звонке —
@@ -26,13 +33,22 @@ let audioModeReady = false;
  */
 export async function playRestDone() {
   try {
-    if (!audioModeReady) {
-      await setAudioModeAsync({ playsInSilentMode: true, interruptionMode: 'mixWithOthers' });
-      audioModeReady = true;
-    }
+    await prepareAudioMode();
     if (!restPlayer) restPlayer = createAudioPlayer(require('@/assets/sounds/rest-done.wav'));
     restPlayer.seekTo(0);
     restPlayer.play();
+  } catch {
+    // звук — не критичный путь: тактильный сигнал всё равно сработает
+  }
+}
+
+/** Мягкий предупредительный сигнал перед окончанием отдыха. */
+export async function playRestSoon() {
+  try {
+    await prepareAudioMode();
+    if (!restSoonPlayer) restSoonPlayer = createAudioPlayer(require('@/assets/sounds/rest-soon.wav'));
+    restSoonPlayer.seekTo(0);
+    restSoonPlayer.play();
   } catch {
     // звук — не критичный путь: тактильный сигнал всё равно сработает
   }

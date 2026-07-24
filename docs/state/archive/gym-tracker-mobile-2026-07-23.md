@@ -55,5 +55,9 @@
 
 ## Archived from main file 2026-07-24
 
+- 2026-07-23 — **Скриншоты 6.9″ сняты** (`docs/appstore/screenshots/`, 6 шт, 1320×2868,
+  статус-бар 9:41 через `simctl status_bar override`). Заодно найден и починен
+  `en.common.done` — на английском кнопка в итогах выводила «ГОТОВО» (`d7af326`)
+
 - 2026-07-23 — Репозиторий переименован `Gym-Tracker` → `gymbar`, сайт переехал на
   https://hasanovvug-gif.github.io/gymbar/ (`0766acd`)
