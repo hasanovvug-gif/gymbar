@@ -15,9 +15,8 @@ updated: 2026-07-25 01:30
 упаковку» в разделе Добавки → Расписание. Проверено на реальном ответе Gemini: карточка ON Gold Standard
 заполняется целиком, правки работают, сохранённая добавка переживает перезагрузку (валидатор Фазы 2
 дополнен и пропускает новые поля). `tsc`=0, lint чисто.
-**Хвосты 4a:** (1) ⚠️ `EXPO_PUBLIC_AI_PROXY_TOKEN` живёт в `mobile/.env`, а `.env` в `.gitignore` → **в EAS-сборку
-он не поедет**, в билде будет «Распознавание не настроено»; перед сборкой завести EAS env var (см. Next step).
-(2) Нативные `expo-image-picker` + `expo-image-manipulator` → нужен новый билд, OTA не приедет.
+**Хвосты 4a:** (1) ✅ токен заведён в EAS (`EXPO_PUBLIC_AI_PROXY_TOKEN`, production, sensitive; хеш сверен
+с `mobile/.env`) — сборка скан подхватит. (2) Нативные `expo-image-picker` + `expo-image-manipulator` → нужен новый билд, OTA не приедет.
 (3) **Фаза 4b (напоминания)** — агрегированные уведомления по времени, декларативное расписание,
 pre-permission экран, ветвление foreground-handler по `data.kind` (спека §2.4/§2.6) — НЕ начата.
 
@@ -79,8 +78,8 @@ JS через expo-audio (как уже работал финал), locked/backg
    план вернулись сами, строка статуса «iCloud: синхронизировано».
 2. [ ] **Spend cap на Gemini — за Вугаром** (последний хвост Фазы 3): Google billing + AI Gateway,
    рецепт в `worker/README.md`. Воркер сам готов и проверен боевым сканом.
-3. [ ] **Токен в EAS перед следующей сборкой** (иначе скан в билде мёртв):
-   `cd mobile && npx eas-cli env:create --name EXPO_PUBLIC_AI_PROXY_TOKEN --value <из mobile/.env> --environment production --visibility sensitive`
+3. [x] **Токен заведён в EAS** (25.07, Вугар): `EXPO_PUBLIC_AI_PROXY_TOKEN`, environment `production`,
+   visibility sensitive. Сверено по хешу — значение совпадает с `mobile/.env`. Сборка скан подхватит.
 4. [ ] **Фаза 4b — напоминания** (§2.4/§2.6): агрегированные уведомления на уникальное время («08:00 — D3 2000 МЕ,
    Омега-3 2 капс»), декларативное расписание + сверка с `getAllScheduledNotificationsAsync`, бюджет 64,
    pre-permission экран, ветвление foreground-handler по `data.kind` (сейчас он глушит ЛЮБОЕ уведомление).
