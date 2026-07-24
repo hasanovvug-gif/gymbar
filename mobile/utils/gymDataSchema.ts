@@ -1,11 +1,17 @@
 import { CompositionItem, Supplement, SupplementForm, SupplementLog, SupplementSlot, SUPPLEMENT_FORMS } from '@/types/supplement';
 import { Exercise, ExerciseLog, PauseRecord, WorkoutDay, WorkoutSession } from '@/types/workout';
 
+// Время приёма живёт глобально на слот, а не у каждой добавки: pre_workout привязан к старту
+// тренировки, поэтому часов не имеет.
+export type ReminderSlot = 'morning' | 'evening';
+
 export type Settings = {
   language: 'RU' | 'UA' | 'EN';
   theme: 'light' | 'dark';
   onboardingSeen: boolean;
+  notificationsPrimerSeen: boolean;
   preSignalSeconds: number;
+  slotTimes: Record<ReminderSlot, string>;
   notifications: Record<'workout' | 'supplements' | 'sound', boolean>;
 };
 
@@ -21,7 +27,9 @@ export const initialSettings: Settings = {
   language: 'RU',
   theme: 'dark',
   onboardingSeen: false,
+  notificationsPrimerSeen: false,
   preSignalSeconds: 15,
+  slotTimes: { morning: '08:00', evening: '21:00' },
   notifications: { workout: true, supplements: true, sound: true },
 };
 
@@ -37,6 +45,9 @@ const isNumber = (value: unknown): value is number => typeof value === 'number' 
 const isBoolean = (value: unknown): value is boolean => typeof value === 'boolean';
 const optionalString = (value: unknown) => value === undefined || isString(value);
 const optionalNumber = (value: unknown) => value === undefined || isNumber(value);
+
+const TIME_PATTERN = /^([01]\d|2[0-3]):([0-5]\d)$/;
+export const isSlotTime = (value: unknown): value is string => isString(value) && TIME_PATTERN.test(value);
 
 function isExercise(value: unknown): value is Exercise {
   if (!isRecord(value)) return false;
@@ -103,10 +114,15 @@ function isSupplementLog(value: unknown): value is SupplementLog {
 function isSettings(value: unknown): value is Partial<Settings> {
   if (!isRecord(value)) return false;
   const notifications = value.notifications;
+  const slotTimes = value.slotTimes;
   return (value.language === undefined || value.language === 'RU' || value.language === 'UA' || value.language === 'EN')
     && (value.theme === undefined || value.theme === 'light' || value.theme === 'dark')
     && (value.onboardingSeen === undefined || isBoolean(value.onboardingSeen))
+    && (value.notificationsPrimerSeen === undefined || isBoolean(value.notificationsPrimerSeen))
     && (value.preSignalSeconds === undefined || isNumber(value.preSignalSeconds))
+    && (slotTimes === undefined || (isRecord(slotTimes)
+      && (slotTimes.morning === undefined || isString(slotTimes.morning))
+      && (slotTimes.evening === undefined || isString(slotTimes.evening))))
     && (notifications === undefined || (isRecord(notifications)
       && (notifications.workout === undefined || isBoolean(notifications.workout))
       && (notifications.supplements === undefined || isBoolean(notifications.supplements))
@@ -115,12 +131,17 @@ function isSettings(value: unknown): value is Partial<Settings> {
 
 export function normalizeSettings(settings: Partial<Settings> | undefined): Settings {
   const preSignalSeconds = settings?.preSignalSeconds;
+  const slotTimes = settings?.slotTimes;
   return {
     ...initialSettings,
     ...settings,
     preSignalSeconds: preSignalSeconds !== undefined && [0, 10, 15, 20].includes(preSignalSeconds)
       ? preSignalSeconds
       : initialSettings.preSignalSeconds,
+    slotTimes: {
+      morning: isSlotTime(slotTimes?.morning) ? slotTimes.morning : initialSettings.slotTimes.morning,
+      evening: isSlotTime(slotTimes?.evening) ? slotTimes.evening : initialSettings.slotTimes.evening,
+    },
     notifications: { ...initialSettings.notifications, ...settings?.notifications },
   };
 }

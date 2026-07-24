@@ -11,7 +11,7 @@ import {
   WorkoutDay,
   WorkoutSession,
 } from '@/types/workout';
-import { initialSettings, normalizeGymData, Settings } from '@/utils/gymDataSchema';
+import { initialSettings, isSlotTime, normalizeGymData, ReminderSlot, Settings } from '@/utils/gymDataSchema';
 
 type NotificationKey = 'workout' | 'supplements' | 'sound';
 type Language = Settings['language'];
@@ -55,7 +55,9 @@ type GymState = {
   setLanguage: (language: Language) => void;
   setTheme: (theme: ThemeChoice) => void;
   setPreSignalSeconds: (seconds: number) => void;
+  setSlotTime: (slot: ReminderSlot, time: string) => void;
   setOnboardingSeen: (seen: boolean) => void;
+  setNotificationsPrimerSeen: (seen: boolean) => void;
   toggleNotification: (key: NotificationKey) => void;
   resetAll: () => void;
 };
@@ -464,7 +466,14 @@ export const useGymStore = create<GymState>()((set, get) => ({
         if (![0, 10, 15, 20].includes(seconds)) return;
         set((state) => ({ settings: { ...state.settings, preSignalSeconds: seconds } }));
       },
+      setSlotTime: (slot, time) => {
+        if (!isSlotTime(time)) return;
+        set((state) => ({ settings: { ...state.settings, slotTimes: { ...state.settings.slotTimes, [slot]: time } } }));
+      },
       setOnboardingSeen: (onboardingSeen) => set((state) => ({ settings: { ...state.settings, onboardingSeen } })),
+      setNotificationsPrimerSeen: (notificationsPrimerSeen) => set((state) => ({
+        settings: { ...state.settings, notificationsPrimerSeen },
+      })),
       toggleNotification: (key) => set((state) => ({
         settings: {
           ...state.settings,

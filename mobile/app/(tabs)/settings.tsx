@@ -1,13 +1,17 @@
+import { router } from 'expo-router';
 import { useMemo } from 'react';
 import { Alert, Platform, StyleSheet, Text, View } from 'react-native';
 
 import { Card, Heading, Screen, Tappable, Toggle } from '@/components/ui';
 import { fonts, Palette } from '@/constants/theme';
+import { useNotificationsGranted, useScheduledSupplementCount } from '@/hooks/useSupplementNotifications';
 import { useTheme } from '@/hooks/useTheme';
 import { useGymStore } from '@/store/useGymStore';
 import { exportGymData } from '@/utils/exportData';
+import { ReminderSlot } from '@/utils/gymDataSchema';
 import { importGymData } from '@/utils/importData';
 import { useICloudStatus } from '@/utils/icloudConfig';
+import { shiftSlotTime } from '@/utils/supplementNotifications';
 import { useT } from '@/i18n';
 
 function useThemedStyles() {
@@ -20,8 +24,10 @@ export default function SettingsScreen() {
   const { c, styles } = useThemedStyles();
   const historyCount = useGymStore((state) => state.history.length);
   const settings = useGymStore((state) => state.settings);
-  const { setLanguage, setTheme, setPreSignalSeconds, setOnboardingSeen, toggleNotification, resetAll } = useGymStore();
+  const { setLanguage, setTheme, setPreSignalSeconds, setSlotTime, setOnboardingSeen, toggleNotification, resetAll } = useGymStore();
   const { t, language } = useT();
+  const scheduledCount = useScheduledSupplementCount();
+  const notificationsGranted = useNotificationsGranted();
   const iCloud = useICloudStatus();
   const iCloudLabel = !iCloud.available
     ? t('settings.icloudUnavailable')
@@ -82,6 +88,22 @@ export default function SettingsScreen() {
           onPress={() => toggleNotification('supplements')}
           border
         />
+        {settings.notifications.supplements ? (
+          <>
+            <SlotTimeRow slot="morning" label={t('supplements.morning')} time={settings.slotTimes.morning} onChange={setSlotTime} />
+            <SlotTimeRow slot="evening" label={t('supplements.evening')} time={settings.slotTimes.evening} onChange={setSlotTime} />
+            <Tappable
+              onPress={() => { if (!notificationsGranted) router.push('/notification-primer'); }}
+              style={[styles.reminderStatus, styles.rowBorder]}
+            >
+              <Text style={notificationsGranted ? styles.reminderText : styles.reminderWarning}>
+                {notificationsGranted
+                  ? t('settings.remindersActive', { count: scheduledCount })
+                  : t('settings.remindersBlocked')}
+              </Text>
+            </Tappable>
+          </>
+        ) : null}
         <SettingToggle
           title={t('settings.restSound')}
           subtitle={t('settings.restSoundHint')}
@@ -141,6 +163,27 @@ function Choice({ label, selected, onPress }: { label: string; selected: boolean
   );
 }
 
+function SlotTimeRow({ slot, label, time, onChange }: {
+  slot: ReminderSlot;
+  label: string;
+  time: string;
+  onChange: (slot: ReminderSlot, time: string) => void;
+}) {
+  const { styles } = useThemedStyles();
+  return (
+    <View style={[styles.settingRow, styles.rowBorder]}>
+      <Text style={styles.settingLabel}>{label}</Text>
+      <View style={styles.timeRow}>
+        <Tappable haptic="select" accessibilityLabel={`${label} −1 ч`} onPress={() => onChange(slot, shiftSlotTime(time, -60))} style={styles.timeStep}><Text style={styles.timeStepText}>−ч</Text></Tappable>
+        <Tappable haptic="select" accessibilityLabel={`${label} −5 мин`} onPress={() => onChange(slot, shiftSlotTime(time, -5))} style={styles.timeStep}><Text style={styles.timeStepText}>−5</Text></Tappable>
+        <Text style={styles.timeValue}>{time}</Text>
+        <Tappable haptic="select" accessibilityLabel={`${label} +5 мин`} onPress={() => onChange(slot, shiftSlotTime(time, 5))} style={styles.timeStep}><Text style={styles.timeStepText}>+5</Text></Tappable>
+        <Tappable haptic="select" accessibilityLabel={`${label} +1 ч`} onPress={() => onChange(slot, shiftSlotTime(time, 60))} style={styles.timeStep}><Text style={styles.timeStepText}>+ч</Text></Tappable>
+      </View>
+    </View>
+  );
+}
+
 function SettingToggle({ title, subtitle, value, onPress, border = false }: { title: string; subtitle: string; value: boolean; onPress: () => void; border?: boolean }) {
   const { styles } = useThemedStyles();
   return (
@@ -168,6 +211,13 @@ const createStyles = (c: Palette) => StyleSheet.create({
   choiceText: { color: c.textSecondary, fontFamily: fonts.bodySemiBold, fontSize: 11 },
   choiceTextSelected: { color: c.accentText, fontFamily: fonts.bodyExtraBold },
   toggleRow: { minHeight: 68, flexDirection: 'row', alignItems: 'center', gap: 10 },
+  timeRow: { flexDirection: 'row', alignItems: 'center', gap: 5 },
+  timeStep: { minWidth: 38, minHeight: 38, borderWidth: 1, borderColor: c.borderDashed, borderRadius: 10, alignItems: 'center', justifyContent: 'center' },
+  timeStepText: { color: c.textSecondary, fontFamily: fonts.bodySemiBold, fontSize: 12 },
+  timeValue: { minWidth: 56, textAlign: 'center', color: c.textPrimary, fontFamily: fonts.heading, fontSize: 18 },
+  reminderStatus: { minHeight: 42, justifyContent: 'center' },
+  reminderText: { color: c.textMuted, fontFamily: fonts.body, fontSize: 11 },
+  reminderWarning: { color: c.warning, fontFamily: fonts.bodySemiBold, fontSize: 11 },
   settingSubtitle: { color: c.textSecondary, fontFamily: fonts.body, fontSize: 11, marginTop: 3 },
   actionRow: { minHeight: 58, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   actionText: { color: c.textPrimary, fontFamily: fonts.bodySemiBold, fontSize: 14 },

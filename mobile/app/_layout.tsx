@@ -8,23 +8,28 @@ import {
 } from '@expo-google-fonts/manrope';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import * as SplashScreen from 'expo-splash-screen';
-import { Stack } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 import 'react-native-reanimated';
 
 import { Palette } from '@/constants/theme';
+import { useSupplementNotifications } from '@/hooks/useSupplementNotifications';
 import { useTheme } from '@/hooks/useTheme';
 import { useGymStore } from '@/store/useGymStore';
 import { initializeICloudConfig } from '@/utils/icloudConfig';
+import { getNotificationStatus, notificationsSupported } from '@/utils/supplementNotifications';
 
 void SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const theme = useGymStore((state) => state.settings.theme);
   const onboardingSeen = useGymStore((state) => state.settings.onboardingSeen);
+  const primerSeen = useGymStore((state) => state.settings.notificationsPrimerSeen);
+  const setNotificationsPrimerSeen = useGymStore((state) => state.setNotificationsPrimerSeen);
   const hasHydrated = useGymStore((state) => state.hasHydrated);
+  useSupplementNotifications();
   const c = useTheme();
   const styles = useMemo(() => createStyles(c), [c]);
   const navigationTheme = useMemo(() => {
@@ -63,6 +68,18 @@ export default function RootLayout() {
     if (hasHydrated) initializeICloudConfig();
   }, [hasHydrated]);
 
+  // Объяснение до системного запроса — один раз и только пока запрос ещё возможен.
+  useEffect(() => {
+    if (!isReady || !onboardingSeen || primerSeen || !notificationsSupported) return;
+    let cancelled = false;
+    void getNotificationStatus().then((status) => {
+      if (cancelled) return;
+      if (status.granted || !status.canAskAgain) setNotificationsPrimerSeen(true);
+      else router.push('/notification-primer');
+    }).catch(() => undefined);
+    return () => { cancelled = true; };
+  }, [isReady, onboardingSeen, primerSeen, setNotificationsPrimerSeen]);
+
   if (!isReady) {
     return null;
   }
@@ -75,6 +92,7 @@ export default function RootLayout() {
           <Stack.Screen name="plan-editor" options={{ animation: 'slide_from_right' }} />
           <Stack.Screen name="workout-session" options={{ animation: 'slide_from_bottom', gestureEnabled: false }} />
           <Stack.Screen name="supplement-scan" options={{ animation: 'slide_from_right' }} />
+          <Stack.Screen name="notification-primer" options={{ animation: 'slide_from_bottom' }} />
         </Stack.Protected>
         <Stack.Protected guard={!onboardingSeen}>
           <Stack.Screen name="onboarding" options={{ animation: 'fade', gestureEnabled: false }} />
