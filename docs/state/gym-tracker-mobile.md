@@ -9,7 +9,7 @@ updated: 2026-07-24 18:20
 
 ## Где сейчас
 
-**Фаза 1 (двухступенчатый звук) РЕАЛИЗОВАНА Codex Sol и проверена — в рабочем дереве `main`, НЕ закоммичено.**
+**Фаза 1 (двухступенчатый звук) РЕАЛИЗОВАНА Codex Sol, проверена и запушена (`e4b776b`) — ждёт device-теста.**
 17 файлов: скрипт-генератор `rest-done.wav` (громче) + новый `rest-soon.wav`, настройка `preSignalSeconds`
 (дефолт 15, сегменты Выкл/10/15/20), JS-планировщик двух уведомлений (`kind: rest_soon|rest_done`),
 foreground-антиэхо в `setNotificationHandler`, нативный App Intent планирует ОБА сигнала на locked,
@@ -48,7 +48,7 @@ JS через expo-audio (как уже работал финал), locked/backg
   17 файлов. Верификация (delegated-verification): `tsc`=0 сам, WAV оба валидны, spot-read планировщика
   (`utils/liveActivity.ts`), Swift App Intent (оба сигнала, App-Group ключ `gymbar.preSignalSeconds` согласован),
   once-guard в `workout-session.tsx`, миграция стора; web-UI сегмента снят — переключение живое. Убрал
-  Codex-артефакт `mobile/output/`. **Не закоммичено, ждёт device-теста.**
+  Codex-артефакт `mobile/output/`. **Запушено `e4b776b` в main (lint чистый), ждёт device-теста.**
 
 - 2026-07-24 — **Спека новых фич v2 написана и проревьюена Codex Sol** (`e049d2d`). Брейншторм по 3 фичам
   (звук, AI-добавки, iCloud) → спека → ревью Sol/high: поймал 2 фактические ошибки (финал отдыха =
@@ -239,7 +239,8 @@ JS через expo-audio (как уже работал финал), locked/backg
 
 - Branch: **`main`**, дерево чистое, всё запушено. Ветка `feat/live-activity` слита и удалена.
 - Worktree: `~/Documents/Projects/Gym-Tracker`
-- Last commit: `e049d2d` (спека новых фич v2). Ключевое: merge LA `95b79a7`, time-aware кнопка `6f81653`
+- Last commit: `e4b776b` (Фаза 1 — двухступенчатый звук). Бриф Codex: `/tmp/codex-gym-phase1-sound.md`.
+  Ключевое ранее: спека v2 `e049d2d`, merge LA `95b79a7`, time-aware кнопка `6f81653`
 - Приложение: `mobile/`, bundle id `com.gymbar.app`, Team ID `K6M569DX9E`
 - **EAS App Store сборка (мульти-таргет):** `credentialsSource: local`, `credentials.json` ключуется
   ИМЕНЕМ таргета (`Gymbar`/`GymbarLiveActivity`). Профили + скрипт перевыпуска — в
