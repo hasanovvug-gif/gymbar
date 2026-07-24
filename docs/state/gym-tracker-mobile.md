@@ -28,14 +28,21 @@ Apple Developer, provisioning-профили созданы (automatic signing).
 
 ## Next step
 
-1. [ ] **Build #3 (EAS)** — Live Activity в новой сборке: `cd mobile && npx eas-cli build --platform ios --non-interactive`
-   (профиль/p12 в `~/.appstoreconnect/private/gymbar/`, `credentialsSource: local`). Затем submit в ASC.
-2. [ ] Обновить карточку в ASC при необходимости (Live Activity — новая фича, скриншоты не обязательны).
+1. [ ] **Submit build с Live Activity в App Store** (идёт): `npx eas-cli submit --platform ios --latest --non-interactive`.
+2. [ ] В ASC привязать сборку к версии, App Privacy / экспортный комплаенс → отправить на ревью.
 
-> Live Activity полностью готова и **влита в `main`** (merge `95b79a7`). Time-aware кнопка
-> проверена на iPhone: засчитывает подходы через несколько отдыхов без разблокировки экрана.
+> Live Activity влита в `main` (merge `95b79a7`) и **собрана в EAS** (build с виджетом, ~build #5 —
+> первые 3 попытки упали на credentials, см. Done). Time-aware кнопка проверена на iPhone.
 
 ## Done (recent first, max 10)
+
+- 2026-07-24 — **EAS build с Live Activity собран.** Виджет — отдельный app extension
+  (`com.gymbar.app.liveactivity`), для App Store сборки нужны СВОИ креды. Три падения подряд, все
+  починены через ASC API (скрипт `~/.appstoreconnect/private/gymbar/asc.py`): (1) виджету не было
+  профиля → выпустил App Store профиль на тот же dist-сертификат; (2) `credentials.json` мульти-таргет
+  ключуется **именем таргета** (`Gymbar` / `GymbarLiveActivity`), НЕ bundle id; (3) профиль основного
+  таргета был INVALID — выпущен до включения App Groups+Push, перевыпустил (подхватил
+  `aps-environment`+`group.com.gymbar.app`). Оба профиля в `~/.appstoreconnect/private/gymbar/`
 
 - 2026-07-24 — **Time-aware кнопка готова и влита в `main`** (merge `95b79a7`, feat-коммит
   `6f81653`). Кнопка «Готово» снова появляется сама, когда отдых истёк, пока приложение спит
@@ -115,6 +122,16 @@ Apple Developer, provisioning-профили созданы (automatic signing).
 
 ## Decisions (non-obvious, durable)
 
+- 2026-07-24: **EAS local-креды для мульти-таргет приложения (app + widget extension).**
+  (1) `mobile/credentials.json` ключуется **именем Xcode-таргета** (`Gymbar`, `GymbarLiveActivity`),
+  НЕ bundle id — при ключах-bundleid EAS ругается «credentials for targets not defined». (2) Каждый
+  таргет = свой App Store provisioning-профиль на общий dist-сертификат; виджет (`com.gymbar.app.liveactivity`)
+  нужен отдельно. (3) После включения новых capabilities (App Groups, Push) старые профили становятся
+  **INVALID** — их надо ПЕРЕВЫПУСТИТЬ (профиль нельзя редактировать, только delete+create), иначе
+  fastlane падает «profile doesn't support App Groups / aps-environment». Всё автоматизировано в
+  `~/.appstoreconnect/private/gymbar/asc.py` (ASC API, JWT через `AuthKey_XC65QPNJJK.p8`):
+  `python3 asc.py create` (виджет) / `create-main` (app) / `caps2` (проверить capabilities App ID).
+  ⚠️ `filter[identifier]` в ASC API нестрогий (префиксный) — фильтровать точное совпадение в коде.
 - 2026-07-24: **`LiveActivityIntent` ОБЯЗАН быть в бандле приложения**, не только в расширении.
   iOS исполняет `perform()` в процессе приложения (запускает его в фоне без UI). Положить интент в
   статический CocoaPod НЕДОСТАТОЧНО — Swift-символ линкуется, но `Metadata.appintents` для app-таргета
