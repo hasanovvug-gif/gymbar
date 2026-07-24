@@ -5,14 +5,10 @@
 import ActivityKit
 import AppIntents
 import Foundation
-import OSLog
 import UserNotifications
-
-private let intentLog = Logger(subsystem: "com.gymbar.app.liveactivity", category: "intent")
 
 private let appGroupId = "group.com.gymbar.app"
 private let completeSetEventsKey = "gymbar.completeSetEvents"
-private let completeSetPendingKey = "gymbar.completeSetPending"
 private let completeSetNotification = "com.gymbar.app.completeSet"
 private let restNotificationId = "gymbar-rest-done"
 private let restNotificationIdKey = "gymbar.restNotificationId"
@@ -27,37 +23,39 @@ struct CompleteSetIntent: LiveActivityIntent {
   static let openAppWhenRun = false
 
   func perform() async throws -> some IntentResult {
-    intentLog.log("GYMBAR perform() START pid=\(ProcessInfo.processInfo.processIdentifier) proc=\(ProcessInfo.processInfo.processName)")
-    let all = Activity<GymbarActivityAttributes>.activities
-    intentLog.log("GYMBAR activities.count=\(all.count)")
-    guard let activity = all.first else {
-      intentLog.error("GYMBAR EXIT: no activity in this process")
+    guard let activity = Activity<GymbarActivityAttributes>.activities.first else {
       return .result()
     }
 
+    // Кнопка «Готово» видна и в активном подходе (canCompleteSet), и когда отдых уже истёк
+    // (phase=="rest", restEndsAt<=now). На locked screen приложение спит и не может вернуть
+    // карточку в активное состояние, поэтому тап по истёкшему отдыху обязан приниматься здесь.
     let current = activity.content.state
-    intentLog.log("GYMBAR state phase=\(current.phase) canComplete=\(current.canCompleteSet) set=\(current.setCurrent)/\(current.setTotal)")
-    guard current.canCompleteSet, current.phase != "paused" else {
-      intentLog.error("GYMBAR EXIT: guard canCompleteSet/paused failed")
+    guard current.phase != "paused", canAdvance(current) else {
       return .result()
     }
     guard let defaults = UserDefaults(suiteName: appGroupId) else {
-      intentLog.error("GYMBAR EXIT: App Group UserDefaults nil")
       return .result()
     }
-    guard defaults.bool(forKey: completeSetPendingKey) == false else {
-      intentLog.error("GYMBAR EXIT: pending flag stuck true")
-      return .result()
-    }
-    defaults.set(true, forKey: completeSetPendingKey)
 
     let next = nextState(from: current)
-    await activity.update(ActivityContent(state: next, staleDate: nil))
-    intentLog.log("GYMBAR activity.update done -> phase=\(next.phase)")
+    // staleDate = момент конца отдыха → система сама ре-рендерит карточку и показывает кнопку,
+    // когда отдых истечёт (приложение в этот момент спит и апдейт прислать не может).
+    let staleDate = next.phase == "rest" ? next.restEndsAt : nil
+    await activity.update(ActivityContent(state: next, staleDate: staleDate))
     enqueueCompleteSet(defaults: defaults)
     try await syncRestNotification(for: next)
-    intentLog.log("GYMBAR perform() DONE")
     return .result()
+  }
+
+  // Новый подход можно засчитать, если идёт активный подход, либо если отдых уже истёк.
+  // После валидного тапа next-состояние получает restEndsAt в будущем → повторные тапы
+  // отсекаются естественно (кнопка снова прячется до конца нового отдыха) — отдельный
+  // pending-флаг для дебаунса не нужен.
+  private func canAdvance(_ state: GymbarActivityAttributes.ContentState) -> Bool {
+    if state.canCompleteSet { return true }
+    if state.phase == "rest", let end = state.restEndsAt { return end <= Date() }
+    return false
   }
 
   private func nextState(

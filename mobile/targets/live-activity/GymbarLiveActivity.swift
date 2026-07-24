@@ -162,9 +162,18 @@ private struct RestProgress: View {
 private struct CompleteSetButton: View {
   let state: GymbarActivityAttributes.ContentState
 
+  // Кнопка видна в активном подходе и когда отдых уже истёк. Date.now вычисляется в момент
+  // рендера виджета; система ре-рендерит по staleDate (= restEndsAt), поэтому кнопка сама
+  // появляется в конце отдыха, пока приложение спит на locked screen.
+  private var canComplete: Bool {
+    if state.canCompleteSet { return true }
+    if state.phase == "rest", let end = state.restEndsAt { return end <= Date.now }
+    return false
+  }
+
   @ViewBuilder
   var body: some View {
-    if state.canCompleteSet {
+    if canComplete {
       if #available(iOSApplicationExtension 17.0, *) {
         Button(intent: CompleteSetIntent()) {
           Text("Готово")

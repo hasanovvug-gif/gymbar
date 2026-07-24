@@ -57,7 +57,11 @@ private func contentState(from record: GymbarLiveActivityStateRecord) -> GymbarA
 }
 
 private func activityContent(from record: GymbarLiveActivityStateRecord) -> ActivityContent<GymbarActivityAttributes.ContentState> {
-  ActivityContent(state: contentState(from: record), staleDate: nil)
+  let state = contentState(from: record)
+  // staleDate = конец отдыха: система ре-рендерит карточку в этот момент, и виджет
+  // сам покажет кнопку «Готово» по времени, пока приложение спит на locked screen.
+  let staleDate = state.phase == "rest" ? state.restEndsAt : nil
+  return ActivityContent(state: state, staleDate: staleDate)
 }
 
 private func completeSetDarwinCallback(
