@@ -8,6 +8,7 @@ import { ReasonPickerModal } from '@/components/ReasonPickerModal';
 import { Card, Heading, OutlineButton, PrimaryButton, ProgressBar, Screen, Tappable } from '@/components/ui';
 import { fonts, Palette } from '@/constants/theme';
 import { haptics, playRestDone } from '@/hooks/useFeedback';
+import { useLiveActivity } from '@/hooks/useLiveActivity';
 import { useNow } from '@/hooks/useNow';
 import { useTheme } from '@/hooks/useTheme';
 import { translateReason, useT } from '@/i18n';
@@ -25,6 +26,7 @@ function useThemedStyles() {
 }
 
 export default function WorkoutSessionScreen() {
+  useLiveActivity();
   const { styles } = useThemedStyles();
   const router = useRouter();
   const now = useNow();

@@ -11,8 +11,15 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.gymbar.app",
+      "appleTeamId": "K6M569DX9E",
+      "entitlements": {
+        "com.apple.security.application-groups": [
+          "group.com.gymbar.app"
+        ]
+      },
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSSupportsLiveActivities": true
       }
     },
     "android": {
@@ -44,7 +51,24 @@
         }
       ],
       "expo-asset",
-      "expo-audio"
+      "expo-audio",
+      "@bacons/apple-targets",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "deploymentTarget": "16.2"
+          }
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "sounds": [
+            "./assets/sounds/rest-done.wav"
+          ]
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

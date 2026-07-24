@@ -48,3 +48,19 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+## iOS Live Activity
+
+Live Activity работает только в custom development build на реальном iPhone с iOS 16.2+.
+После изменений native-конфигурации пересоберите iOS-проект:
+
+```bash
+npx expo prebuild -p ios --clean
+npx expo run:ios --device
+```
+
+В Apple Developer и Signing & Capabilities для приложения и `GymbarLiveActivity`
+должна быть включена App Group `group.com.gymbar.app`. Для звука окончания отдыха
+разрешите уведомления на устройстве. Перед сборкой укажите числовой Apple Team ID
+в `expo.ios.appleTeamId`; `owner: "vugarapple"` его не заменяет. Expo Go эту фичу
+не поддерживает.
