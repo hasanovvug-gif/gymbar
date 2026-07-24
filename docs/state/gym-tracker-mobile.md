@@ -2,7 +2,7 @@
 campaign: gym-tracker-mobile
 status: active
 started: 2026-07-22
-updated: 2026-07-25 04:10
+updated: 2026-07-25 04:25
 ---
 
 # Gym Tracker → Expo/React Native
@@ -104,9 +104,10 @@ JS через expo-audio (как уже работал финал), locked/backg
    visibility sensitive. Сверено по хешу — значение совпадает с `mobile/.env`. Сборка скан подхватит.
 4. [x] **Фаза 4b — напоминания** (§2.4) написана 25.07 (вариант (a)), снята в web-UI, запушена `6d498cf`.
 5. [x] **Билд после 4b собран** — EAS build #7, v1.0.1, `0f2876d5`, FINISHED 25.07. Содержит фазы 1–4b.
-6. [ ] **Отправить #7 в TestFlight и прогнать device-тесты** — за одну сессию закрываются: звук/locked (Ф1),
-   импорт + iCloud KV (Ф2), камера и скан этикетки (Ф4a), доставка напоминаний в 08:00/21:00 + pre-permission
-   экран (Ф4b). Submit сам не запускал — ждёт решения Вугара.
+6. [x] **#7 отправлен в TestFlight Вугаром** (25.07, `eas submit --latest`, submission `e80f8471`) —
+   бинарь принят ASC, идёт обработка Apple (5–10 мин, письмо на почту).
+7. [ ] **Device-тесты на #7** — за одну сессию закрываются: звук/locked (Ф1), импорт + iCloud KV (Ф2),
+   камера и скан этикетки (Ф4a), доставка напоминаний в 08:00/21:00 + pre-permission экран (Ф4b).
 3. [ ] **(Фон) Дождаться одобрения 1.0** (build #2, `WAITING_FOR_REVIEW`); после релиза → версия **1.0.1**
    с build #6 (Live Activity, уже VALID в ASC), экспортный комплаенс → на ревью (`asc.py` / UI ASC).
 
@@ -365,7 +366,7 @@ JS через expo-audio (как уже работал финал), locked/backg
 - Branch: **`main`**, дерево чистое, всё запушено. Ветка `feat/live-activity` слита и удалена.
 - Worktree: `~/Documents/Projects/Gym-Tracker`
 - Last commit: `7bd8048` (версия 1.0.1). **EAS build #7 (v1.0.1) FINISHED** — id `0f2876d5`, профиль
-  production, содержит фазы 1–4b, токен скана подхвачен из EAS. В TestFlight НЕ отправлен.
+  production, содержит фазы 1–4b, токен скана подхвачен из EAS. Отправлен в TestFlight 25.07 (`e80f8471`).
 - Ранее: `6d498cf` (Фаза 4b). Код: Фаза 4a `3cabcd6`, фикс воркера `a1fe987`. Воркер в проде,
   секреты залиты, токен заведён в EAS. Дерево чистое, всё запушено. Брифы Codex: `/tmp/codex-gym-phase2-durability.md`,
   ранее `/tmp/codex-gym-phase1-sound.md`. Ключевое ранее: звук `e4b776b`, спека v2 `e049d2d`,
