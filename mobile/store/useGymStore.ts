@@ -50,6 +50,7 @@ type GymState = {
   toggleSupplementSlot: (supplementId: string, slot: SupplementSlot) => void;
   updateSupplement: (supplementId: string, changes: Partial<Pick<Supplement, 'name' | 'dose' | 'stockUnit'>>) => void;
   addSupplement: () => void;
+  addScannedSupplement: (supplement: Omit<Supplement, 'id'>) => string;
   removeSupplement: (supplementId: string) => void;
   setLanguage: (language: Language) => void;
   setTheme: (theme: ThemeChoice) => void;
@@ -448,6 +449,11 @@ export const useGymStore = create<GymState>()((set, get) => ({
           },
         ],
       })),
+      addScannedSupplement: (supplement) => {
+        const id = `supplement-${Date.now()}`;
+        set((state) => ({ supplements: [...state.supplements, { ...supplement, id }] }));
+        return id;
+      },
       removeSupplement: (supplementId) => set((state) => ({
         supplements: state.supplements.filter((supplement) => supplement.id !== supplementId),
       })),

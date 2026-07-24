@@ -1,4 +1,4 @@
-import { Supplement, SupplementLog, SupplementSlot } from '@/types/supplement';
+import { CompositionItem, Supplement, SupplementForm, SupplementLog, SupplementSlot, SUPPLEMENT_FORMS } from '@/types/supplement';
 import { Exercise, ExerciseLog, PauseRecord, WorkoutDay, WorkoutSession } from '@/types/workout';
 
 export type Settings = {
@@ -26,6 +26,7 @@ export const initialSettings: Settings = {
 };
 
 const validSlots = new Set<SupplementSlot>(['morning', 'pre_workout', 'evening']);
+const validForms = new Set<SupplementForm>(SUPPLEMENT_FORMS);
 const validStatuses = new Set(['pending', 'completed', 'skipped', 'ended_early']);
 const validReasons = new Set(['Устал', 'Отвлёкся', 'Не хватило времени', 'Дискомфорт']);
 
@@ -73,13 +74,25 @@ function isWorkoutSession(value: unknown): value is WorkoutSession {
     && Array.isArray(value.exercises) && value.exercises.every(isExerciseLog) && isNumber(value.totalVolume);
 }
 
+function isCompositionItem(value: unknown): value is CompositionItem {
+  return isRecord(value) && isString(value.name) && optionalNumber(value.amount)
+    && optionalString(value.unit) && (value.perServing === undefined || isBoolean(value.perServing));
+}
+
 function isSupplement(value: unknown): value is Supplement {
   if (!isRecord(value)) return false;
   return isString(value.id) && isString(value.name) && optionalString(value.nameKey)
     && isString(value.dose) && optionalString(value.doseKey) && isNumber(value.stock)
     && isNumber(value.capacity) && isString(value.stockUnit) && optionalString(value.stockUnitKey)
     && (value.unitsPerDose === undefined || isNumber(value.unitsPerDose))
-    && Array.isArray(value.schedule) && value.schedule.every((slot) => isString(slot) && validSlots.has(slot as SupplementSlot));
+    && Array.isArray(value.schedule) && value.schedule.every((slot) => isString(slot) && validSlots.has(slot as SupplementSlot))
+    // Аддитивные поля AI-ввода
+    && optionalString(value.brand) && optionalString(value.seller) && optionalString(value.sourceUrl)
+    && optionalString(value.note) && optionalNumber(value.servingsPerContainer)
+    && (value.form === undefined || (isString(value.form) && validForms.has(value.form as SupplementForm)))
+    && (value.composition === undefined || (Array.isArray(value.composition) && value.composition.every(isCompositionItem)))
+    && (value.photos === undefined || (Array.isArray(value.photos) && value.photos.every(isString)))
+    && (value.createdBy === undefined || value.createdBy === 'manual' || value.createdBy === 'ai');
 }
 
 function isSupplementLog(value: unknown): value is SupplementLog {

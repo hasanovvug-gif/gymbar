@@ -70,6 +70,14 @@
             "./assets/sounds/rest-soon.wav"
           ]
         }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Gymbar открывает галерею, чтобы вы могли выбрать фото упаковки добавки для распознавания.",
+          "cameraPermission": "Gymbar использует камеру, чтобы сфотографировать упаковку добавки и распознать её состав.",
+          "microphonePermission": false
+        }
       ]
     ],
     "experiments": {
@@ -79,7 +87,8 @@
       "router": {},
       "eas": {
         "projectId": "1d1006a8-2d5d-4ad2-9fed-7ee90393a8f5"
-      }
+      },
+      "aiProxyUrl": "https://gymbar-ai-proxy.hasanov-dev.workers.dev"
     },
     "owner": "vugarapple"
   }

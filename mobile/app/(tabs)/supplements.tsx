@@ -1,7 +1,8 @@
+import { router } from 'expo-router';
 import { useMemo, useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 
-import { Card, Heading, OutlineButton, ProgressBar, Screen, Segmented, Tappable } from '@/components/ui';
+import { Card, Heading, OutlineButton, PrimaryButton, ProgressBar, Screen, Segmented, Tappable } from '@/components/ui';
 import { fonts, Palette } from '@/constants/theme';
 import { dateKey } from '@/data/supplementData';
 import { useTheme } from '@/hooks/useTheme';
@@ -225,6 +226,7 @@ function ScheduleTab() {
           </View>
         </Card>
       ))}
+      <PrimaryButton label={t('supplements.scan')} onPress={() => router.push('/supplement-scan')} />
       <OutlineButton label={t('supplements.add')} onPress={addSupplement} style={styles.addButton} />
     </View>
   );
