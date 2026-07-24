@@ -215,10 +215,16 @@ Apple Developer, provisioning-профили созданы (automatic signing).
 
 ## Working state
 
-- Branch: **`main`** — Live Activity влита и запушена (`95b79a7`). Ветка `feat/live-activity` слита, можно удалить.
+- Branch: **`main`**, дерево чистое, всё запушено. Ветка `feat/live-activity` слита и удалена.
 - Worktree: `~/Documents/Projects/Gym-Tracker`
-- Last commit: `95b79a7` — merge Live Activity в main. Feat: `6f81653` (time-aware кнопка)
+- Last commit: `91e0b1f` (state). Ключевое: merge LA `95b79a7`, time-aware кнопка `6f81653`
 - Приложение: `mobile/`, bundle id `com.gymbar.app`, Team ID `K6M569DX9E`
+- **EAS App Store сборка (мульти-таргет):** `credentialsSource: local`, `credentials.json` ключуется
+  ИМЕНЕМ таргета (`Gymbar`/`GymbarLiveActivity`). Профили + скрипт перевыпуска — в
+  `~/.appstoreconnect/private/gymbar/` (`asc.py`: `create`/`create-main`/`caps2`/`tf-attach`/`versions`).
+  Команды: `npx eas-cli build --platform ios --non-interactive` → `submit --latest`. См. Decisions.
+- **TestFlight:** build #6 (Live Activity) привязан к «Internal Testers» (`000fea70…`), проверен на iPhone.
+  Кандидат на версию **1.0.1**. Версия 1.0 (build #2, без LA) — `WAITING_FOR_REVIEW`, не трогаем.
 - **Live Activity тест только на реальном устройстве** (не Expo Go, не всегда симулятор): custom dev-build
   `cd mobile && npx expo run:ios --device` — запускать в ТЕРМИНАЛЕ ВУГАРА (UTF-8 локаль; у Claude-shell
   локаль ASCII → `pod install` падает `Encoding::CompatibilityError`, обходится `LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8`)
