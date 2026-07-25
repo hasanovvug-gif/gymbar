@@ -1,5 +1,10 @@
 import { WorkoutDay, WorkoutSession } from '@/types/workout';
 
+/**
+ * Программа под набор массы, 4 дня: Пн грудь · Вт ноги · Чт спина · Пт плечи.
+ * Повторы = верх диапазона: держим вес, пока все подходы не выйдут по этой цифре
+ * два занятия подряд, затем добавляем вес и повторы просаживаются к низу — двойная прогрессия.
+ */
 export const INITIAL_WORKOUT_DAYS: WorkoutDay[] = [
   {
     id: 'day-chest',
@@ -7,39 +12,41 @@ export const INITIAL_WORKOUT_DAYS: WorkoutDay[] = [
     name: 'Грудь и трицепс',
     nameKey: 'seed.dayChestTriceps',
     exercises: [
-      { id: 'bench', name: 'Жим лёжа', nameKey: 'seed.exerciseBenchPress', muscleGroup: 'Грудь', muscleGroupKey: 'seed.muscleChest', plannedSets: 4, reps: 10, weight: 80, isTimeBased: false },
-      { id: 'incline', name: 'Жим гантелей на наклонной', nameKey: 'seed.exerciseInclineDumbbellPress', muscleGroup: 'Грудь', muscleGroupKey: 'seed.muscleChest', plannedSets: 3, reps: 10, weight: 28, isTimeBased: false },
-      { id: 'flyes', name: 'Разводка гантелей', nameKey: 'seed.exerciseDumbbellFlyes', muscleGroup: 'Грудь', muscleGroupKey: 'seed.muscleChest', plannedSets: 3, reps: 12, weight: 16, isTimeBased: false },
-      { id: 'close-grip', name: 'Жим узким хватом', nameKey: 'seed.exerciseCloseGripBenchPress', muscleGroup: 'Трицепс', muscleGroupKey: 'seed.muscleTriceps', plannedSets: 3, reps: 10, weight: 50, isTimeBased: false },
-      { id: 'pushdown', name: 'Разгибание на блоке', nameKey: 'seed.exerciseCablePushdown', muscleGroup: 'Трицепс', muscleGroupKey: 'seed.muscleTriceps', plannedSets: 3, reps: 12, weight: 25, isTimeBased: false },
-      { id: 'french', name: 'Французский жим', nameKey: 'seed.exerciseFrenchPress', muscleGroup: 'Трицепс', muscleGroupKey: 'seed.muscleTriceps', plannedSets: 3, reps: 10, weight: 24, isTimeBased: false },
-    ],
-  },
-  {
-    id: 'day-back',
-    order: 1,
-    name: 'Спина и бицепс',
-    nameKey: 'seed.dayBackBiceps',
-    exercises: [
-      { id: 'pullups', name: 'Подтягивания', nameKey: 'seed.exercisePullUps', muscleGroup: 'Спина', muscleGroupKey: 'seed.muscleBack', plannedSets: 4, reps: 8, weight: 0, isTimeBased: false },
-      { id: 'barbell-row', name: 'Тяга штанги в наклоне', nameKey: 'seed.exerciseBentOverBarbellRow', muscleGroup: 'Спина', muscleGroupKey: 'seed.muscleBack', plannedSets: 3, reps: 10, weight: 60, isTimeBased: false },
-      { id: 'lat-pulldown', name: 'Тяга верхнего блока', nameKey: 'seed.exerciseLatPulldown', muscleGroup: 'Спина', muscleGroupKey: 'seed.muscleBack', plannedSets: 3, reps: 12, weight: 55, isTimeBased: false },
-      { id: 'barbell-curl', name: 'Подъём штанги на бицепс', nameKey: 'seed.exerciseBarbellCurl', muscleGroup: 'Бицепс', muscleGroupKey: 'seed.muscleBiceps', plannedSets: 3, reps: 10, weight: 30, isTimeBased: false },
-      { id: 'hammer-curl', name: 'Молотки', nameKey: 'seed.exerciseHammerCurl', muscleGroup: 'Бицепс', muscleGroupKey: 'seed.muscleBiceps', plannedSets: 3, reps: 12, weight: 14, isTimeBased: false },
-      { id: 'plank', name: 'Планка', nameKey: 'seed.exercisePlank', muscleGroup: 'Кор', muscleGroupKey: 'seed.muscleCore', plannedSets: 3, reps: 1, weight: 0, isTimeBased: true, secondsPerSet: 60 },
+      { id: 'bench', name: 'Жим лёжа', nameKey: 'seed.exerciseBenchPress', muscleGroup: 'Грудь', muscleGroupKey: 'seed.muscleChest', plannedSets: 4, reps: 10, weight: 60, isTimeBased: false },
+      { id: 'incline-barbell', name: 'Жим в наклоне, штанга', nameKey: 'seed.exerciseInclineBarbellPress', muscleGroup: 'Грудь', muscleGroupKey: 'seed.muscleChest', plannedSets: 3, reps: 12, weight: 40, isTimeBased: false },
+      { id: 'flyes', name: 'Разводка гантелей', nameKey: 'seed.exerciseDumbbellFlyes', muscleGroup: 'Грудь', muscleGroupKey: 'seed.muscleChest', plannedSets: 3, reps: 15, weight: 8, isTimeBased: false },
+      { id: 'cable-chest-press', name: 'Жим на низ груди, блок', nameKey: 'seed.exerciseCableChestPress', muscleGroup: 'Грудь', muscleGroupKey: 'seed.muscleChest', plannedSets: 2, reps: 15, weight: 30, isTimeBased: false },
+      { id: 'french', name: 'Французский жим', nameKey: 'seed.exerciseFrenchPress', muscleGroup: 'Трицепс', muscleGroupKey: 'seed.muscleTriceps', plannedSets: 3, reps: 12, weight: 15, isTimeBased: false },
+      { id: 'pushdown', name: 'Разгибание на блоке', nameKey: 'seed.exerciseCablePushdown', muscleGroup: 'Трицепс', muscleGroupKey: 'seed.muscleTriceps', plannedSets: 3, reps: 15, weight: 20, isTimeBased: false },
+      { id: 'crunch', name: 'Скручивания', nameKey: 'seed.exerciseCrunch', muscleGroup: 'Пресс', muscleGroupKey: 'seed.muscleAbs', plannedSets: 3, reps: 20, weight: 0, isTimeBased: false },
     ],
   },
   {
     id: 'day-legs',
-    order: 2,
+    order: 1,
     name: 'Ноги',
     nameKey: 'seed.dayLegs',
     exercises: [
-      { id: 'squat', name: 'Приседания', nameKey: 'seed.exerciseSquat', muscleGroup: 'Ноги', muscleGroupKey: 'seed.muscleLegs', plannedSets: 4, reps: 8, weight: 90, isTimeBased: false },
-      { id: 'leg-press', name: 'Жим ногами', nameKey: 'seed.exerciseLegPress', muscleGroup: 'Ноги', muscleGroupKey: 'seed.muscleLegs', plannedSets: 3, reps: 12, weight: 140, isTimeBased: false },
-      { id: 'leg-extension', name: 'Разгибание ног', nameKey: 'seed.exerciseLegExtension', muscleGroup: 'Ноги', muscleGroupKey: 'seed.muscleLegs', plannedSets: 3, reps: 12, weight: 45, isTimeBased: false },
-      { id: 'leg-curl', name: 'Сгибание ног', nameKey: 'seed.exerciseLegCurl', muscleGroup: 'Ноги', muscleGroupKey: 'seed.muscleLegs', plannedSets: 3, reps: 12, weight: 40, isTimeBased: false },
-      { id: 'calves', name: 'Подъём на носки', nameKey: 'seed.exerciseCalfRaise', muscleGroup: 'Икры', muscleGroupKey: 'seed.muscleCalves', plannedSets: 4, reps: 15, weight: 70, isTimeBased: false },
+      { id: 'squat', name: 'Приседания', nameKey: 'seed.exerciseSquat', muscleGroup: 'Ноги', muscleGroupKey: 'seed.muscleLegs', plannedSets: 4, reps: 10, weight: 60, isTimeBased: false },
+      { id: 'rdl', name: 'Румынская тяга', nameKey: 'seed.exerciseRomanianDeadlift', muscleGroup: 'Задняя поверхность бедра', muscleGroupKey: 'seed.muscleHamstrings', plannedSets: 3, reps: 10, weight: 40, isTimeBased: false },
+      { id: 'leg-curl', name: 'Сгибание ног', nameKey: 'seed.exerciseLegCurl', muscleGroup: 'Задняя поверхность бедра', muscleGroupKey: 'seed.muscleHamstrings', plannedSets: 3, reps: 15, weight: 10, isTimeBased: false },
+      { id: 'leg-extension', name: 'Разгибание ног', nameKey: 'seed.exerciseLegExtension', muscleGroup: 'Ноги', muscleGroupKey: 'seed.muscleLegs', plannedSets: 3, reps: 15, weight: 30, isTimeBased: false },
+      { id: 'calves', name: 'Подъём на носки', nameKey: 'seed.exerciseCalfRaise', muscleGroup: 'Икры', muscleGroupKey: 'seed.muscleCalves', plannedSets: 4, reps: 20, weight: 60, isTimeBased: false },
+      { id: 'plank', name: 'Планка', nameKey: 'seed.exercisePlank', muscleGroup: 'Кор', muscleGroupKey: 'seed.muscleCore', plannedSets: 3, reps: 1, weight: 0, isTimeBased: true, secondsPerSet: 60 },
+    ],
+  },
+  {
+    id: 'day-back',
+    order: 2,
+    name: 'Спина и бицепс',
+    nameKey: 'seed.dayBackBiceps',
+    exercises: [
+      { id: 'deadlift', name: 'Становая тяга', nameKey: 'seed.exerciseDeadlift', muscleGroup: 'Спина', muscleGroupKey: 'seed.muscleBack', plannedSets: 3, reps: 8, weight: 60, isTimeBased: false },
+      { id: 'barbell-row', name: 'Тяга штанги в наклоне', nameKey: 'seed.exerciseBentOverBarbellRow', muscleGroup: 'Спина', muscleGroupKey: 'seed.muscleBack', plannedSets: 3, reps: 12, weight: 40, isTimeBased: false },
+      { id: 'lat-pulldown', name: 'Тяга верхнего блока', nameKey: 'seed.exerciseLatPulldown', muscleGroup: 'Спина', muscleGroupKey: 'seed.muscleBack', plannedSets: 3, reps: 12, weight: 35, isTimeBased: false },
+      { id: 'seated-row', name: 'Тяга к поясу сидя', nameKey: 'seed.exerciseSeatedCableRow', muscleGroup: 'Спина', muscleGroupKey: 'seed.muscleBack', plannedSets: 3, reps: 12, weight: 35, isTimeBased: false },
+      { id: 'barbell-curl', name: 'Подъём штанги на бицепс', nameKey: 'seed.exerciseBarbellCurl', muscleGroup: 'Бицепс', muscleGroupKey: 'seed.muscleBiceps', plannedSets: 3, reps: 12, weight: 15, isTimeBased: false },
+      { id: 'cable-curl', name: 'Сгибание на бицепс, блок', nameKey: 'seed.exerciseCableCurl', muscleGroup: 'Бицепс', muscleGroupKey: 'seed.muscleBiceps', plannedSets: 3, reps: 15, weight: 20, isTimeBased: false },
     ],
   },
   {
@@ -48,61 +55,14 @@ export const INITIAL_WORKOUT_DAYS: WorkoutDay[] = [
     name: 'Плечи и пресс',
     nameKey: 'seed.dayShouldersAbs',
     exercises: [
-      { id: 'shoulder-press', name: 'Жим над головой', nameKey: 'seed.exerciseOverheadPress', muscleGroup: 'Плечи', muscleGroupKey: 'seed.muscleShoulders', plannedSets: 4, reps: 8, weight: 45, isTimeBased: false },
-      { id: 'lateral-raise', name: 'Разведение гантелей', nameKey: 'seed.exerciseLateralRaise', muscleGroup: 'Плечи', muscleGroupKey: 'seed.muscleShoulders', plannedSets: 3, reps: 15, weight: 10, isTimeBased: false },
-      { id: 'rear-delt', name: 'Задняя дельта', nameKey: 'seed.exerciseRearDelt', muscleGroup: 'Плечи', muscleGroupKey: 'seed.muscleShoulders', plannedSets: 3, reps: 15, weight: 12, isTimeBased: false },
-      { id: 'crunch', name: 'Скручивания', nameKey: 'seed.exerciseCrunch', muscleGroup: 'Пресс', muscleGroupKey: 'seed.muscleAbs', plannedSets: 3, reps: 20, weight: 0, isTimeBased: false },
-      { id: 'side-plank', name: 'Боковая планка', nameKey: 'seed.exerciseSidePlank', muscleGroup: 'Кор', muscleGroupKey: 'seed.muscleCore', plannedSets: 3, reps: 1, weight: 0, isTimeBased: true, secondsPerSet: 45 },
+      { id: 'shoulder-press', name: 'Жим над головой', nameKey: 'seed.exerciseOverheadPress', muscleGroup: 'Плечи', muscleGroupKey: 'seed.muscleShoulders', plannedSets: 4, reps: 10, weight: 40, isTimeBased: false },
+      { id: 'lateral-raise', name: 'Разведение гантелей', nameKey: 'seed.exerciseLateralRaise', muscleGroup: 'Плечи', muscleGroupKey: 'seed.muscleShoulders', plannedSets: 4, reps: 20, weight: 10, isTimeBased: false },
+      { id: 'rear-delt', name: 'Задняя дельта', nameKey: 'seed.exerciseRearDelt', muscleGroup: 'Плечи', muscleGroupKey: 'seed.muscleShoulders', plannedSets: 3, reps: 20, weight: 10, isTimeBased: false },
+      { id: 'pushdown-friday', name: 'Разгибание на блоке', nameKey: 'seed.exerciseCablePushdown', muscleGroup: 'Трицепс', muscleGroupKey: 'seed.muscleTriceps', plannedSets: 3, reps: 15, weight: 20, isTimeBased: false },
+      { id: 'hyperextension', name: 'Гиперэкстензия', nameKey: 'seed.exerciseHyperextension', muscleGroup: 'Спина', muscleGroupKey: 'seed.muscleBack', plannedSets: 3, reps: 15, weight: 0, isTimeBased: false },
+      { id: 'crunch-friday', name: 'Скручивания', nameKey: 'seed.exerciseCrunch', muscleGroup: 'Пресс', muscleGroupKey: 'seed.muscleAbs', plannedSets: 3, reps: 20, weight: 0, isTimeBased: false },
     ],
   },
 ];
 
-export const INITIAL_HISTORY: WorkoutSession[] = [
-  {
-    id: 'history-1',
-    date: '2026-07-20T16:20:00.000Z',
-    dayId: 'day-chest',
-    dayName: 'Грудь и трицепс',
-    dayNameKey: 'seed.dayChestTriceps',
-    activeSeconds: 38 * 60,
-    pausedSeconds: 14 * 60,
-    pauseCount: 2,
-    pauseRecords: [
-      { startedAt: Date.parse('2026-07-20T16:35:00.000Z'), durationSeconds: 6 * 60, reasonTag: 'Устал' },
-      { startedAt: Date.parse('2026-07-20T16:54:00.000Z'), durationSeconds: 8 * 60 },
-    ],
-    totalVolume: 8340,
-    exercises: [
-      { exerciseId: 'bench', exerciseName: 'Жим лёжа', exerciseNameKey: 'seed.exerciseBenchPress', plannedSets: 4, completedSets: 4, reps: 10, weight: 80, isTimeBased: false, status: 'completed' },
-      { exerciseId: 'incline', exerciseName: 'Жим гантелей на наклонной', exerciseNameKey: 'seed.exerciseInclineDumbbellPress', plannedSets: 3, completedSets: 3, reps: 10, weight: 28, isTimeBased: false, status: 'completed' },
-      { exerciseId: 'flyes', exerciseName: 'Разводка гантелей', exerciseNameKey: 'seed.exerciseDumbbellFlyes', plannedSets: 3, completedSets: 2, reps: 12, weight: 16, isTimeBased: false, status: 'ended_early', reasonTag: 'Устал' },
-      { exerciseId: 'french', exerciseName: 'Французский жим', exerciseNameKey: 'seed.exerciseFrenchPress', plannedSets: 3, completedSets: 0, reps: 10, weight: 24, isTimeBased: false, status: 'skipped', reasonTag: 'Не хватило времени' },
-    ],
-  },
-  {
-    id: 'history-2',
-    date: '2026-07-18T16:10:00.000Z',
-    dayId: 'day-shoulders',
-    dayName: 'Плечи и пресс',
-    dayNameKey: 'seed.dayShouldersAbs',
-    activeSeconds: 47 * 60,
-    pausedSeconds: 0,
-    pauseCount: 0,
-    pauseRecords: [],
-    totalVolume: 5120,
-    exercises: [],
-  },
-  {
-    id: 'history-3',
-    date: '2026-07-16T16:30:00.000Z',
-    dayId: 'day-legs',
-    dayName: 'Ноги',
-    dayNameKey: 'seed.dayLegs',
-    activeSeconds: 53 * 60,
-    pausedSeconds: 5 * 60,
-    pauseCount: 1,
-    pauseRecords: [{ startedAt: Date.parse('2026-07-16T17:02:00.000Z'), durationSeconds: 5 * 60, reasonTag: 'Отвлёкся' }],
-    totalVolume: 11200,
-    exercises: [],
-  },
-];
+export const INITIAL_HISTORY: WorkoutSession[] = [];

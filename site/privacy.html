@@ -27,27 +27,43 @@
 <body>
 <div class="wrap">
   <h1>Privacy Policy</h1>
-  <p class="date">Gymbar · last updated 23 July 2026</p>
+  <p class="date">Gymbar · last updated 25 July 2026</p>
 
-  <p class="lead">Gymbar does not collect any data. Nothing you enter leaves your device.</p>
+  <p class="lead">Gymbar has no accounts and no analytics, and it keeps your training data on your device. One feature — scanning a supplement label — sends the photos you took to an AI service, and only when you tap the scan button.</p>
 
-  <h2>What we collect</h2>
-  <p>Nothing. Gymbar has no account system, no server, no analytics, no advertising, and no third-party tracking SDKs. We do not receive your workouts, supplement records, settings, device identifiers, or usage statistics — because the app never sends them anywhere.</p>
+  <h2>What stays on your device</h2>
+  <p>Your training plan, workout history, supplement records, adherence marks and settings are written to your device's local storage and stay there. We never receive them. They are included in your own device backups (iCloud or encrypted local backup) if you have backups enabled — that copy is controlled by Apple and by you, not by us.</p>
 
-  <h2>What the app stores</h2>
-  <p>Your training plan, workout history, supplement records and settings are written to your device's local storage and stay there. They are included in your own device backups (iCloud or encrypted local backup) if you have backups enabled — that copy is controlled by Apple and by you, not by us.</p>
+  <h2>iCloud sync</h2>
+  <p>Your plan, supplement list and settings are also written to Apple's iCloud key-value store so they survive reinstalling the app and appear on your other devices. This uses <em>your</em> iCloud account. The data goes from your device to Apple and back — never to us, and we have no way to read it.</p>
+
+  <h2>Supplement label scanning</h2>
+  <p>When you open the scanner, take photos of a supplement package and tap the recognise button, those photos — and the optional note you typed — are sent to our relay server, which forwards them to Google's Gemini API to read the label. The result comes back to your device and is yours to edit or discard.</p>
+  <ul>
+    <li>This happens <strong>only</strong> when you explicitly tap the recognise button. Photos are never sent in the background.</li>
+    <li>Photos are resized before upload, which strips EXIF metadata including any GPS location.</li>
+    <li>Our relay does not store your photos or notes. It has no database and no file storage; it holds the request only for the seconds needed to pass it on, and logs nothing but an anonymous token count for cost control.</li>
+    <li>Once forwarded, the photos are processed by Google under Google's own terms. Depending on the service tier in use, Google may retain submitted content and use it to improve their models. If you would rather not share a label with Google, do not use the scanner — every supplement can be added by hand instead.</li>
+    <li>We do not send your workouts, history, settings or any device identifier to the scanner. Only the photos and the note you typed.</li>
+  </ul>
+
+  <h2>What we never do</h2>
+  <p>No accounts, no sign-in, no advertising, no analytics SDKs, no crash-reporting SDKs, no third-party tracking, and no selling or sharing of data with anyone beyond the label-scanning step described above.</p>
+
+  <h2>Notifications</h2>
+  <p>Rest-timer signals and supplement reminders are scheduled locally by your device. There is no push server and no remote notification — nothing about your schedule leaves the phone.</p>
 
   <h2>Export and sharing</h2>
   <p>Settings → Export data creates a JSON file and hands it to the system share sheet. Where that file goes is entirely your choice. The app does not upload it.</p>
 
   <h2>Deletion</h2>
-  <p>Deleting Gymbar from your device deletes all of its data. There is nothing stored elsewhere for us to delete, and no request to send us.</p>
+  <p>Settings → Reset all data wipes your history and records inside the app. Deleting Gymbar from your device removes its local data; to remove the iCloud copy as well, turn off iCloud for Gymbar in iOS settings. We hold nothing on our side, so there is no deletion request to send us.</p>
 
   <h2>Children</h2>
-  <p>Gymbar is rated 4+ and, since it collects no data, it collects no data from children either.</p>
+  <p>Gymbar is rated 4+. It has no accounts and asks for no personal details, so it neither knows nor collects the age of anyone using it.</p>
 
   <h2>Changes</h2>
-  <p>If this policy ever changes, the updated version will be published on this page with a new date. A change that introduced any data collection would also be described in the app's App Store privacy details.</p>
+  <p>If this policy ever changes, the updated version will be published on this page with a new date, and any change to what is collected will also be reflected in the app's App Store privacy details.</p>
 
   <h2>Contact</h2>
   <p>Questions about this policy: <a href="mailto:hasanov.vug@gmail.com">hasanov.vug@gmail.com</a></p>

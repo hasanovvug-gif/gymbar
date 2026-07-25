@@ -51,7 +51,8 @@ export function buildSupplementReminders(
       time,
       hour,
       minute,
-      title: `${time} — ${t(slot === 'morning' ? 'supplements.morning' : 'supplements.evening')}`,
+      // Время iOS показывает рядом сам, поэтому в заголовке важнее «о чём напоминание».
+      title: `${t('supplements.title')} — ${t(slot === 'morning' ? 'supplements.morning' : 'supplements.evening').toLowerCase()}`,
       body,
     }];
   });

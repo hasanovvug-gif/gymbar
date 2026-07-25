@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react';
+import * as Notifications from 'expo-notifications';
+import { router } from 'expo-router';
+import { useEffect, useRef, useState } from 'react';
 import { AppState } from 'react-native';
 
 import { useGymStore } from '@/store/useGymStore';
@@ -37,6 +39,43 @@ export function useSupplementNotifications() {
     });
     return () => subscription.remove();
   }, []);
+}
+
+/**
+ * Тап по напоминанию ведёт на чек-лист приёма. `getLastNotificationResponse` покрывает холодный
+ * старт (приложение поднялось из уведомления), listener — тап при живом процессе. Хук
+ * `useLastNotificationResponse` здесь не годится: на web он бросает UnavailabilityError и роняет
+ * весь RootLayout, а условно вызвать хук нельзя.
+ *
+ * Ключ дедупликации включает дату доставки: identifier у слота фиксирован, и без даты завтрашний
+ * тап по тому же напоминанию считался бы уже обработанным.
+ */
+export function useSupplementNotificationTap() {
+  const hasHydrated = useGymStore((state) => state.hasHydrated);
+  const onboardingSeen = useGymStore((state) => state.settings.onboardingSeen);
+  const handled = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!notificationsSupported || !hasHydrated || !onboardingSeen) return;
+
+    const open = (response: Notifications.NotificationResponse) => {
+      const { request } = response.notification;
+      if (request.content.data?.kind !== 'supplement') return;
+      const key = `${request.identifier}-${response.notification.date}`;
+      if (handled.current === key) return;
+      handled.current = key;
+      router.navigate('/supplements');
+    };
+
+    try {
+      const last = Notifications.getLastNotificationResponse();
+      if (last) open(last);
+    } catch {
+      // старт не из уведомления
+    }
+    const subscription = Notifications.addNotificationResponseReceivedListener(open);
+    return () => subscription.remove();
+  }, [hasHydrated, onboardingSeen]);
 }
 
 /** Число реально запланированных в системе напоминаний — для строки статуса в Настройках. */

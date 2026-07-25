@@ -15,7 +15,7 @@ import { StyleSheet } from 'react-native';
 import 'react-native-reanimated';
 
 import { Palette } from '@/constants/theme';
-import { useSupplementNotifications } from '@/hooks/useSupplementNotifications';
+import { useSupplementNotifications, useSupplementNotificationTap } from '@/hooks/useSupplementNotifications';
 import { useTheme } from '@/hooks/useTheme';
 import { useGymStore } from '@/store/useGymStore';
 import { initializeICloudConfig } from '@/utils/icloudConfig';
@@ -30,6 +30,7 @@ export default function RootLayout() {
   const setNotificationsPrimerSeen = useGymStore((state) => state.setNotificationsPrimerSeen);
   const hasHydrated = useGymStore((state) => state.hasHydrated);
   useSupplementNotifications();
+  useSupplementNotificationTap();
   const c = useTheme();
   const styles = useMemo(() => createStyles(c), [c]);
   const navigationTheme = useMemo(() => {
