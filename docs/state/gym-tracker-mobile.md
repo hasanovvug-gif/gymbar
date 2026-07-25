@@ -2,7 +2,7 @@
 campaign: gym-tracker-mobile
 status: active
 started: 2026-07-22
-updated: 2026-07-25 17:35
+updated: 2026-07-25 17:50
 ---
 
 # Gym Tracker → Expo/React Native
@@ -155,9 +155,8 @@ JS через expo-audio (как уже работал финал), locked/backg
    стартовые данные подставляются только при первом запуске. ⚠️ После сброса **не закрывать приложение
    ~3 сек** — push в iCloud KV идёт с debounce 3 с, иначе облако вернёт старое состояние.
 10. [x] **Политика опубликована** 25.07 (`d1585a5` в `gh-pages`), боевой URL отдаёт новый текст.
-11. [ ] **Переподать анкету App Privacy в UI ASC** для 1.0.1 — было «Data Not Collected», стало
-   Photos + Other User Content → App Functionality, не связано с личностью. Детали в
-   `docs/appstore/metadata.md`.
+11. [x] **Анкета App Privacy переподана** 25.07 в UI ASC: Photos or Videos + Other User Content →
+   App Functionality, не связано с личностью, без трекинга. Остальное — не собирается.
 3. [ ] **(Фон) Дождаться одобрения 1.0** (build #2, `WAITING_FOR_REVIEW`); после релиза → версия **1.0.1**
    с build #6 (Live Activity, уже VALID в ASC), экспортный комплаенс → на ревью (`asc.py` / UI ASC).
 
