@@ -12,6 +12,7 @@ import { router, Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useMemo } from 'react';
 import { StyleSheet } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import 'react-native-reanimated';
 
 import { Palette } from '@/constants/theme';
@@ -86,6 +87,7 @@ export default function RootLayout() {
   }
 
   return (
+    <GestureHandlerRootView style={styles.root}>
     <ThemeProvider value={navigationTheme}>
       <Stack screenOptions={{ contentStyle: styles.content, headerShown: false }}>
         <Stack.Protected guard={onboardingSeen}>
@@ -102,9 +104,11 @@ export default function RootLayout() {
       </Stack>
       <StatusBar style={theme === 'light' ? 'dark' : 'light'} />
     </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }
 
 const createStyles = (c: Palette) => StyleSheet.create({
+  root: { flex: 1 },
   content: { backgroundColor: c.background },
 });

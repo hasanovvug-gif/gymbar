@@ -40,11 +40,11 @@ type GymState = {
   updateDay: (dayId: string, changes: Partial<Pick<WorkoutDay, 'name'>>) => void;
   addDay: () => void;
   removeDay: (dayId: string) => void;
-  moveDay: (dayId: string, direction: -1 | 1) => void;
+  reorderDays: (from: number, to: number) => void;
   addExercise: (dayId: string) => void;
   updateExercise: (dayId: string, exerciseId: string, changes: Partial<Exercise>) => void;
   removeExercise: (dayId: string, exerciseId: string) => void;
-  moveExercise: (dayId: string, exerciseId: string, direction: -1 | 1) => void;
+  reorderExercises: (dayId: string, from: number, to: number) => void;
   toggleSupplement: (supplementId: string, slot: SupplementSlot) => void;
   replenishSupplement: (supplementId: string, amount?: number) => void;
   toggleSupplementSlot: (supplementId: string, slot: SupplementSlot) => void;
@@ -73,12 +73,11 @@ function normalizeOrder(days: WorkoutDay[]) {
   return days.map((day, order) => ({ ...day, order }));
 }
 
-function moveById<T extends { id: string }>(items: T[], id: string, direction: -1 | 1) {
-  const index = items.findIndex((item) => item.id === id);
-  const target = index + direction;
-  if (index < 0 || target < 0 || target >= items.length) return items;
+function moveByIndex<T>(items: T[], from: number, to: number) {
+  if (from === to || from < 0 || to < 0 || from >= items.length || to >= items.length) return items;
   const next = [...items];
-  [next[index], next[target]] = [next[target], next[index]];
+  const [moved] = next.splice(from, 1);
+  next.splice(to, 0, moved);
   return next;
 }
 
@@ -338,8 +337,8 @@ export const useGymStore = create<GymState>()((set, get) => ({
       removeDay: (dayId) => set((state) => ({
         workoutDays: normalizeOrder(state.workoutDays.filter((day) => day.id !== dayId)),
       })),
-      moveDay: (dayId, direction) => set((state) => ({
-        workoutDays: normalizeOrder(moveById(state.workoutDays, dayId, direction)),
+      reorderDays: (from, to) => set((state) => ({
+        workoutDays: normalizeOrder(moveByIndex(state.workoutDays, from, to)),
       })),
       addExercise: (dayId) => set((state) => ({
         workoutDays: state.workoutDays.map((day) => day.id === dayId
@@ -379,9 +378,9 @@ export const useGymStore = create<GymState>()((set, get) => ({
           ? { ...day, exercises: day.exercises.filter((exercise) => exercise.id !== exerciseId) }
           : day),
       })),
-      moveExercise: (dayId, exerciseId, direction) => set((state) => ({
+      reorderExercises: (dayId, from, to) => set((state) => ({
         workoutDays: state.workoutDays.map((day) => day.id === dayId
-          ? { ...day, exercises: moveById(day.exercises, exerciseId, direction) }
+          ? { ...day, exercises: moveByIndex(day.exercises, from, to) }
           : day),
       })),
 
