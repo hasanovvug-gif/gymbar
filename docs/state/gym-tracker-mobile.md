@@ -2,14 +2,14 @@
 campaign: gym-tracker-mobile
 status: active
 started: 2026-07-22
-updated: 2026-07-25 18:30
+updated: 2026-07-25 18:05
 ---
 
 # Gym Tracker → Expo/React Native
 
 ## Где сейчас
 
-**Drag-and-drop в редакторе плана сделан (`12d7d9b`), собирается билд #10.** Дни и упражнения
+**Drag-and-drop в редакторе плана сделан (`12d7d9b`), **build #10 (v1.0.1, `885ee973`) собран и отправлен в TestFlight** (submission `0fb213de`). Дни и упражнения
 двигаются удержанием ручки «≡» (свой Pan на reanimated+gesture-handler, новых нативных зависимостей
 нет — обе уже стояли), кнопки ↑↓ убраны, добавлена подсказка в ru/en/ua. В сторе `moveDay/moveExercise`
 (шаг) заменены на `reorderDays/reorderExercises` (from → to). В `_layout.tsx` добавлен
