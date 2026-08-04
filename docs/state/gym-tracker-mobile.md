@@ -487,7 +487,16 @@ JS через expo-audio (как уже работал финал), locked/backg
   `~/.appstoreconnect/private/gymbar/` (`asc.py`: `create`/`create-main`/`caps2`/`tf-attach`/`versions`).
   Команды: `npx eas-cli build --platform ios --non-interactive` → `submit --latest`. См. Decisions.
 - **TestFlight:** build #6 (Live Activity) привязан к «Internal Testers» (`000fea70…`), проверен на iPhone.
-  Кандидат на версию **1.0.1**. Версия 1.0 (build #2, без LA) — `WAITING_FOR_REVIEW`, не трогаем.
+  Кандидат на версию **1.0.1**. Версия 1.0 (build #2, без LA) — ✅ **APPROVED 05.08.2026, в App Store**:
+  https://apps.apple.com/app/gymbar/id6793901080 (подана 23.07, ревью 13 суток).
+  ✅ **1.0.1 (build #10) отправлена на App Review 05.08.2026** — `WAITING_FOR_REVIEW`,
+  version id `662360a3-87bd-40c7-842a-aa6fa7147fe6`, reviewSubmission `98b9f97b-04e3-4eef-ada9-fc4de80f0192`,
+  releaseType `AFTER_APPROVAL`. «Что нового» залито в en-US / ru / uk.
+  Подано **через ASC API** тем же ключом `AuthKey_XC65QPNJJK` (`asc.py` → `api()`): создать
+  `appStoreVersions` с relationship `build` → PATCH `whatsNew` в локализациях → `reviewSubmissions`
+  + `reviewSubmissionItems` → PATCH `submitted: true`. Браузер не нужен.
+  ⚠️ Домена `api.appstoreconnect.apple.com` нет в allowedDomains песочницы Claude → 403 tunnel;
+  звать с отключённой песочницей.
 - **Live Activity тест только на реальном устройстве** (не Expo Go, не всегда симулятор): custom dev-build
   `cd mobile && npx expo run:ios --device` — запускать в ТЕРМИНАЛЕ ВУГАРА (UTF-8 локаль; у Claude-shell
   локаль ASCII → `pod install` падает `Encoding::CompatibilityError`, обходится `LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8`)
