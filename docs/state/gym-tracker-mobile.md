@@ -2,12 +2,50 @@
 campaign: gym-tracker-mobile
 status: active
 started: 2026-07-22
-updated: 2026-07-25 18:55
+updated: 2026-08-05 00:30
 ---
 
 # Gym Tracker → Expo/React Native
 
 ## Где сейчас
+
+### 🤖 Google Play — заведено 05.08.2026, ждём сборку
+
+**Приложение создано в Play Console:** Gymbar, `com.gymbar.app`, app ID **`4974629015832287010`**,
+язык по умолчанию en-US, тип «Приложение», **бесплатное**.
+Аккаунт — **корпоративный «AsbestosGuard»** (ID 4857998495819316665). Это осознанное решение Вугара
+05.08: на витрине Play под Gymbar будет написано «AsbestosGuard». Альтернатива (отдельный личный
+аккаунт за $25 со своей верификацией) рассмотрена и отклонена.
+
+**Service account получил доступ:** `eas-submit@asbestosguard-play.iam.gserviceaccount.com`,
+7 разрешений (просмотр, редактирование проектов приложений, выпуск рабочей версии, выпуск версий
+для тестирования). ✅ Проверено по Play Developer API: `edits` для `com.gymbar.app` открывается.
+
+**`eas.json` починен** — было `credentialsSource: "local"` на весь профиль `production`, а
+`credentials.json` знает только iOS → Android-сборка упала бы сразу. Разнесено по платформам:
+iOS остался `local`, Android — `remote` + `buildType: app-bundle`.
+
+**Сборка запущена:** `f505706b-b515-4529-8b43-829a97297753`, **versionCode 2**, профиль production,
+keystore EAS создал сам (remote), `EXPO_PUBLIC_AI_PROXY_TOKEN` подхватился из production-окружения.
+На момент записи — `IN_QUEUE`. Проверить: `npx eas-cli build:list --platform android --limit 1`.
+
+⚠️ **Чего в Android-версии не будет.** `modules/gymbar-live-activity` и `modules/gymbar-icloud-kv`
+объявлены `platforms: ["apple"]`. Подключены через `requireOptionalNativeModule`, все вызовы идут
+через `?.` или ранний `if (!Module) return` — **приложение не падает**, функции просто выключены.
+Значит нет Live Activity и нет синхронизации через iCloud. → Посмотреть глазами экран настроек:
+не висит ли там мёртвый блок «iCloud».
+
+❌ **Скриншоты с `~/Desktop/Gymbar Screenshots/` для Play не годятся** (10 шт., 962×1874 — размер
+как раз проходит, лимит 2:1 соблюдён). Причина в содержимом: все сняты **в рамке iPhone** — корпус,
+Dynamic Island, iOS-статусбар 09:41. Для листинга Play это риск отклонения. Плюс на них видны
+Live Activity и блок iCloud, которых в Android-сборке нет — показывать несуществующие функции нельзя.
+**Решение: снять честные кадры с Android-эмулятора после сборки.**
+
+**Дальше по Play:** дождаться AAB → эмулятор → скриншоты → листинг (описание, иконка 512×512,
+feature graphic 1024×500) → **Data safety** (⚠️ скан этикетки шлёт фото на Worker → Gemini, это сбор
+данных; политика уже опубликована в gh-pages) → возрастной рейтинг → internal testing → production.
+
+### 🍏 App Store
 
 **Drag-and-drop в редакторе плана сделан (`12d7d9b`), **build #10 (v1.0.1, `885ee973`) собран и отправлен в TestFlight** (submission `0fb213de`). Дни и упражнения
 двигаются удержанием ручки «≡» (свой Pan на reanimated+gesture-handler, новых нативных зависимостей
