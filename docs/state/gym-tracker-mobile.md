@@ -2,14 +2,41 @@
 campaign: gym-tracker-mobile
 status: active
 started: 2026-07-22
-updated: 2026-08-05 18:30
+updated: 2026-08-05 19:10
 ---
 
 # Gym Tracker → Expo/React Native
 
 ## Где сейчас
 
-### 🤖 Google Play — заведено 05.08.2026, ждём сборку
+### 🤖 Google Play — карточка и сборка залиты по API 05.08, дальше анкеты Console
+
+✅ **Листинг, графика и AAB залиты через Play Developer API** (`mobile/scripts/play-listing.py`,
+идемпотентный — перезалить можно одной командой):
+- три локали **en-US / ru-RU / uk**, у каждой название, короткое и полное описание, иконка,
+  feature graphic и 8 скриншотов;
+- **AAB versionCode 3** лежит в треке **internal** со статусом **draft** — наружу не ушло ничего,
+  ни один тестер сборку не видит;
+- контакты приложения: email **hello@smartsync.pro** (выбор Вугара 05.08), сайт
+  `https://hasanovvug-gif.github.io/gymbar/`.
+
+⚠️ **Код украинского в Play — `uk`, не `uk-UA`**: на `uk-UA` API отвечает 400 «language is not
+currently supported». В `metadata-play.md` локаль по-прежнему подписана uk-UA — это про документ,
+в Console язык называется `uk`.
+⚠️ Заливка картинок изредка отдаёт 500 на отдельном файле (поймано на `05-supplements-progress.png`) —
+в скрипте стоит ретрай ×3, скриншоты перед заливкой сносятся целиком и кладутся заново по порядку имён.
+⚠️ Вызовы к `androidpublisher.googleapis.com` рвутся из песочницы Claude — звать с отключённой.
+
+**Что осталось — только то, чего нет в API, руками в Console:**
+1. **Data safety** (не «не собираем»: Photos + Other user content, необязательно, App functionality,
+   передаётся Google Gemini — таблица в `docs/appstore/metadata-play.md`).
+2. **Возрастной рейтинг** (анкета IARC), **целевая аудитория**, **app access**, **декларация рекламы**
+   (рекламы нет).
+3. Категория Health & Fitness, страны/регионы.
+4. Перевести релиз из internal-draft в **production** и отправить на проверку.
+
+**Приложение создано в Play Console:** Gymbar, `com.gymbar.app`, app ID **`4974629015832287010`**,
+язык по умолчанию en-US, тип «Приложение», **бесплатное**.
 
 **Приложение создано в Play Console:** Gymbar, `com.gymbar.app`, app ID **`4974629015832287010`**,
 язык по умолчанию en-US, тип «Приложение», **бесплатное**.
@@ -77,9 +104,9 @@ Live Activity и блок iCloud, которых в Android-сборке нет 
 дев-сервер не нужен), шрифты Oswald/Manrope тянутся из `node_modules`, палитра из `constants/theme.ts`,
 марка — та же иконка сборки. Правишь HTML → перезапускаешь скрипт.
 
-**Дальше по Play:** залить листинг, скриншоты и графику в Console →
-**Data safety** (не «не собираем»: Photos + Other user content, необязательно, App functionality,
-передаётся Google Gemini) → возрастной рейтинг → указать email поддержки → internal testing → production.
+✅ **Листинг, графика и AAB залиты 05.08 по API** — см. блок «Где сейчас» выше. Остаток по Play —
+анкеты, которых нет в Play Developer API: Data safety, возрастной рейтинг, целевая аудитория,
+app access, реклама → затем production.
 
 ### 🍏 App Store
 
