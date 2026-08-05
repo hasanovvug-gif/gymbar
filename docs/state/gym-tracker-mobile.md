@@ -70,9 +70,16 @@ Live Activity и блок iCloud, которых в Android-сборке нет 
 ⚠️ Отсюда же долг на стороне Apple: описание в App Store всё ещё обещает «no account, no server»,
 хотя с 1.0.1 это неправда. Анкета App Privacy исправлена 25.07, текст — нет.
 
-**Дальше по Play:** иконка 512×512 → feature graphic 1024×500 → залить листинг и скриншоты →
+✅ **Графика листинга готова 05.08** — `docs/appstore/play-graphics/`: `icon-512.png` (сведён на
+фон `#0B0C0E`, альфа принудительно 255 — 32 бита без полупрозрачных краёв после ресайза) и
+`feature-graphic-1024x500.png`. Баннер **собирается из исходника**, а не нарисован руками:
+`mobile/scripts/feature-graphic.html` + `shoot-feature-graphic.py` (Playwright по `file://`,
+дев-сервер не нужен), шрифты Oswald/Manrope тянутся из `node_modules`, палитра из `constants/theme.ts`,
+марка — та же иконка сборки. Правишь HTML → перезапускаешь скрипт.
+
+**Дальше по Play:** залить листинг, скриншоты и графику в Console →
 **Data safety** (не «не собираем»: Photos + Other user content, необязательно, App functionality,
-передаётся Google Gemini) → возрастной рейтинг → internal testing → production.
+передаётся Google Gemini) → возрастной рейтинг → указать email поддержки → internal testing → production.
 
 ### 🍏 App Store
 

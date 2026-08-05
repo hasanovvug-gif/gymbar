@@ -1,0 +1,91 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Gymbar feature graphic</title>
+<style>
+  /* Шрифты и палитра — те же, что в приложении (constants/theme.ts). */
+  @font-face { font-family: Oswald;  src: url('../node_modules/@expo-google-fonts/oswald/700Bold/Oswald_700Bold.ttf'); font-weight: 700; }
+  @font-face { font-family: Manrope; src: url('../node_modules/@expo-google-fonts/manrope/500Medium/Manrope_500Medium.ttf'); font-weight: 500; }
+  @font-face { font-family: Manrope; src: url('../node_modules/@expo-google-fonts/manrope/700Bold/Manrope_700Bold.ttf'); font-weight: 700; }
+
+  :root {
+    --bg: #0B0C0E;
+    --surface: #141619;
+    --accent: #C8F031;
+    --text: #ECEEF0;
+    --muted: #8A9096;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1024px; height: 500px;
+    background: var(--bg);
+    overflow: hidden;
+    position: relative;
+    display: flex; align-items: center;
+    /* Play режет графику по краям в разных раскладках — держим контент в безопасной зоне. */
+    padding: 0 84px;
+    gap: 56px;
+  }
+
+  /* Диагональное свечение: снимает плоскость, не отвлекая от марки. */
+  body::before {
+    content: '';
+    position: absolute; inset: -40%;
+    background: radial-gradient(closest-side, rgba(200,240,49,.16), transparent 70%);
+    width: 720px; height: 720px;
+    left: -180px; top: -170px;
+  }
+  /* Штриховка справа — намёк на подходы, из языка иконки (белый контур + акцент). */
+  body::after {
+    content: '';
+    position: absolute; right: -60px; top: 0; bottom: 0; width: 420px;
+    background: repeating-linear-gradient(115deg, rgba(236,238,240,.05) 0 2px, transparent 2px 34px);
+  }
+
+  .mark {
+    position: relative; z-index: 1;
+    width: 232px; height: 232px; flex: none;
+    border-radius: 52px;
+    background: var(--surface);
+    display: grid; place-items: center;
+    box-shadow: 0 0 0 1px rgba(236,238,240,.07), 0 28px 60px rgba(0,0,0,.55);
+  }
+  .mark img { width: 196px; height: 196px; display: block; }
+
+  .copy { position: relative; z-index: 1; }
+
+  .wordmark {
+    font-family: Oswald, sans-serif; font-weight: 700;
+    font-size: 120px; line-height: .88; letter-spacing: -1px;
+    color: var(--text); text-transform: uppercase;
+  }
+  .wordmark span { color: var(--accent); }
+
+  .tagline {
+    font-family: Manrope, sans-serif; font-weight: 700;
+    font-size: 30px; line-height: 1.25; color: var(--text);
+    margin-top: 22px;
+  }
+
+  .meta {
+    font-family: Manrope, sans-serif; font-weight: 500;
+    font-size: 23px; color: var(--muted);
+    margin-top: 14px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--muted); flex: none; }
+</style>
+
+<div class="mark"><img src="../assets/images/icon.png" alt=""></div>
+
+<div class="copy">
+  <div class="wordmark">Gym<span>bar</span></div>
+  <div class="tagline">Plan the split. Run the session.<br>Log every set.</div>
+  <div class="meta">
+    <span>Rest timer</span><i class="dot"></i>
+    <span>Supplements</span><i class="dot"></i>
+    <span>Offline</span><i class="dot"></i>
+    <span>No ads</span>
+  </div>
+</div>
