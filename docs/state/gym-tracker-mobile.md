@@ -25,9 +25,13 @@ updated: 2026-08-05 00:30
 `credentials.json` знает только iOS → Android-сборка упала бы сразу. Разнесено по платформам:
 iOS остался `local`, Android — `remote` + `buildType: app-bundle`.
 
-**Сборка запущена:** `f505706b-b515-4529-8b43-829a97297753`, **versionCode 2**, профиль production,
+**AAB готов:** `6ccc80d6-5513-4ef6-88ec-b8754873d90c`, **versionCode 3**, профиль production,
 keystore EAS создал сам (remote), `EXPO_PUBLIC_AI_PROXY_TOKEN` подхватился из production-окружения.
-На момент записи — `IN_QUEUE`. Проверить: `npx eas-cli build:list --platform android --limit 1`.
+Первая попытка `f505706b` (versionCode 2) **упала на PREBUILD** — `expo-notifications` валит
+`assertValidAndroidAssetName` на `rest-done.wav`: Android-ресурсы не принимают дефис. Починено
+переименованием звуков в snake_case (`04c3f35`).
+⚠️ Логи EAS сжаты **brotli** — `gunzip` не берёт; ссылку на лог даёт GraphQL
+(`builds.byId(...){error{message} logFiles}`), распаковывать `zlib.brotliDecompressSync`.
 
 ⚠️ **Чего в Android-версии не будет.** `modules/gymbar-live-activity` и `modules/gymbar-icloud-kv`
 объявлены `platforms: ["apple"]`. Подключены через `requireOptionalNativeModule`, все вызовы идут
@@ -214,6 +218,15 @@ JS через expo-audio (как уже работал финал), locked/backg
 > Live Activity (build #6) уедет апдейтом 1.0.1 (влита в `main` `95b79a7`, проверена в TestFlight).
 
 ## Done (recent first, max 10)
+
+- 2026-08-05 — **Android-сборка починена и сайт стал двуязычным сайтом продукта.** Сборка
+  `f505706b` падала на PREBUILD: `expo-notifications` не принимает дефис в имени Android-ресурса
+  (`rest-done.wav`). Звуки переименованы в `rest_done`/`rest_soon` во всех ссылках (`04c3f35`),
+  проверено локальным `expo prebuild --platform android`; **AAB `6ccc80d6`, versionCode 3, FINISHED**.
+  Сайт (`fa37faa` в main, `7b8834e` в gh-pages): лендинг с App Store, 5 скриншотов, таблица
+  различий iPhone/Android, FAQ; новый `news.html` с таймлайном и карточками статусов по образцу
+  AsbestosGuard; политика переведена на русский, уточнено что iCloud-синк только iOS. Боевой URL
+  проверен: все страницы и ассеты 200.
 
 - 2026-07-25 — **Build #9 (v1.0.1) в TestFlight + политика опубликована.** Первая попытка (#8) упала
   на `npm ci` из-за разъехавшегося lock (`@emnapi/wasi-threads`), починено `16d6a3a`. Политика
@@ -501,7 +514,11 @@ JS через expo-audio (как уже работал финал), locked/backg
 - **Репозиторий:** https://github.com/hasanovvug-gif/gymbar
 - **App Store Connect:** app id `6793901080` · bundle `com.gymbar.app` · SKU `gymbar-001`
 - **Карточка и скриншоты:** `docs/appstore/metadata.md`, `docs/appstore/screenshots/`
-- **Сайт поддержки:** https://hasanovvug-gif.github.io/gymbar/ (ветка `gh-pages`, исходники `site/`)
+- **Сайт:** https://hasanovvug-gif.github.io/gymbar/ (ветка `gh-pages`, исходники `site/`) — с 05.08
+  это сайт продукта, а не одна страница поддержки: лендинг + `news.html` (таймлайн и «в пути»)
+  + `privacy.html`, всё в двух языках (EN/RU, переключатель `assets/lang.js`, словарь в самой странице).
+  Деплой: `rsync -a --delete --exclude .git site/ <worktree gh-pages>/` → вернуть `.nojekyll` → коммит → push.
+  ⚠️ При правке `assets/*` бампить `?v=N` в трёх html — иначе браузер держит старый файл.
 - **Подпись:** `~/.appstoreconnect/private/gymbar/` (профиль + p12), ключ API `AuthKey_XC65QPNJJK.p8`
 - **Knowledge:** `~/Documents/Projects/mission-control/knowledge/projects/gym-tracker.md`
 - **Исходная задача по дизайну:** `~/Documents/Projects/mission-control/tasks/personal/gymtracker-design.md`
