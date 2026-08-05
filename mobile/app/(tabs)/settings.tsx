@@ -140,9 +140,11 @@ export default function SettingsScreen() {
         <Tappable onPress={() => importGymData(language)} style={[styles.actionRow, styles.rowBorder]}>
           <Text style={styles.actionText}>{t('settings.import')}</Text><Text style={styles.chevron}>›</Text>
         </Tappable>
-        <View style={[styles.icloudStatus, styles.rowBorder]}>
-          <Text style={styles.icloudText}>{iCloudLabel}</Text>
-        </View>
+        {Platform.OS === 'ios' && (
+          <View style={[styles.icloudStatus, styles.rowBorder]}>
+            <Text style={styles.icloudText}>{iCloudLabel}</Text>
+          </View>
+        )}
         <Tappable onPress={() => setOnboardingSeen(false)} style={[styles.actionRow, styles.rowBorder]}>
           <Text style={styles.actionText}>{t('settings.showOnboarding')}</Text><Text style={styles.chevron}>›</Text>
         </Tappable>
@@ -170,15 +172,18 @@ function SlotTimeRow({ slot, label, time, onChange }: {
   onChange: (slot: ReminderSlot, time: string) => void;
 }) {
   const { styles } = useThemedStyles();
+  const { t } = useT();
+  const hour = t('common.hourShort');
+  const minutes = t('common.minutes');
   return (
     <View style={[styles.settingRow, styles.rowBorder]}>
       <Text style={styles.settingLabel}>{label}</Text>
       <View style={styles.timeRow}>
-        <Tappable haptic="select" accessibilityLabel={`${label} −1 ч`} onPress={() => onChange(slot, shiftSlotTime(time, -60))} style={styles.timeStep}><Text style={styles.timeStepText}>−ч</Text></Tappable>
-        <Tappable haptic="select" accessibilityLabel={`${label} −5 мин`} onPress={() => onChange(slot, shiftSlotTime(time, -5))} style={styles.timeStep}><Text style={styles.timeStepText}>−5</Text></Tappable>
+        <Tappable haptic="select" accessibilityLabel={`${label} −1 ${hour}`} onPress={() => onChange(slot, shiftSlotTime(time, -60))} style={styles.timeStep}><Text style={styles.timeStepText}>−{hour}</Text></Tappable>
+        <Tappable haptic="select" accessibilityLabel={`${label} −5 ${minutes}`} onPress={() => onChange(slot, shiftSlotTime(time, -5))} style={styles.timeStep}><Text style={styles.timeStepText}>−5</Text></Tappable>
         <Text style={styles.timeValue}>{time}</Text>
-        <Tappable haptic="select" accessibilityLabel={`${label} +5 мин`} onPress={() => onChange(slot, shiftSlotTime(time, 5))} style={styles.timeStep}><Text style={styles.timeStepText}>+5</Text></Tappable>
-        <Tappable haptic="select" accessibilityLabel={`${label} +1 ч`} onPress={() => onChange(slot, shiftSlotTime(time, 60))} style={styles.timeStep}><Text style={styles.timeStepText}>+ч</Text></Tappable>
+        <Tappable haptic="select" accessibilityLabel={`${label} +5 ${minutes}`} onPress={() => onChange(slot, shiftSlotTime(time, 5))} style={styles.timeStep}><Text style={styles.timeStepText}>+5</Text></Tappable>
+        <Tappable haptic="select" accessibilityLabel={`${label} +1 ${hour}`} onPress={() => onChange(slot, shiftSlotTime(time, 60))} style={styles.timeStep}><Text style={styles.timeStepText}>+{hour}</Text></Tappable>
       </View>
     </View>
   );
