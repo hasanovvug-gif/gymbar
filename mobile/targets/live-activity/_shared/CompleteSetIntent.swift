@@ -131,7 +131,7 @@ struct CompleteSetIntent: LiveActivityIntent {
     doneContent.title = "Отдых окончен"
     doneContent.body = "Пора начинать следующий подход"
     doneContent.sound = UNNotificationSound(
-      named: UNNotificationSoundName(rawValue: "rest-done.wav")
+      named: UNNotificationSoundName(rawValue: "rest_done.wav")
     )
     doneContent.interruptionLevel = .timeSensitive
     doneContent.userInfo = ["kind": "rest_done"]
@@ -152,7 +152,7 @@ struct CompleteSetIntent: LiveActivityIntent {
       soonContent.title = "Скоро подход"
       soonContent.body = "Приготовься"
       soonContent.sound = UNNotificationSound(
-        named: UNNotificationSoundName(rawValue: "rest-soon.wav")
+        named: UNNotificationSoundName(rawValue: "rest_soon.wav")
       )
       soonContent.interruptionLevel = .timeSensitive
       soonContent.userInfo = ["kind": "rest_soon"]

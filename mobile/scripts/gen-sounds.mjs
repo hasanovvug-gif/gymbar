@@ -8,8 +8,8 @@ const OUTPUT_DIR = resolve(dirname(fileURLToPath(import.meta.url)), '../assets/s
 
 // Тоны специально простые: владелец сможет подстроить частоты и громкость по слуху на устройстве.
 const sounds = {
-  'rest-done.wav': { frequencies: [880, 880, 1320], toneSeconds: 0.12, pauseSeconds: 0.05, amplitude: 0.9 },
-  'rest-soon.wav': { frequencies: [587, 587], toneSeconds: 0.08, pauseSeconds: 0.05, amplitude: 0.5 },
+  'rest_done.wav': { frequencies: [880, 880, 1320], toneSeconds: 0.12, pauseSeconds: 0.05, amplitude: 0.9 },
+  'rest_soon.wav': { frequencies: [587, 587], toneSeconds: 0.08, pauseSeconds: 0.05, amplitude: 0.5 },
 };
 
 function createSamples({ frequencies, toneSeconds, pauseSeconds, amplitude }) {

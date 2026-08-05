@@ -9,8 +9,8 @@ import { ActiveWorkoutSession } from '@/types/workout';
 
 const REST_SOON_NOTIFICATION_ID = 'gymbar-rest-soon';
 const REST_DONE_NOTIFICATION_ID = 'gymbar-rest-done';
-const REST_SOON_SOUND = 'rest-soon.wav';
-const REST_DONE_SOUND = 'rest-done.wav';
+const REST_SOON_SOUND = 'rest_soon.wav';
+const REST_DONE_SOUND = 'rest_done.wav';
 
 let activitySessionId: string | null = null;
 let scheduledKey: string | null = null;

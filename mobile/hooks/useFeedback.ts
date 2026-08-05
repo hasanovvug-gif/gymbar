@@ -34,7 +34,7 @@ async function prepareAudioMode() {
 export async function playRestDone() {
   try {
     await prepareAudioMode();
-    if (!restPlayer) restPlayer = createAudioPlayer(require('@/assets/sounds/rest-done.wav'));
+    if (!restPlayer) restPlayer = createAudioPlayer(require('@/assets/sounds/rest_done.wav'));
     restPlayer.seekTo(0);
     restPlayer.play();
   } catch {
@@ -46,7 +46,7 @@ export async function playRestDone() {
 export async function playRestSoon() {
   try {
     await prepareAudioMode();
-    if (!restSoonPlayer) restSoonPlayer = createAudioPlayer(require('@/assets/sounds/rest-soon.wav'));
+    if (!restSoonPlayer) restSoonPlayer = createAudioPlayer(require('@/assets/sounds/rest_soon.wav'));
     restSoonPlayer.seekTo(0);
     restSoonPlayer.play();
   } catch {
