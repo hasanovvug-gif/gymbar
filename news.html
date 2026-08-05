@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gymbar — News</title>
+<meta name="description" content="What shipped in Gymbar, what is in review and what is planned next.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=5">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 1024 1024" aria-hidden="true">
+        <rect width="1024" height="1024" rx="213" fill="#141619"/>
+        <path d="M512 171 L853 512 L512 853 L171 512 Z" fill="none" stroke="#FFFFFF" stroke-width="96" stroke-linejoin="round"/>
+        <path d="M290 512 L734 512" fill="none" stroke="#C8F031" stroke-width="44" stroke-linecap="round"/>
+        <rect x="350" y="408" width="92" height="208" rx="38" fill="#C8F031"/>
+        <rect x="582" y="408" width="92" height="208" rx="38" fill="#C8F031"/>
+      </svg>
+      Gymbar
+    </a>
+    <nav class="links">
+      <a href="index.html#features" data-i18n="navFeatures">Features</a>
+      <a href="news.html" aria-current="page" data-i18n="navNews">News</a>
+      <a href="index.html#support" data-i18n="navSupport">Support</a>
+      <a href="privacy.html" data-i18n="navPrivacy">Privacy</a>
+    </nav>
+    <div class="lang">
+      <button data-set-lang="en" aria-pressed="true">EN</button>
+      <button data-set-lang="ru" aria-pressed="false">RU</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap narrow" style="padding-top:56px;padding-bottom:24px">
+  <p class="eyebrow" data-i18n="eyebrow">News</p>
+  <h1 style="font-size:clamp(30px,6vw,44px)" data-i18n="title">What's new in Gymbar</h1>
+  <p class="lead" data-i18n="lead">One person builds this app, so the changelog is short and honest: what already works, what is sitting in a store review queue, and what is planned next.</p>
+
+  <section style="padding:36px 0 0">
+    <h2 style="font-size:13px;letter-spacing:.1em;color:var(--mut)" data-i18n="latestHeading">Latest</h2>
+    <article class="card featured" style="margin-top:16px;padding:0">
+      <div class="body">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <span class="pill shipped" id="featStatus"></span>
+          <span class="meta" id="featMeta"></span>
+        </div>
+        <h3 style="font-size:23px;margin-top:14px" id="featTitle"></h3>
+        <p id="featBody" style="margin-bottom:0"></p>
+        <div class="stores" style="margin-bottom:0">
+          <a class="store" href="https://apps.apple.com/app/gymbar/id6793901080" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#0B0C0E" d="M17.05 12.94c-.02-2.06 1.68-3.05 1.76-3.1-.96-1.4-2.46-1.6-2.99-1.62-1.27-.13-2.48.75-3.13.75-.64 0-1.64-.73-2.7-.71-1.39.02-2.67.81-3.38 2.05-1.44 2.5-.37 6.2 1.03 8.23.69.99 1.5 2.1 2.57 2.06 1.03-.04 1.42-.66 2.67-.66 1.24 0 1.6.66 2.69.64 1.11-.02 1.81-1 2.49-2 .78-1.15 1.1-2.26 1.12-2.32-.02-.01-2.15-.82-2.17-3.27zM15.02 6.9c.56-.69.94-1.63.84-2.58-.81.03-1.8.54-2.38 1.22-.52.6-.98 1.57-.86 2.49.9.07 1.83-.46 2.4-1.13z"/></svg>
+            <span>
+              <span class="s1" data-i18n="storeAppleTop">Download on the</span>
+              <span class="s2">App Store</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section style="padding:40px 0 0">
+    <h2 style="font-size:13px;letter-spacing:.1em;color:var(--mut)" data-i18n="soonHeading">On the way</h2>
+    <div class="grid" id="upcoming" style="margin-top:16px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))"></div>
+  </section>
+
+  <section style="padding:44px 0 0">
+    <h2 style="font-size:13px;letter-spacing:.1em;color:var(--mut)" data-i18n="shippedHeading">Shipped</h2>
+    <ol class="timeline" id="timeline"></ol>
+  </section>
+
+  <p style="border-top:1px solid var(--line);padding-top:24px;margin-top:8px">
+    <a href="index.html" data-i18n="back">← Back to Gymbar</a>
+  </p>
+</main>
+
+<footer class="site">
+  <div class="wrap row">
+    <span>Gymbar</span>
+    <a href="privacy.html" data-i18n="navPrivacy">Privacy</a>
+    <a href="index.html#support" data-i18n="navSupport">Support</a>
+    <a href="https://github.com/hasanovvug-gif/gymbar" target="_blank" rel="noopener" data-i18n="footSource">Source</a>
+  </div>
+</footer>
+
+<script>
+window.T = {
+  en: {
+    pageTitle: "Gymbar — News",
+    navFeatures: "Features", navNews: "News", navSupport: "Support", navPrivacy: "Privacy",
+    storeAppleTop: "Download on the",
+    eyebrow: "News",
+    title: "What's new in Gymbar",
+    lead: "One person builds this app, so the changelog is short and honest: what already works, what is sitting in a store review queue, and what is planned next.",
+    latestHeading: "Latest", soonHeading: "On the way", shippedHeading: "Shipped",
+    statuses: { shipped: "Shipped", review: "In review", progress: "In progress", planned: "Planned" },
+    featured: {
+      status: "shipped", date: "5 August 2026", tag: "Release",
+      title: "Gymbar 1.0 is live on the App Store",
+      body: "After thirteen days in review, the first public version is out: workouts, plan editor, rest timer with a sound cue, supplements with reminders and a streak, history with volume, export and import. Free, no account, no ads."
+    },
+    upcoming: [
+      { status: "review", tag: "iOS", title: "Version 1.0.1", body: "Submitted for review on 5 August. Adds the Lock Screen Live Activity, the two-stage rest sound, supplement label scanning, iCloud sync and drag-and-drop in the plan editor. Releases automatically once Apple approves it." },
+      { status: "progress", tag: "Android", title: "Google Play", body: "The Android build is done and the store listing is being put together. Live Activity and iCloud sync stay iOS-only for now; everything else is the same app." },
+      { status: "planned", tag: "Later", title: "Training analysis", body: "A button in History that turns your recent sessions into a short readable summary instead of raw numbers. Deliberately left until after the release, because it widens what leaves the phone." }
+    ],
+    timeline: [
+      { date: "5 Aug 2026", tag: "Release", status: "shipped", title: "Out on the App Store", body: "Version 1.0 approved and published. Same day: 1.0.1 submitted for review and the first Android build produced for Google Play." },
+      { date: "25 Jul 2026", tag: "Workout", status: "shipped", title: "Drag and drop in the plan editor", body: "Days and exercises are reordered by holding the handle and dragging. The up/down arrows are gone." },
+      { date: "25 Jul 2026", tag: "Supplements", status: "shipped", title: "Reminders by time of day", body: "Morning, pre-workout and evening slots with their own times, one permission screen, and a live count of scheduled reminders in Settings." },
+      { date: "25 Jul 2026", tag: "Supplements", status: "shipped", title: "Label scan", body: "Photograph a package and the label is read into a card — form, dose, servings, directions — in your own language, ready to edit. Photos are resized before upload, which strips location metadata." },
+      { date: "24 Jul 2026", tag: "Workout", status: "shipped", title: "Live Activity on the Lock Screen", body: "Current exercise, set number and rest countdown on the Lock Screen, with a button that finishes the set without unlocking the phone." },
+      { date: "24 Jul 2026", tag: "Workout", status: "shipped", title: "Two-stage rest sound", body: "A soft warning a few seconds before the rest ends and the real cue when it is over — audible with the ringer off, foreground or locked, without ever double-beeping." },
+      { date: "24 Jul 2026", tag: "Data", status: "shipped", title: "Export, import and iCloud", body: "The whole log exports to JSON and imports back with a preview and an automatic backup; a broken or foreign file is refused whole. Plan, supplements and settings also ride along in iCloud." },
+      { date: "23 Jul 2026", tag: "Store", status: "shipped", title: "Version 1.0 submitted to Apple", body: "The first build went into App Review with the store listing, screenshots and privacy details." },
+      { date: "22 Jul 2026", tag: "Start", status: "shipped", title: "Rebuilt as a native app", body: "Gymbar started as a personal web tracker and was rewritten from scratch as an iPhone app, so the rest timer, notifications and Lock Screen could work the way the gym floor needs." }
+    ],
+    back: "← Back to Gymbar", footSource: "Source"
+  },
+
+  ru: {
+    pageTitle: "Gymbar — Новости",
+    navFeatures: "Возможности", navNews: "Новости", navSupport: "Поддержка", navPrivacy: "Конфиденциальность",
+    storeAppleTop: "Загрузите в",
+    eyebrow: "Новости",
+    title: "Что нового в Gymbar",
+    lead: "Приложение делает один человек, поэтому список изменений короткий и честный: что уже работает, что лежит в очереди на проверку в магазине и что запланировано дальше.",
+    latestHeading: "Последнее", soonHeading: "В пути", shippedHeading: "Сделано",
+    statuses: { shipped: "Вышло", review: "На ревью", progress: "В работе", planned: "В планах" },
+    featured: {
+      status: "shipped", date: "5 августа 2026", tag: "Релиз",
+      title: "Gymbar 1.0 вышел в App Store",
+      body: "После тринадцати дней проверки первая публичная версия в магазине: тренировки, редактор плана, таймер отдыха со звуковым сигналом, добавки с напоминаниями и серией, история с объёмом, экспорт и импорт. Бесплатно, без аккаунта и рекламы."
+    },
+    upcoming: [
+      { status: "review", tag: "iOS", title: "Версия 1.0.1", body: "Подана на ревью 5 августа. Добавляет Live Activity на экране блокировки, двухступенчатый звук отдыха, скан этикетки добавки, синхронизацию через iCloud и перетаскивание в редакторе плана. Выйдет автоматически, как только Apple одобрит." },
+      { status: "progress", tag: "Android", title: "Google Play", body: "Android-сборка готова, собирается карточка в магазине. Live Activity и синхронизация через iCloud пока остаются только на iOS; всё остальное — то же самое приложение." },
+      { status: "planned", tag: "Позже", title: "Разбор тренировок", body: "Кнопка в истории, которая превращает последние тренировки в короткий человеческий вывод вместо голых цифр. Намеренно оставлено на после релиза: эта функция расширяет то, что уходит с телефона." }
+    ],
+    timeline: [
+      { date: "5 авг 2026", tag: "Релиз", status: "shipped", title: "Вышел в App Store", body: "Версия 1.0 одобрена и опубликована. В тот же день: 1.0.1 подана на ревью и собрана первая Android-сборка для Google Play." },
+      { date: "25 июл 2026", tag: "Тренировка", status: "shipped", title: "Перетаскивание в редакторе плана", body: "Дни и упражнения переставляются удержанием ручки и перетаскиванием. Стрелки вверх-вниз убраны." },
+      { date: "25 июл 2026", tag: "Добавки", status: "shipped", title: "Напоминания по времени дня", body: "Слоты «утро», «до тренировки» и «вечер» со своим временем, единый экран запроса разрешения и счётчик активных напоминаний в настройках." },
+      { date: "25 июл 2026", tag: "Добавки", status: "shipped", title: "Скан этикетки", body: "Сфотографировали банку — этикетка разобрана в карточку: форма, доза, порции, способ приёма, на вашем языке и с возможностью поправить. Фото сжимаются перед отправкой, из них срезаются метаданные, включая геопозицию." },
+      { date: "24 июл 2026", tag: "Тренировка", status: "shipped", title: "Live Activity на экране блокировки", body: "Текущее упражнение, номер подхода и отсчёт отдыха прямо на заблокированном экране, с кнопкой «подход сделан» — разблокировать телефон не нужно." },
+      { date: "24 июл 2026", tag: "Тренировка", status: "shipped", title: "Двухступенчатый звук отдыха", body: "Мягкое предупреждение за несколько секунд до конца отдыха и основной сигнал по окончании — слышно при выключенном звонке, в приложении и на заблокированном экране, без двойного бипа." },
+      { date: "24 июл 2026", tag: "Данные", status: "shipped", title: "Экспорт, импорт и iCloud", body: "Весь журнал выгружается в JSON и загружается обратно с предпросмотром и автоматической резервной копией; битый или чужой файл отвергается целиком. План, добавки и настройки дополнительно живут в iCloud." },
+      { date: "23 июл 2026", tag: "Магазин", status: "shipped", title: "Версия 1.0 подана в Apple", body: "Первая сборка ушла в App Review вместе с карточкой, скриншотами и анкетой о приватности." },
+      { date: "22 июл 2026", tag: "Старт", status: "shipped", title: "Переписано как нативное приложение", body: "Gymbar начинался как личный веб-трекер и был переписан с нуля под iPhone — чтобы таймер отдыха, уведомления и экран блокировки работали так, как нужно в зале." }
+    ],
+    back: "← Назад к Gymbar", footSource: "Исходный код"
+  }
+};
+
+window.render = function (d) {
+  var f = d.featured;
+  document.getElementById('featStatus').textContent = d.statuses[f.status];
+  document.getElementById('featStatus').className = 'pill ' + f.status;
+  document.getElementById('featMeta').textContent = f.date + ' · ' + f.tag;
+  document.getElementById('featTitle').textContent = f.title;
+  document.getElementById('featBody').textContent = f.body;
+
+  document.getElementById('upcoming').innerHTML = d.upcoming.map(function (e) {
+    return '<article class="card">' +
+      '<div style="display:flex;justify-content:space-between;gap:8px;align-items:center">' +
+        '<span class="pill ' + e.status + '">' + d.statuses[e.status] + '</span>' +
+        '<span class="meta" style="font-size:12px">' + e.tag + '</span>' +
+      '</div>' +
+      '<h3 style="margin-top:12px">' + e.title + '</h3><p>' + e.body + '</p></article>';
+  }).join('');
+
+  document.getElementById('timeline').innerHTML = d.timeline.map(function (e) {
+    return '<li>' +
+      '<div class="when"><b>' + e.date + '</b><span>' + e.tag + '</span></div>' +
+      '<div class="rail"><span class="dot"></span>' +
+        '<div class="card"><span class="pill ' + e.status + '">' + d.statuses[e.status] + '</span>' +
+        '<h3 style="margin-top:10px">' + e.title + '</h3><p>' + e.body + '</p></div>' +
+      '</div></li>';
+  }).join('');
+};
+</script>
+<script src="assets/lang.js?v=5"></script>
+</body>
+</html>

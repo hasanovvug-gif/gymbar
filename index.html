@@ -3,76 +3,296 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Gymbar — Support</title>
+<title>Gymbar — workout log for the gym floor</title>
+<meta name="description" content="Gymbar is a workout log built for one thing: getting through the session without touching your phone more than you have to. Free, no account, data stays on your device.">
+<meta property="og:title" content="Gymbar">
+<meta property="og:description" content="A workout log built for the gym floor. Rest timer with a sound cue, supplement tracking, no account.">
+<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Manrope:wght@400;600&display=swap" rel="stylesheet">
-<style>
-  :root { --bg:#0B0C0E; --card:#141619; --line:#23262B; --ink:#F2F4F5; --mut:#8B9199; --accent:#C8F031; }
-  * { box-sizing:border-box; }
-  body { margin:0; background:var(--bg); color:var(--ink); font-family:Manrope,system-ui,sans-serif; line-height:1.6; }
-  .wrap { max-width:720px; margin:0 auto; padding:64px 24px 96px; }
-  h1,h2 { font-family:Oswald,sans-serif; font-weight:600; letter-spacing:.02em; text-transform:uppercase; margin:0 0 12px; }
-  h1 { font-size:clamp(32px,7vw,48px); }
-  h2 { font-size:20px; margin-top:40px; }
-  p { margin:0 0 16px; color:var(--mut); }
-  p.lead { color:var(--ink); font-size:18px; }
-  a { color:var(--accent); }
-  .mark { width:64px; height:64px; margin-bottom:24px; }
-  .card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:20px 24px; margin:24px 0; }
-  .card p:last-child { margin-bottom:0; }
-  ul { color:var(--mut); padding-left:20px; margin:0 0 16px; }
-  li { margin-bottom:6px; }
-  footer { margin-top:56px; padding-top:24px; border-top:1px solid var(--line); color:var(--mut); font-size:14px; }
-  .nav { display:flex; gap:20px; margin-bottom:40px; font-size:14px; }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=5">
 </head>
 <body>
-<div class="wrap">
-  <svg class="mark" viewBox="0 0 1024 1024" aria-hidden="true">
-    <rect width="1024" height="1024" rx="213" fill="#0B0C0E"/>
-    <path d="M512 171 L853 512 L512 853 L171 512 Z" fill="none" stroke="#FFFFFF" stroke-width="96" stroke-linejoin="round"/>
-    <path d="M290 512 L734 512" fill="none" stroke="#C8F031" stroke-width="44" stroke-linecap="round"/>
-    <rect x="350" y="408" width="92" height="208" rx="38" fill="#C8F031"/>
-    <rect x="582" y="408" width="92" height="208" rx="38" fill="#C8F031"/>
-  </svg>
 
-  <h1>Gymbar</h1>
-  <p class="lead">A workout log built for one thing: getting through the session without touching your phone more than you have to.</p>
-
-  <div class="nav"><a href="#support">Support</a><a href="privacy.html">Privacy Policy</a></div>
-
-  <h2 id="support">Support</h2>
-  <p>Questions, bugs, or feature requests — email <a href="mailto:hasanov.vug@gmail.com">hasanov.vug@gmail.com</a>. Replies usually come within a couple of days.</p>
-
-  <div class="card">
-    <p><strong>Where is my data?</strong></p>
-    <p>Everything lives on your device only. There is no account and no server. Deleting the app deletes the data — export it first from Settings → Export data if you want to keep it.</p>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 1024 1024" aria-hidden="true">
+        <rect width="1024" height="1024" rx="213" fill="#141619"/>
+        <path d="M512 171 L853 512 L512 853 L171 512 Z" fill="none" stroke="#FFFFFF" stroke-width="96" stroke-linejoin="round"/>
+        <path d="M290 512 L734 512" fill="none" stroke="#C8F031" stroke-width="44" stroke-linecap="round"/>
+        <rect x="350" y="408" width="92" height="208" rx="38" fill="#C8F031"/>
+        <rect x="582" y="408" width="92" height="208" rx="38" fill="#C8F031"/>
+      </svg>
+      Gymbar
+    </a>
+    <nav class="links">
+      <a href="#features" data-i18n="navFeatures">Features</a>
+      <a href="news.html" data-i18n="navNews">News</a>
+      <a href="#support" data-i18n="navSupport">Support</a>
+      <a href="privacy.html" data-i18n="navPrivacy">Privacy</a>
+    </nav>
+    <div class="lang">
+      <button data-set-lang="en" aria-pressed="true">EN</button>
+      <button data-set-lang="ru" aria-pressed="false">RU</button>
+    </div>
   </div>
+</header>
 
-  <div class="card">
-    <p><strong>How do I move data to a new phone?</strong></p>
-    <p>Settings → Export data writes a JSON file you can share to yourself. Import it on the new device from the same screen.</p>
+<main>
+
+  <section class="hero wrap">
+    <svg class="mark" viewBox="0 0 1024 1024" aria-hidden="true">
+      <rect width="1024" height="1024" rx="213" fill="#141619"/>
+      <path d="M512 171 L853 512 L512 853 L171 512 Z" fill="none" stroke="#FFFFFF" stroke-width="96" stroke-linejoin="round"/>
+      <path d="M290 512 L734 512" fill="none" stroke="#C8F031" stroke-width="44" stroke-linecap="round"/>
+      <rect x="350" y="408" width="92" height="208" rx="38" fill="#C8F031"/>
+      <rect x="582" y="408" width="92" height="208" rx="38" fill="#C8F031"/>
+    </svg>
+    <h1 data-i18n="heroTitle">Train, don't tap</h1>
+    <p class="lead" data-i18n="heroLead">Gymbar is a workout log built for one thing: getting through the session without touching your phone more than you have to.</p>
+    <p class="sub" data-i18n="heroSub">Free. No account, no sign-up, no ads. Your plan and history live on your device.</p>
+
+    <div class="stores">
+      <a class="store" href="https://apps.apple.com/app/gymbar/id6793901080" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#0B0C0E" d="M17.05 12.94c-.02-2.06 1.68-3.05 1.76-3.1-.96-1.4-2.46-1.6-2.99-1.62-1.27-.13-2.48.75-3.13.75-.64 0-1.64-.73-2.7-.71-1.39.02-2.67.81-3.38 2.05-1.44 2.5-.37 6.2 1.03 8.23.69.99 1.5 2.1 2.57 2.06 1.03-.04 1.42-.66 2.67-.66 1.24 0 1.6.66 2.69.64 1.11-.02 1.81-1 2.49-2 .78-1.15 1.1-2.26 1.12-2.32-.02-.01-2.15-.82-2.17-3.27zM15.02 6.9c.56-.69.94-1.63.84-2.58-.81.03-1.8.54-2.38 1.22-.52.6-.98 1.57-.86 2.49.9.07 1.83-.46 2.4-1.13z"/></svg>
+        <span>
+          <span class="s1" data-i18n="storeAppleTop">Download on the</span>
+          <span class="s2">App Store</span>
+        </span>
+      </a>
+      <span class="store soon">
+        <svg viewBox="0 0 512 512" aria-hidden="true">
+          <path fill="#00F076" d="M325.3 234.3 104.6 13l280.8 161.2-60.1 60.1z"/>
+          <path fill="#00D3FF" d="M47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0z"/>
+          <path fill="#FFCE00" d="M472.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8z"/>
+          <path fill="#FF3A44" d="M104.6 499l220.7-221.3 60.1 60.1L104.6 499z"/>
+        </svg>
+        <span>
+          <span class="s1" data-i18n="storeGoogleTop">Coming soon to</span>
+          <span class="s2">Google Play</span>
+        </span>
+      </span>
+    </div>
+    <p class="note" data-i18n="heroNote">iPhone · iOS 16.2 or later · English, Russian, Ukrainian</p>
+  </section>
+
+  <div class="shots" id="shots"></div>
+
+  <section class="wrap" id="features">
+    <p class="eyebrow" data-i18n="featuresEyebrow">What it does</p>
+    <h2 data-i18n="featuresTitle">Built around the set, not the spreadsheet</h2>
+    <p class="lead" style="max-width:640px" data-i18n="featuresLead">Everything on this list exists because it removes a tap during a workout, or answers a question you actually ask between sets.</p>
+    <div class="grid" id="featureGrid" style="margin-top:26px"></div>
+  </section>
+
+  <section class="wrap">
+    <p class="eyebrow" data-i18n="flowEyebrow">A session, start to finish</p>
+    <h2 data-i18n="flowTitle">How it goes</h2>
+    <div class="grid" id="flowGrid" style="margin-top:22px"></div>
+  </section>
+
+  <section class="wrap">
+    <p class="eyebrow" data-i18n="platEyebrow">Platforms</p>
+    <h2 data-i18n="platTitle">iPhone today, Android next</h2>
+    <p style="max-width:640px" data-i18n="platLead">The Android build is on its way to Google Play. Two iOS-only features rely on Apple frameworks that have no Android equivalent in the app yet — they are listed honestly below.</p>
+    <div style="overflow-x:auto">
+      <table class="table" style="margin-top:14px">
+        <thead>
+          <tr>
+            <th data-i18n="platCol1">Feature</th>
+            <th data-i18n="platCol2">iPhone</th>
+            <th data-i18n="platCol3">Android</th>
+          </tr>
+        </thead>
+        <tbody id="platRows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="wrap narrow">
+    <p class="eyebrow" data-i18n="privEyebrow">Privacy</p>
+    <h2 data-i18n="privTitle">Your training stays on your phone</h2>
+    <p data-i18n="privBody">No account, no server, no analytics SDKs, no ads. Your plan, history and supplement records are written to local storage on the device. One feature — scanning a supplement label — sends the photos you took to an AI service, and only when you tap the scan button.</p>
+    <p><a href="privacy.html" data-i18n="privLink">Read the full privacy policy →</a></p>
+  </section>
+
+  <section class="wrap narrow" id="support">
+    <p class="eyebrow" data-i18n="supEyebrow">Support</p>
+    <h2 data-i18n="supTitle">Questions and bugs</h2>
+    <p data-i18n-html="supBody">Email <a href="mailto:hasanov.vug@gmail.com">hasanov.vug@gmail.com</a>. Replies usually come within a couple of days. Bug reports are welcome — say which screen and what you expected.</p>
+    <div id="faqList" style="margin-top:18px"></div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap row">
+    <span>Gymbar</span>
+    <a href="privacy.html" data-i18n="navPrivacy">Privacy</a>
+    <a href="news.html" data-i18n="navNews">News</a>
+    <a href="https://github.com/hasanovvug-gif/gymbar" target="_blank" rel="noopener" data-i18n="footSource">Source</a>
+    <span class="sp" data-i18n="footNote">Made by one person who trains.</span>
   </div>
+</footer>
 
-  <div class="card">
-    <p><strong>The rest timer sound doesn't play.</strong></p>
-    <p>The cue is designed to play even on silent mode. If it stays quiet, check that Gymbar is allowed to play audio and that the media volume is not at zero.</p>
-  </div>
+<script>
+window.T = {
+  en: {
+    pageTitle: "Gymbar — workout log for the gym floor",
+    navFeatures: "Features", navNews: "News", navSupport: "Support", navPrivacy: "Privacy",
+    heroTitle: "Train, don't tap",
+    heroLead: "Gymbar is a workout log built for one thing: getting through the session without touching your phone more than you have to.",
+    heroSub: "Free. No account, no sign-up, no ads. Your plan and history live on your device.",
+    storeAppleTop: "Download on the", storeGoogleTop: "Coming soon to",
+    heroNote: "iPhone · iOS 16.2 or later · English, Russian, Ukrainian",
+    shots: [
+      { img: "home", cap: "Today's day, one Start button" },
+      { img: "session", cap: "Set by set, weight changed on the fly" },
+      { img: "supplements", cap: "Supplements by time of day" },
+      { img: "streak", cap: "Adherence streak and month view" },
+      { img: "history", cap: "Volume over eight weeks" }
+    ],
+    featuresEyebrow: "What it does",
+    featuresTitle: "Built around the set, not the spreadsheet",
+    featuresLead: "Everything on this list exists because it removes a tap during a workout, or answers a question you actually ask between sets.",
+    features: [
+      { i: "📋", t: "Your split, your order", b: "Days are an ordered list, not weekdays. Train Day 2 on Friday if that is when you got to the gym — nothing goes red. Drag days and exercises into place in the editor." },
+      { i: "⏱", t: "Rest timer that speaks up", b: "Two signals: a soft one a few seconds before the rest ends, and the real cue when it is over. Both play even with the ringer off — the phone lives in your pocket during a set." },
+      { i: "🔒", t: "Lock Screen control", b: "A Live Activity shows the current exercise, set number and rest countdown, with a button to finish the set. The phone stays locked in your hand." },
+      { i: "⚖️", t: "Weight changed mid-set", b: "Bumping the working weight up or down takes one tap and is remembered for next time. Skip an exercise (no volume counted) or end it early — the sets you did still count." },
+      { i: "💊", t: "Supplements, honestly tracked", b: "A checklist by time of day — morning, pre-workout, evening — with stock levels, reminders and an adherence streak with a month calendar." },
+      { i: "📷", t: "Label scan", b: "Photograph a supplement package and the app reads the label into a card: form, dose, servings, directions. You edit or discard the result. Everything can also be typed by hand." },
+      { i: "📈", t: "History that answers one question", b: "Volume across eight weeks as a curve, plus every past session with weights, sets and time — including what was skipped." },
+      { i: "💾", t: "Your data, portable", b: "Export the whole log to a JSON file and import it back on another phone. Settings and the supplement list restore themselves from iCloud after a reinstall." }
+    ],
+    flowEyebrow: "A session, start to finish",
+    flowTitle: "How it goes",
+    flow: [
+      { i: "1", t: "Open and press Start", b: "The home screen already knows which day is next, how many exercises it has and roughly how long it takes." },
+      { i: "2", t: "Do the set, tap Done", b: "Rest starts by itself. Put the phone away — the pre-signal and the end cue come through the speaker, or straight from the Lock Screen." },
+      { i: "3", t: "Finish and forget", b: "The session lands in history with volume, active time and every exercise you skipped or ended early. Nothing to fill in afterwards." }
+    ],
+    platEyebrow: "Platforms",
+    platTitle: "iPhone today, Android next",
+    platLead: "The Android build is on its way to Google Play. Two iOS-only features rely on Apple frameworks that have no Android equivalent in the app yet — they are listed honestly below.",
+    platCol1: "Feature", platCol2: "iPhone", platCol3: "Android",
+    platRows: [
+      ["Workouts, plan editor, history", 1, 1],
+      ["Rest timer with two sound cues", 1, 1],
+      ["Supplements, reminders, streak", 1, 1],
+      ["Supplement label scan", 1, 1],
+      ["Export / import JSON", 1, 1],
+      ["Live Activity on the Lock Screen", 1, 0],
+      ["iCloud sync of plan and settings", 1, 0]
+    ],
+    privEyebrow: "Privacy",
+    privTitle: "Your training stays on your phone",
+    privBody: "No account, no server, no analytics SDKs, no ads. Your plan, history and supplement records are written to local storage on the device. One feature — scanning a supplement label — sends the photos you took to an AI service, and only when you tap the scan button.",
+    privLink: "Read the full privacy policy →",
+    supEyebrow: "Support", supTitle: "Questions and bugs",
+    supBody: 'Email <a href="mailto:hasanov.vug@gmail.com">hasanov.vug@gmail.com</a>. Replies usually come within a couple of days. Bug reports are welcome — say which screen and what you expected.',
+    faq: [
+      { q: "Where is my data?", a: "On your device. There is no account and no server. Deleting the app deletes the data — export it first from Settings → Export data if you want to keep it." },
+      { q: "How do I move data to a new phone?", a: "Settings → Export data writes a JSON file you can share to yourself. Import it on the new device from the same screen. On iPhone, your plan, supplement list and settings also come back on their own through iCloud." },
+      { q: "The rest timer sound doesn't play.", a: "The cue is designed to play even on silent mode. If it stays quiet, check that Gymbar is allowed to play audio and that the media volume is not at zero." },
+      { q: "Is it really free?", a: "Yes. No subscription, no in-app purchases, no ads, no paid tier hiding features." },
+      { q: "When does Android arrive?", a: "The build is done and going through Google Play review. Follow the News page — the release lands there first." }
+    ],
+    footSource: "Source", footNote: "Made by one person who trains."
+  },
 
-  <h2>What the app does</h2>
-  <ul>
-    <li>Plan your split as an ordered list of days — no weekday lock-in.</li>
-    <li>Rest timer between sets with a sound cue.</li>
-    <li>Pause at any moment — paused time is excluded from active time.</li>
-    <li>Skip an exercise (no volume counted) or end it early (sets you did still count).</li>
-    <li>Supplement checklist by time of day, with stock levels and an adherence streak.</li>
-    <li>History and JSON export. Dark and light themes. English, Russian, Ukrainian.</li>
-  </ul>
+  ru: {
+    pageTitle: "Gymbar — дневник тренировок для зала",
+    navFeatures: "Возможности", navNews: "Новости", navSupport: "Поддержка", navPrivacy: "Конфиденциальность",
+    heroTitle: "Тренируйся, а не тыкай",
+    heroLead: "Gymbar — дневник тренировок, сделанный ради одного: пройти тренировку, беря телефон в руки как можно реже.",
+    heroSub: "Бесплатно. Без аккаунта, без регистрации, без рекламы. План и история лежат на вашем устройстве.",
+    storeAppleTop: "Загрузите в", storeGoogleTop: "Скоро в",
+    heroNote: "iPhone · iOS 16.2 и новее · английский, русский, украинский",
+    shots: [
+      { img: "home", cap: "День на сегодня и одна кнопка «Старт»" },
+      { img: "session", cap: "Подход за подходом, вес меняется на ходу" },
+      { img: "supplements", cap: "Добавки по времени дня" },
+      { img: "streak", cap: "Серия приёма и календарь месяца" },
+      { img: "history", cap: "Объём за восемь недель" }
+    ],
+    featuresEyebrow: "Что умеет",
+    featuresTitle: "Построено вокруг подхода, а не таблицы",
+    featuresLead: "Каждый пункт здесь появился потому, что убирает одно касание во время тренировки — или отвечает на вопрос, который реально возникает между подходами.",
+    features: [
+      { i: "📋", t: "Ваш сплит в вашем порядке", b: "Дни — упорядоченный список, а не дни недели. Пришли в зал в пятницу — делаете День 2, ничего не «просрочено». Дни и упражнения переставляются перетаскиванием." },
+      { i: "⏱", t: "Таймер отдыха, который слышно", b: "Два сигнала: мягкий за несколько секунд до конца отдыха и основной — когда пора вставать. Оба звучат даже при выключенном звонке: телефон во время подхода лежит в кармане." },
+      { i: "🔒", t: "Управление с экрана блокировки", b: "Live Activity показывает текущее упражнение, номер подхода и обратный отсчёт отдыха, с кнопкой «подход сделан». Телефон остаётся заблокированным." },
+      { i: "⚖️", t: "Вес меняется прямо в подходе", b: "Поднять или сбросить рабочий вес — одно касание, и он запоминается на следующий раз. Упражнение можно пропустить (объём не засчитается) или закончить раньше — сделанные подходы останутся." },
+      { i: "💊", t: "Добавки без самообмана", b: "Чек-лист по времени дня — утро, до тренировки, вечер — с остатками, напоминаниями и серией приёма с календарём месяца." },
+      { i: "📷", t: "Скан этикетки", b: "Сфотографируйте банку — приложение прочитает этикетку в карточку: форма, доза, порции, способ приёма. Результат можно поправить или удалить. Всё то же вносится и вручную." },
+      { i: "📈", t: "История ради одного вопроса", b: "Объём за восемь недель кривой плюс каждая прошедшая тренировка: веса, подходы, время — включая то, что пропустили." },
+      { i: "💾", t: "Данные принадлежат вам", b: "Экспорт всего журнала в JSON и импорт на другом телефоне. Настройки и список добавок возвращаются сами из iCloud после переустановки." }
+    ],
+    flowEyebrow: "Тренировка от начала до конца",
+    flowTitle: "Как это выглядит",
+    flow: [
+      { i: "1", t: "Открыл и нажал «Старт»", b: "Главный экран уже знает, какой день следующий, сколько в нём упражнений и сколько это примерно займёт." },
+      { i: "2", t: "Сделал подход, нажал «Готово»", b: "Отдых пошёл сам. Телефон можно убрать — предупредительный и основной сигналы придут звуком или прямо на экран блокировки." },
+      { i: "3", t: "Закончил и забыл", b: "Тренировка уходит в историю с объёмом, активным временем и всем, что пропущено или закончено раньше. Дозаполнять нечего." }
+    ],
+    platEyebrow: "Платформы",
+    platTitle: "Сейчас iPhone, следом Android",
+    platLead: "Android-сборка едет в Google Play. Две функции пока только на iOS — они опираются на фреймворки Apple, у которых в приложении ещё нет андроидного аналога. Честно перечислены ниже.",
+    platCol1: "Функция", platCol2: "iPhone", platCol3: "Android",
+    platRows: [
+      ["Тренировки, редактор плана, история", 1, 1],
+      ["Таймер отдыха с двумя сигналами", 1, 1],
+      ["Добавки, напоминания, серия", 1, 1],
+      ["Скан этикетки добавки", 1, 1],
+      ["Экспорт / импорт JSON", 1, 1],
+      ["Live Activity на экране блокировки", 1, 0],
+      ["Синхронизация плана и настроек через iCloud", 1, 0]
+    ],
+    privEyebrow: "Конфиденциальность",
+    privTitle: "Тренировки остаются на телефоне",
+    privBody: "Нет аккаунта, нет сервера, нет аналитики и рекламы. План, история и записи о добавках пишутся в локальное хранилище устройства. Единственная функция, которая выходит наружу — скан этикетки: сделанные вами фото уходят в AI-сервис, и только когда вы сами нажали кнопку распознавания.",
+    privLink: "Полная политика конфиденциальности →",
+    supEyebrow: "Поддержка", supTitle: "Вопросы и баги",
+    supBody: 'Пишите на <a href="mailto:hasanov.vug@gmail.com">hasanov.vug@gmail.com</a>. Обычно отвечаю за пару дней. Баг-репорты приветствуются — укажите экран и что ожидали увидеть.',
+    faq: [
+      { q: "Где мои данные?", a: "На вашем устройстве. Аккаунта и сервера нет. Удалите приложение — данные удалятся вместе с ним; если хотите сохранить, сделайте «Настройки → Экспорт данных»." },
+      { q: "Как перенести данные на новый телефон?", a: "«Настройки → Экспорт данных» создаёт JSON-файл, который можно отправить себе. На новом устройстве импортируйте его с того же экрана. На iPhone план, список добавок и настройки вернутся сами через iCloud." },
+      { q: "Не играет звук окончания отдыха.", a: "Сигнал рассчитан звучать даже в беззвучном режиме. Если тихо — проверьте, что Gymbar разрешено воспроизводить звук и что громкость медиа не на нуле." },
+      { q: "Правда бесплатно?", a: "Да. Без подписки, без встроенных покупок, без рекламы и без платного тарифа, за которым спрятаны функции." },
+      { q: "Когда будет Android?", a: "Сборка готова и проходит проверку Google Play. Следите за страницей «Новости» — релиз появится там первым." }
+    ],
+    footSource: "Исходный код", footNote: "Сделано одним человеком, который тренируется."
+  }
+};
 
-  <footer>
-    Gymbar · <a href="privacy.html">Privacy Policy</a> · <a href="https://github.com/hasanovvug-gif/gymbar">Source</a>
-  </footer>
-</div>
+window.render = function (d) {
+  document.getElementById('shots').innerHTML = d.shots.map(function (s) {
+    return '<figure><img src="shots/' + s.img + '.png" alt="" loading="lazy" width="540" height="1052">' +
+           '<figcaption>' + s.cap + '</figcaption></figure>';
+  }).join('');
+
+  document.getElementById('featureGrid').innerHTML = d.features.map(function (f) {
+    return '<div class="card"><span class="ico">' + f.i + '</span><h3>' + f.t + '</h3><p>' + f.b + '</p></div>';
+  }).join('');
+
+  document.getElementById('flowGrid').innerHTML = d.flow.map(function (f) {
+    return '<div class="card"><span class="ico" style="color:var(--accent);font-family:Oswald,sans-serif;font-weight:600">' +
+           f.i + '</span><h3>' + f.t + '</h3><p>' + f.b + '</p></div>';
+  }).join('');
+
+  document.getElementById('platRows').innerHTML = d.platRows.map(function (r) {
+    var cell = function (v) { return v ? '<span class="yes">✓</span>' : '<span class="no">—</span>'; };
+    return '<tr><td>' + r[0] + '</td><td>' + cell(r[1]) + '</td><td>' + cell(r[2]) + '</td></tr>';
+  }).join('');
+
+  document.getElementById('faqList').innerHTML = d.faq.map(function (f) {
+    return '<details class="faq"><summary>' + f.q + '</summary><p>' + f.a + '</p></details>';
+  }).join('');
+};
+</script>
+<script src="assets/lang.js?v=5"></script>
 </body>
 </html>
