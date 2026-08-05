@@ -4,71 +4,157 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Gymbar — Privacy Policy</title>
+<meta name="description" content="Gymbar privacy policy: no accounts, no analytics, training data stays on your device.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Manrope:wght@400;600&display=swap" rel="stylesheet">
-<style>
-  :root { --bg:#0B0C0E; --card:#141619; --line:#23262B; --ink:#F2F4F5; --mut:#8B9199; --accent:#C8F031; }
-  * { box-sizing:border-box; }
-  body { margin:0; background:var(--bg); color:var(--ink); font-family:Manrope,system-ui,sans-serif; line-height:1.6; }
-  .wrap { max-width:720px; margin:0 auto; padding:64px 24px 96px; }
-  h1,h2 { font-family:Oswald,sans-serif; font-weight:600; letter-spacing:.02em; text-transform:uppercase; margin:0 0 12px; }
-  h1 { font-size:clamp(28px,6vw,40px); }
-  h2 { font-size:18px; margin-top:36px; }
-  p { margin:0 0 16px; color:var(--mut); }
-  p.lead { color:var(--ink); font-size:18px; }
-  a { color:var(--accent); }
-  ul { color:var(--mut); padding-left:20px; margin:0 0 16px; }
-  li { margin-bottom:6px; }
-  .date { font-size:14px; color:var(--mut); margin-bottom:32px; }
-  footer { margin-top:56px; padding-top:24px; border-top:1px solid var(--line); color:var(--mut); font-size:14px; }
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600&family=Manrope:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css?v=5">
 </head>
 <body>
-<div class="wrap">
-  <h1>Privacy Policy</h1>
-  <p class="date">Gymbar · last updated 25 July 2026</p>
 
-  <p class="lead">Gymbar has no accounts and no analytics, and it keeps your training data on your device. One feature — scanning a supplement label — sends the photos you took to an AI service, and only when you tap the scan button.</p>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="brand" href="index.html">
+      <svg viewBox="0 0 1024 1024" aria-hidden="true">
+        <rect width="1024" height="1024" rx="213" fill="#141619"/>
+        <path d="M512 171 L853 512 L512 853 L171 512 Z" fill="none" stroke="#FFFFFF" stroke-width="96" stroke-linejoin="round"/>
+        <path d="M290 512 L734 512" fill="none" stroke="#C8F031" stroke-width="44" stroke-linecap="round"/>
+        <rect x="350" y="408" width="92" height="208" rx="38" fill="#C8F031"/>
+        <rect x="582" y="408" width="92" height="208" rx="38" fill="#C8F031"/>
+      </svg>
+      Gymbar
+    </a>
+    <nav class="links">
+      <a href="index.html#features" data-i18n="navFeatures">Features</a>
+      <a href="news.html" data-i18n="navNews">News</a>
+      <a href="index.html#support" data-i18n="navSupport">Support</a>
+      <a href="privacy.html" aria-current="page" data-i18n="navPrivacy">Privacy</a>
+    </nav>
+    <div class="lang">
+      <button data-set-lang="en" aria-pressed="true">EN</button>
+      <button data-set-lang="ru" aria-pressed="false">RU</button>
+    </div>
+  </div>
+</header>
 
-  <h2>What stays on your device</h2>
-  <p>Your training plan, workout history, supplement records, adherence marks and settings are written to your device's local storage and stay there. We never receive them. They are included in your own device backups (iCloud or encrypted local backup) if you have backups enabled — that copy is controlled by Apple and by you, not by us.</p>
+<main class="wrap narrow" style="padding-top:56px;padding-bottom:24px">
 
-  <h2>iCloud sync</h2>
-  <p>Your plan, supplement list and settings are also written to Apple's iCloud key-value store so they survive reinstalling the app and appear on your other devices. This uses <em>your</em> iCloud account. The data goes from your device to Apple and back — never to us, and we have no way to read it.</p>
+  <div data-lang="en">
+    <h1>Privacy Policy</h1>
+    <p class="note" style="margin-bottom:28px">Gymbar · last updated 5 August 2026</p>
 
-  <h2>Supplement label scanning</h2>
-  <p>When you open the scanner, take photos of a supplement package and tap the recognise button, those photos — and the optional note you typed — are sent to our relay server, which forwards them to Google's Gemini API to read the label. The result comes back to your device and is yours to edit or discard.</p>
-  <ul>
-    <li>This happens <strong>only</strong> when you explicitly tap the recognise button. Photos are never sent in the background.</li>
-    <li>Photos are resized before upload, which strips EXIF metadata including any GPS location.</li>
-    <li>Our relay does not store your photos or notes. It has no database and no file storage; it holds the request only for the seconds needed to pass it on, and logs nothing but an anonymous token count for cost control.</li>
-    <li>Once forwarded, the photos are processed by Google under Google's own terms. Depending on the service tier in use, Google may retain submitted content and use it to improve their models. If you would rather not share a label with Google, do not use the scanner — every supplement can be added by hand instead.</li>
-    <li>We do not send your workouts, history, settings or any device identifier to the scanner. Only the photos and the note you typed.</li>
-  </ul>
+    <p class="lead">Gymbar has no accounts and no analytics, and it keeps your training data on your device. One feature — scanning a supplement label — sends the photos you took to an AI service, and only when you tap the scan button.</p>
 
-  <h2>What we never do</h2>
-  <p>No accounts, no sign-in, no advertising, no analytics SDKs, no crash-reporting SDKs, no third-party tracking, and no selling or sharing of data with anyone beyond the label-scanning step described above.</p>
+    <h2>What stays on your device</h2>
+    <p>Your training plan, workout history, supplement records, adherence marks and settings are written to your device's local storage and stay there. We never receive them. They are included in your own device backups (iCloud, Google, or an encrypted local backup) if you have backups enabled — that copy is controlled by the platform and by you, not by us.</p>
 
-  <h2>Notifications</h2>
-  <p>Rest-timer signals and supplement reminders are scheduled locally by your device. There is no push server and no remote notification — nothing about your schedule leaves the phone.</p>
+    <h2>iCloud sync (iPhone only)</h2>
+    <p>On iPhone, your plan, supplement list and settings are also written to Apple's iCloud key-value store so they survive reinstalling the app and appear on your other devices. This uses <em>your</em> iCloud account. The data goes from your device to Apple and back — never to us, and we have no way to read it. The Android build has no equivalent sync: there, data lives on the phone and moves only through export and import.</p>
 
-  <h2>Export and sharing</h2>
-  <p>Settings → Export data creates a JSON file and hands it to the system share sheet. Where that file goes is entirely your choice. The app does not upload it.</p>
+    <h2>Supplement label scanning</h2>
+    <p>When you open the scanner, take photos of a supplement package and tap the recognise button, those photos — and the optional note you typed — are sent to our relay server, which forwards them to Google's Gemini API to read the label. The result comes back to your device and is yours to edit or discard.</p>
+    <ul>
+      <li>This happens <strong>only</strong> when you explicitly tap the recognise button. Photos are never sent in the background.</li>
+      <li>Photos are resized before upload, which strips EXIF metadata including any GPS location.</li>
+      <li>Our relay does not store your photos or notes. It has no database and no file storage; it holds the request only for the seconds needed to pass it on, and logs nothing but an anonymous token count for cost control.</li>
+      <li>Once forwarded, the photos are processed by Google under Google's own terms. Depending on the service tier in use, Google may retain submitted content and use it to improve their models. If you would rather not share a label with Google, do not use the scanner — every supplement can be added by hand instead.</li>
+      <li>We do not send your workouts, history, settings or any device identifier to the scanner. Only the photos and the note you typed.</li>
+    </ul>
 
-  <h2>Deletion</h2>
-  <p>Settings → Reset all data wipes your history and records inside the app. Deleting Gymbar from your device removes its local data; to remove the iCloud copy as well, turn off iCloud for Gymbar in iOS settings. We hold nothing on our side, so there is no deletion request to send us.</p>
+    <h2>What we never do</h2>
+    <p>No accounts, no sign-in, no advertising, no analytics SDKs, no crash-reporting SDKs, no third-party tracking, and no selling or sharing of data with anyone beyond the label-scanning step described above.</p>
 
-  <h2>Children</h2>
-  <p>Gymbar is rated 4+. It has no accounts and asks for no personal details, so it neither knows nor collects the age of anyone using it.</p>
+    <h2>Notifications</h2>
+    <p>Rest-timer signals and supplement reminders are scheduled locally by your device. There is no push server and no remote notification — nothing about your schedule leaves the phone.</p>
 
-  <h2>Changes</h2>
-  <p>If this policy ever changes, the updated version will be published on this page with a new date, and any change to what is collected will also be reflected in the app's App Store privacy details.</p>
+    <h2>Export and sharing</h2>
+    <p>Settings → Export data creates a JSON file and hands it to the system share sheet. Where that file goes is entirely your choice. The app does not upload it.</p>
 
-  <h2>Contact</h2>
-  <p>Questions about this policy: <a href="mailto:hasanov.vug@gmail.com">hasanov.vug@gmail.com</a></p>
+    <h2>Deletion</h2>
+    <p>Settings → Reset all data wipes your history and records inside the app. Deleting Gymbar from your device removes its local data; on iPhone, to remove the iCloud copy as well, turn off iCloud for Gymbar in iOS settings. We hold nothing on our side, so there is no deletion request to send us.</p>
 
-  <footer><a href="index.html">← Support</a></footer>
-</div>
+    <h2>Children</h2>
+    <p>Gymbar is rated 4+. It has no accounts and asks for no personal details, so it neither knows nor collects the age of anyone using it.</p>
+
+    <h2>Changes</h2>
+    <p>If this policy ever changes, the updated version will be published on this page with a new date, and any change to what is collected will also be reflected in the app's store privacy details.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about this policy: <a href="mailto:hasanov.vug@gmail.com">hasanov.vug@gmail.com</a></p>
+  </div>
+
+  <div data-lang="ru">
+    <h1>Политика конфиденциальности</h1>
+    <p class="note" style="margin-bottom:28px">Gymbar · обновлено 5 августа 2026</p>
+
+    <p class="lead">В Gymbar нет аккаунтов и нет аналитики, а данные о тренировках остаются на вашем устройстве. Единственная функция, которая выходит наружу — скан этикетки добавки: сделанные вами фото уходят в AI-сервис, и только когда вы сами нажали кнопку распознавания.</p>
+
+    <h2>Что остаётся на устройстве</h2>
+    <p>План тренировок, история, записи о добавках, отметки приёма и настройки пишутся в локальное хранилище устройства и остаются там. Мы их не получаем. Они попадают в ваши собственные резервные копии устройства (iCloud, Google или зашифрованная локальная копия), если резервное копирование включено — этой копией распоряжаетесь вы и платформа, а не мы.</p>
+
+    <h2>Синхронизация через iCloud (только iPhone)</h2>
+    <p>На iPhone план, список добавок и настройки дополнительно пишутся в хранилище «ключ-значение» iCloud, чтобы пережить переустановку приложения и появиться на других ваших устройствах. Используется <em>ваша</em> учётная запись iCloud. Данные идут с устройства к Apple и обратно — не к нам, и прочитать их мы не можем. В Android-сборке такой синхронизации нет: там данные живут на телефоне и переносятся только экспортом и импортом.</p>
+
+    <h2>Скан этикетки добавки</h2>
+    <p>Когда вы открываете сканер, фотографируете упаковку добавки и нажимаете кнопку распознавания, эти фото — и необязательная заметка, если вы её написали — отправляются на наш промежуточный сервер, а он передаёт их в Gemini API от Google, чтобы прочитать этикетку. Результат возвращается на ваше устройство: правьте или удаляйте.</p>
+    <ul>
+      <li>Это происходит <strong>только</strong> когда вы сами нажали кнопку распознавания. В фоне фото не отправляются никогда.</li>
+      <li>Фото сжимаются перед отправкой, и это срезает метаданные EXIF, включая геопозицию.</li>
+      <li>Наш промежуточный сервер не хранит ваши фото и заметки. У него нет ни базы данных, ни файлового хранилища; запрос держится ровно те секунды, что нужны для передачи, а в лог пишется только обезличенный счётчик токенов для контроля расходов.</li>
+      <li>После передачи фото обрабатываются Google на условиях Google. В зависимости от используемого тарифа Google может сохранять переданное содержимое и использовать его для улучшения своих моделей. Не хотите отдавать этикетку Google — не пользуйтесь сканером: любую добавку можно завести вручную.</li>
+      <li>Тренировки, история, настройки и любые идентификаторы устройства в сканер не отправляются. Только фото и написанная вами заметка.</li>
+    </ul>
+
+    <h2>Чего мы не делаем</h2>
+    <p>Никаких аккаунтов и входа, рекламы, SDK аналитики, SDK отчётов о падениях, стороннего трекинга. Никакой продажи или передачи данных кому-либо, кроме шага со сканом этикетки, описанного выше.</p>
+
+    <h2>Уведомления</h2>
+    <p>Сигналы таймера отдыха и напоминания о добавках планируются локально самим устройством. Push-сервера нет, удалённых уведомлений нет — ничего о вашем расписании телефон не покидает.</p>
+
+    <h2>Экспорт и передача</h2>
+    <p>«Настройки → Экспорт данных» создаёт JSON-файл и передаёт его системному окну «Поделиться». Куда пойдёт этот файл — целиком ваш выбор. Приложение никуда его не загружает.</p>
+
+    <h2>Удаление</h2>
+    <p>«Настройки → Сбросить все данные» стирает историю и записи внутри приложения. Удаление Gymbar с устройства убирает его локальные данные; на iPhone, чтобы убрать и копию в iCloud, отключите iCloud для Gymbar в настройках iOS. У нас на стороне ничего не хранится, поэтому запрос на удаление отправлять некому.</p>
+
+    <h2>Дети</h2>
+    <p>Возрастной рейтинг Gymbar — 4+. Аккаунтов нет, личных данных приложение не спрашивает, поэтому возраст пользователя оно не знает и не собирает.</p>
+
+    <h2>Изменения</h2>
+    <p>Если политика когда-нибудь изменится, новая версия будет опубликована на этой странице с новой датой, а любое изменение в том, что собирается, отразится и в анкете о приватности в магазине приложений.</p>
+
+    <h2>Контакт</h2>
+    <p>Вопросы по политике: <a href="mailto:hasanov.vug@gmail.com">hasanov.vug@gmail.com</a></p>
+  </div>
+
+  <p style="border-top:1px solid var(--line);padding-top:24px;margin-top:40px">
+    <a href="index.html" data-i18n="back">← Back to Gymbar</a>
+  </p>
+</main>
+
+<footer class="site">
+  <div class="wrap row">
+    <span>Gymbar</span>
+    <a href="news.html" data-i18n="navNews">News</a>
+    <a href="index.html#support" data-i18n="navSupport">Support</a>
+    <a href="https://github.com/hasanovvug-gif/gymbar" target="_blank" rel="noopener" data-i18n="footSource">Source</a>
+  </div>
+</footer>
+
+<script>
+window.T = {
+  en: {
+    pageTitle: "Gymbar — Privacy Policy",
+    navFeatures: "Features", navNews: "News", navSupport: "Support", navPrivacy: "Privacy",
+    back: "← Back to Gymbar", footSource: "Source"
+  },
+  ru: {
+    pageTitle: "Gymbar — Политика конфиденциальности",
+    navFeatures: "Возможности", navNews: "Новости", navSupport: "Поддержка", navPrivacy: "Конфиденциальность",
+    back: "← Назад к Gymbar", footSource: "Исходный код"
+  }
+};
+</script>
+<script src="assets/lang.js?v=5"></script>
 </body>
 </html>

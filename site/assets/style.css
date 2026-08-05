@@ -1,0 +1,186 @@
+/* Gymbar site — общая тема. Тёмная, как приложение: цвета совпадают с UI. */
+:root {
+  --bg: #0B0C0E;
+  --card: #141619;
+  --card-2: #1A1D21;
+  --line: #23262B;
+  --ink: #F2F4F5;
+  --mut: #8B9199;
+  --accent: #C8F031;
+  --amber: #F5A524;
+  --blue: #5AA9FF;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: Manrope, system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+h1, h2, h3 {
+  font-family: Oswald, sans-serif;
+  font-weight: 600;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  margin: 0 0 12px;
+  line-height: 1.15;
+}
+h1 { font-size: clamp(34px, 8vw, 60px); }
+h2 { font-size: clamp(22px, 4vw, 30px); margin-top: 0; }
+h3 { font-size: 17px; }
+p { margin: 0 0 16px; color: var(--mut); }
+p.lead { color: var(--ink); font-size: clamp(17px, 2.4vw, 20px); }
+ul { color: var(--mut); padding-left: 20px; margin: 0 0 16px; }
+li { margin-bottom: 6px; }
+
+.wrap { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+/* Узкая колонка, но левый край общий со всеми секциями. */
+.narrow > * { max-width: 720px; }
+section { padding-top: 56px; padding-bottom: 56px; }
+.eyebrow {
+  font-size: 12px; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--accent); margin: 0 0 10px;
+}
+
+/* --- шапка --- */
+header.top {
+  position: sticky; top: 0; z-index: 20;
+  background: rgba(11,12,14,.86);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.top-in { display: flex; align-items: center; gap: 20px; height: 62px; }
+.brand { display: flex; align-items: center; gap: 10px; font-family: Oswald, sans-serif;
+  font-size: 19px; font-weight: 600; text-transform: uppercase; color: var(--ink); }
+.brand:hover { text-decoration: none; }
+.brand svg { width: 28px; height: 28px; }
+nav.links { display: flex; gap: 18px; margin-left: auto; font-size: 14px; font-weight: 600; }
+nav.links a { color: var(--mut); }
+nav.links a:hover, nav.links a[aria-current] { color: var(--ink); text-decoration: none; }
+.lang { display: flex; gap: 4px; border: 1px solid var(--line); border-radius: 999px; padding: 3px; }
+.lang button {
+  font: inherit; font-size: 12px; font-weight: 700; letter-spacing: .06em;
+  background: none; border: 0; color: var(--mut); padding: 3px 9px;
+  border-radius: 999px; cursor: pointer;
+}
+.lang button[aria-pressed="true"] { background: var(--accent); color: #0B0C0E; }
+
+/* На узком экране шапка становится в два ряда: бренд + язык, ссылки — строкой ниже. */
+@media (max-width: 760px) {
+  .top-in { height: auto; flex-wrap: wrap; gap: 10px; padding-top: 10px; padding-bottom: 10px; }
+  .lang { margin-left: auto; }
+  nav.links {
+    order: 3; width: 100%; margin-left: 0; gap: 16px;
+    font-size: 13px; overflow-x: auto; white-space: nowrap; padding-bottom: 2px;
+  }
+}
+
+/* --- герой --- */
+.hero { padding-top: 72px; padding-bottom: 40px; }
+.hero .mark { width: 76px; height: 76px; margin-bottom: 22px; }
+.hero p.lead { max-width: 620px; }
+.hero .sub { max-width: 620px; }
+
+/* --- кнопки магазинов --- */
+.stores { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 26px 0 14px; }
+.store {
+  display: inline-flex; align-items: center; gap: 11px;
+  background: #fff; color: #0B0C0E; border-radius: 13px; padding: 9px 18px 9px 15px;
+  transition: transform .18s ease;
+}
+.store:hover { transform: translateY(-2px); text-decoration: none; }
+.store svg { width: 24px; height: 24px; flex: 0 0 auto; }
+.store span { display: block; text-align: left; line-height: 1.15; }
+.store .s1 { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; opacity: .65; }
+.store .s2 { font-size: 17px; font-weight: 700; }
+.store.soon { background: transparent; color: var(--mut); border: 1px dashed var(--line); }
+.store.soon svg { opacity: .55; }
+.note { font-size: 13px; color: var(--mut); }
+
+/* --- галерея скриншотов --- */
+.shots {
+  display: flex; gap: 16px; overflow-x: auto;
+  padding: 4px 24px 20px;
+  padding-left: max(24px, calc((100vw - 980px) / 2 + 24px));
+  scroll-snap-type: x mandatory;
+}
+.shots figure { margin: 0; flex: 0 0 232px; scroll-snap-align: center; }
+.shots img { width: 100%; height: auto; border-radius: 18px; }
+.shots figcaption { font-size: 13px; color: var(--mut); margin-top: 10px; text-align: center; }
+
+/* --- карточки --- */
+.grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 20px 22px; }
+.card h3 { margin-bottom: 8px; }
+.card p { margin: 0; font-size: 14.5px; }
+.card .ico { font-size: 20px; line-height: 1; margin-bottom: 12px; display: block; }
+
+/* --- таблица платформ --- */
+.table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+.table th, .table td { text-align: left; padding: 11px 12px; border-bottom: 1px solid var(--line); }
+.table th { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--mut); font-weight: 700; }
+.table td:first-child { color: var(--ink); }
+.table td { color: var(--mut); }
+.yes { color: var(--accent); font-weight: 700; }
+.no { color: #6B7178; }
+
+/* --- статусы (как в AsbestosGuard) --- */
+.pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  border-radius: 999px; padding: 3px 10px;
+  font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em;
+}
+.pill::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.pill.shipped { background: rgba(200,240,49,.12); color: var(--accent); }
+.pill.review  { background: rgba(90,169,255,.12); color: var(--blue); }
+.pill.progress{ background: rgba(245,165,36,.13); color: var(--amber); }
+.pill.planned { background: #1A1D21; color: var(--mut); }
+.pill.planned::before { background: #4A5058; }
+
+/* --- таймлайн --- */
+.timeline { list-style: none; margin: 24px 0 0; padding: 0; }
+.timeline li { display: grid; grid-template-columns: 92px 1fr; gap: 14px; }
+.timeline .when { padding-top: 6px; text-align: right; }
+.timeline .when b { display: block; font-size: 13px; color: var(--ink); font-weight: 700; }
+.timeline .when span { display: block; font-size: 12px; color: var(--mut); }
+.timeline .rail { position: relative; padding: 0 0 22px 24px; border-left: 1px solid var(--line); }
+.timeline li:last-child .rail { border-color: transparent; }
+.timeline .dot {
+  position: absolute; left: -6.5px; top: 10px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--accent); border: 3px solid var(--bg);
+}
+.timeline .rail > .card { padding: 16px 18px; }
+@media (max-width: 560px) {
+  .timeline li { grid-template-columns: 62px 1fr; gap: 10px; }
+  .timeline .rail { padding-left: 18px; }
+}
+
+/* --- фичед-блок новости --- */
+.featured { overflow: hidden; }
+.featured .body { padding: 24px; }
+.meta { font-size: 13px; color: var(--mut); font-weight: 600; }
+
+/* --- FAQ --- */
+details.faq { border-bottom: 1px solid var(--line); padding: 14px 0; }
+details.faq summary { cursor: pointer; font-weight: 600; list-style: none; }
+details.faq summary::-webkit-details-marker { display: none; }
+details.faq summary::after { content: "+"; float: right; color: var(--mut); }
+details.faq[open] summary::after { content: "–"; }
+details.faq p { margin: 12px 0 2px; font-size: 14.5px; }
+
+footer.site {
+  border-top: 1px solid var(--line); margin-top: 40px;
+  padding: 28px 0 56px; color: var(--mut); font-size: 14px;
+}
+footer.site .row { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+footer.site .row .sp { margin-left: auto; }
+
+[data-lang] { display: none; }
