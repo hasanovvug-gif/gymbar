@@ -2,7 +2,7 @@
 campaign: gym-tracker-mobile
 status: active
 started: 2026-07-22
-updated: 2026-08-05 19:10
+updated: 2026-08-08 22:05
 ---
 
 # Gym Tracker → Expo/React Native
@@ -302,6 +302,14 @@ JS через expo-audio (как уже работал финал), locked/backg
 
 ## Done (recent first, max 10)
 
+- 2026-08-08 — **Сайт стал трёхъязычным: добавлен украинский.** Приложение было uk с самого начала
+  (Play и «Что нового» на трёх локалях), сайт отставал на EN/RU. `assets/lang.js`: `uk` отделён
+  от `ru` в автоопределении (`uk`→uk, `ru`/`be`→ru) и добавлен в список валидных сохранённых значений;
+  на всех трёх страницах кнопка UK и полный словарь `uk` (ключи 36/18/7 сверены с `en` программно,
+  расхождений нет), в `privacy.html` — свой `data-lang="uk"` блок политики. Ассеты бампнуты на `?v=6`.
+  Проверено в браузере: переключение и запоминание языка работают. Перевод делала ладья Sonnet 5.
+  ⚠️ **В gh-pages пока не опубликовано** — на боевом URL по-прежнему EN/RU.
+
 - 2026-08-05 — **Android-сборка починена и сайт стал двуязычным сайтом продукта.** Сборка
   `f505706b` падала на PREBUILD: `expo-notifications` не принимает дефис в имени Android-ресурса
   (`rest-done.wav`). Звуки переименованы в `rest_done`/`rest_soon` во всех ссылках (`04c3f35`),
@@ -599,7 +607,7 @@ JS через expo-audio (как уже работал финал), locked/backg
 - **Карточка и скриншоты:** `docs/appstore/metadata.md`, `docs/appstore/screenshots/`
 - **Сайт:** https://hasanovvug-gif.github.io/gymbar/ (ветка `gh-pages`, исходники `site/`) — с 05.08
   это сайт продукта, а не одна страница поддержки: лендинг + `news.html` (таймлайн и «в пути»)
-  + `privacy.html`, всё в двух языках (EN/RU, переключатель `assets/lang.js`, словарь в самой странице).
+  + `privacy.html`, всё в трёх языках (EN/RU/UK, переключатель `assets/lang.js`, словарь в самой странице).
   Деплой: `rsync -a --delete --exclude .git site/ <worktree gh-pages>/` → вернуть `.nojekyll` → коммит → push.
   ⚠️ При правке `assets/*` бампить `?v=N` в трёх html — иначе браузер держит старый файл.
 - **Подпись:** `~/.appstoreconnect/private/gymbar/` (профиль + p12), ключ API `AuthKey_XC65QPNJJK.p8`

@@ -7,9 +7,11 @@
   function pick() {
     var saved = null;
     try { saved = localStorage.getItem(KEY); } catch (e) {}
-    if (saved === 'en' || saved === 'ru') return saved;
+    if (saved === 'en' || saved === 'ru' || saved === 'uk') return saved;
     var nav = (navigator.language || 'en').toLowerCase();
-    return (nav.indexOf('ru') === 0 || nav.indexOf('uk') === 0 || nav.indexOf('be') === 0) ? 'ru' : 'en';
+    if (nav.indexOf('uk') === 0) return 'uk';
+    if (nav.indexOf('ru') === 0 || nav.indexOf('be') === 0) return 'ru';
+    return 'en';
   }
 
   function apply(lang) {
