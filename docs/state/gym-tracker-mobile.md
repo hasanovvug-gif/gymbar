@@ -3,6 +3,7 @@ campaign: gym-tracker-mobile
 status: active
 started: 2026-07-22
 updated: 2026-08-09 00:45
+paths: mobile, docs/appstore
 ---
 
 # Gym Tracker → Expo/React Native
