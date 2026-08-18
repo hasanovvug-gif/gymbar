@@ -63,7 +63,7 @@
           <span class="s2">App Store</span>
         </span>
       </a>
-      <span class="store soon">
+      <a class="store" href="https://play.google.com/store/apps/details?id=com.gymbar.app" target="_blank" rel="noopener">
         <svg viewBox="0 0 512 512" aria-hidden="true">
           <path fill="#00F076" d="M325.3 234.3 104.6 13l280.8 161.2-60.1 60.1z"/>
           <path fill="#00D3FF" d="M47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0z"/>
@@ -71,12 +71,12 @@
           <path fill="#FF3A44" d="M104.6 499l220.7-221.3 60.1 60.1L104.6 499z"/>
         </svg>
         <span>
-          <span class="s1" data-i18n="storeGoogleTop">Coming soon to</span>
+          <span class="s1" data-i18n="storeGoogleTop">Get it on</span>
           <span class="s2">Google Play</span>
         </span>
-      </span>
+      </a>
     </div>
-    <p class="note" data-i18n="heroNote">iPhone · iOS 16.2 or later · English, Russian, Ukrainian</p>
+    <p class="note" data-i18n="heroNote">iPhone · iOS 16.2 or later · Android · English, Russian, Ukrainian</p>
   </section>
 
   <div class="shots" id="shots"></div>
@@ -96,8 +96,8 @@
 
   <section class="wrap">
     <p class="eyebrow" data-i18n="platEyebrow">Platforms</p>
-    <h2 data-i18n="platTitle">iPhone today, Android next</h2>
-    <p style="max-width:640px" data-i18n="platLead">The Android build is on its way to Google Play. Two iOS-only features rely on Apple frameworks that have no Android equivalent in the app yet — they are listed honestly below.</p>
+    <h2 data-i18n="platTitle">On iPhone and Android</h2>
+    <p style="max-width:640px" data-i18n="platLead">Both versions are out. Two iOS-only features rely on Apple frameworks that have no Android equivalent in the app yet — they are listed honestly below.</p>
     <div style="overflow-x:auto">
       <table class="table" style="margin-top:14px">
         <thead>
@@ -146,8 +146,8 @@ window.T = {
     heroTitle: "Train, don't tap",
     heroLead: "Gymbar is a workout log built for one thing: getting through the session without touching your phone more than you have to.",
     heroSub: "Free. No account, no sign-up, no ads. Your plan and history live on your device.",
-    storeAppleTop: "Download on the", storeGoogleTop: "Coming soon to",
-    heroNote: "iPhone · iOS 16.2 or later · English, Russian, Ukrainian",
+    storeAppleTop: "Download on the", storeGoogleTop: "Get it on",
+    heroNote: "iPhone · iOS 16.2 or later · Android · English, Russian, Ukrainian",
     shots: [
       { img: "home", cap: "Today's day, one Start button" },
       { img: "session", cap: "Set by set, weight changed on the fly" },
@@ -176,8 +176,8 @@ window.T = {
       { i: "3", t: "Finish and forget", b: "The session lands in history with volume, active time and every exercise you skipped or ended early. Nothing to fill in afterwards." }
     ],
     platEyebrow: "Platforms",
-    platTitle: "iPhone today, Android next",
-    platLead: "The Android build is on its way to Google Play. Two iOS-only features rely on Apple frameworks that have no Android equivalent in the app yet — they are listed honestly below.",
+    platTitle: "On iPhone and Android",
+    platLead: "Both versions are out. Two iOS-only features rely on Apple frameworks that have no Android equivalent in the app yet — they are listed honestly below.",
     platCol1: "Feature", platCol2: "iPhone", platCol3: "Android",
     platRows: [
       ["Workouts, plan editor, history", 1, 1],
@@ -199,7 +199,7 @@ window.T = {
       { q: "How do I move data to a new phone?", a: "Settings → Export data writes a JSON file you can share to yourself. Import it on the new device from the same screen. On iPhone, your plan, supplement list and settings also come back on their own through iCloud." },
       { q: "The rest timer sound doesn't play.", a: "The cue is designed to play even on silent mode. If it stays quiet, check that Gymbar is allowed to play audio and that the media volume is not at zero." },
       { q: "Is it really free?", a: "Yes. No subscription, no in-app purchases, no ads, no paid tier hiding features." },
-      { q: "When does Android arrive?", a: "The build is done and going through Google Play review. Follow the News page — the release lands there first." }
+      { q: "Is it on Android?", a: "Yes. Gymbar is on Google Play. Live Activity and iCloud sync stay iOS-only for now; everything else is the same app." }
     ],
     footSource: "Source", footNote: "Made by one person who trains."
   },
@@ -210,8 +210,8 @@ window.T = {
     heroTitle: "Тренируйся, а не тыкай",
     heroLead: "Gymbar — дневник тренировок, сделанный ради одного: пройти тренировку, беря телефон в руки как можно реже.",
     heroSub: "Бесплатно. Без аккаунта, без регистрации, без рекламы. План и история лежат на вашем устройстве.",
-    storeAppleTop: "Загрузите в", storeGoogleTop: "Скоро в",
-    heroNote: "iPhone · iOS 16.2 и новее · английский, русский, украинский",
+    storeAppleTop: "Загрузите в", storeGoogleTop: "Доступно в",
+    heroNote: "iPhone · iOS 16.2 и новее · Android · английский, русский, украинский",
     shots: [
       { img: "home", cap: "День на сегодня и одна кнопка «Старт»" },
       { img: "session", cap: "Подход за подходом, вес меняется на ходу" },
@@ -240,8 +240,8 @@ window.T = {
       { i: "3", t: "Закончил и забыл", b: "Тренировка уходит в историю с объёмом, активным временем и всем, что пропущено или закончено раньше. Дозаполнять нечего." }
     ],
     platEyebrow: "Платформы",
-    platTitle: "Сейчас iPhone, следом Android",
-    platLead: "Android-сборка едет в Google Play. Две функции пока только на iOS — они опираются на фреймворки Apple, у которых в приложении ещё нет андроидного аналога. Честно перечислены ниже.",
+    platTitle: "На iPhone и Android",
+    platLead: "Обе версии вышли. Две функции пока только на iOS — они опираются на фреймворки Apple, у которых в приложении ещё нет андроидного аналога. Честно перечислены ниже.",
     platCol1: "Функция", platCol2: "iPhone", platCol3: "Android",
     platRows: [
       ["Тренировки, редактор плана, история", 1, 1],
@@ -263,7 +263,7 @@ window.T = {
       { q: "Как перенести данные на новый телефон?", a: "«Настройки → Экспорт данных» создаёт JSON-файл, который можно отправить себе. На новом устройстве импортируйте его с того же экрана. На iPhone план, список добавок и настройки вернутся сами через iCloud." },
       { q: "Не играет звук окончания отдыха.", a: "Сигнал рассчитан звучать даже в беззвучном режиме. Если тихо — проверьте, что Gymbar разрешено воспроизводить звук и что громкость медиа не на нуле." },
       { q: "Правда бесплатно?", a: "Да. Без подписки, без встроенных покупок, без рекламы и без платного тарифа, за которым спрятаны функции." },
-      { q: "Когда будет Android?", a: "Сборка готова и проходит проверку Google Play. Следите за страницей «Новости» — релиз появится там первым." }
+      { q: "Есть Android?", a: "Да, Gymbar в Google Play. Live Activity и синхронизация через iCloud пока только на iOS, всё остальное — то же приложение." }
     ],
     footSource: "Исходный код", footNote: "Сделано одним человеком, который тренируется."
   },
@@ -274,8 +274,8 @@ window.T = {
     heroTitle: "Тренуйся, а не тицяй",
     heroLead: "Gymbar — щоденник тренувань, створений заради одного: пройти тренування, беручи телефон у руки якнайрідше.",
     heroSub: "Безкоштовно. Без акаунта, без реєстрації, без реклами. План і історія зберігаються на вашому пристрої.",
-    storeAppleTop: "Завантажити в", storeGoogleTop: "Скоро в",
-    heroNote: "iPhone · iOS 16.2 або новіше · англійська, російська, українська",
+    storeAppleTop: "Завантажити в", storeGoogleTop: "Доступно в",
+    heroNote: "iPhone · iOS 16.2 або новіше · Android · англійська, російська, українська",
     shots: [
       { img: "home", cap: "День на сьогодні й одна кнопка «Старт»" },
       { img: "session", cap: "Підхід за підходом, вага змінюється на ходу" },
@@ -304,8 +304,8 @@ window.T = {
       { i: "3", t: "Закінчив і забув", b: "Тренування йде в історію з обсягом, активним часом і всім, що пропущено чи закінчено раніше. Дописувати нема чого." }
     ],
     platEyebrow: "Платформи",
-    platTitle: "Зараз iPhone, далі Android",
-    platLead: "Android-збірка їде в Google Play. Дві функції поки тільки на iOS — вони спираються на фреймворки Apple, у яких у застосунку ще немає андроїд-аналога. Чесно перелічені нижче.",
+    platTitle: "На iPhone і Android",
+    platLead: "Обидві версії вийшли. Дві функції поки тільки на iOS — вони спираються на фреймворки Apple, у яких у застосунку ще немає андроїд-аналога. Чесно перелічені нижче.",
     platCol1: "Функція", platCol2: "iPhone", platCol3: "Android",
     platRows: [
       ["Тренування, редактор плану, історія", 1, 1],
@@ -327,7 +327,7 @@ window.T = {
       { q: "Як перенести дані на новий телефон?", a: "«Налаштування → Експорт даних» створює JSON-файл, який можна надіслати собі. На новому пристрої імпортуйте його з того самого екрана. На iPhone план, список добавок і налаштування також повернуться самі через iCloud." },
       { q: "Не грає звук закінчення відпочинку.", a: "Сигнал розрахований звучати навіть у беззвучному режимі. Якщо тихо — перевірте, що Gymbar дозволено відтворювати звук і що гучність медіа не на нулі." },
       { q: "Це справді безкоштовно?", a: "Так. Без підписки, без вбудованих покупок, без реклами і без платного рівня, за яким сховані функції." },
-      { q: "Коли з'явиться Android?", a: "Збірка готова і проходить перевірку Google Play. Стежте за сторінкою «Новини» — реліз з'явиться там першим." }
+      { q: "Є Android?", a: "Так, Gymbar у Google Play. Live Activity і синхронізація через iCloud поки лише на iOS, усе інше — той самий застосунок." }
     ],
     footSource: "Вихідний код", footNote: "Зроблено однією людиною, яка тренується."
   }
